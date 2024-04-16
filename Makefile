@@ -6,13 +6,18 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/16 17:54:36 by amakinen         ###   ########.fr        #
+#    Updated: 2024/04/16 18:06:42 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 SRCS = \
+	ft_isalpha.c \
+	ft_isdigit.c \
+	ft_isalnum.c \
+	ft_isascii.c \
+	ft_isprint.c \
 
 OBJS = $(SRCS:.c=.o)
 
