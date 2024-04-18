@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/17 12:22:48 by amakinen         ###   ########.fr        #
+#    Updated: 2024/04/17 14:27:14 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,17 @@ SRCS = \
 	ft_atoi.c \
 	ft_calloc.c \
 	ft_strdup.c \
+	ft_substr.c \
+	ft_strjoin.c \
+	ft_strtrim.c \
+	ft_split.c \
+	ft_itoa.c \
+	ft_strmapi.c \
+	ft_striteri.c \
+	ft_putchar_fd.c \
+	ft_putstr_fd.c \
+	ft_putendl_fd.c \
+	ft_putnbr_fd.c \
 
 OBJS = $(SRCS:.c=.o)
 
