@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:58:00 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/19 14:20:28 by amakinen         ###   ########.fr        #
+#    Updated: 2024/04/19 18:08:09 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ SUBDIR = libft/
 include libft/Makefile
 SUBDIR =
 
-.PHONY: all clean tclean fclean tfclean test
+.PHONY: all clean tclean fclean tfclean tre test
 
-TEST_SRCS = $(wildcard test/ft_*.c)
+TEST_SRCS = $(wildcard test/*.c)
 TEST_OBJS = $(TEST_SRCS:.c=.o)
-TESTS = $(TEST_SRCS:.c=.test)
+TESTS = $(patsubst test/%.c,bin/%,$(wildcard test/test_*.c))
 
 all: $(TESTS)
 
@@ -27,10 +27,15 @@ tclean:
 	rm -f $(TEST_OBJS)
 
 fclean: tfclean
-tfclean:
+tfclean: tclean
 	rm -f $(TESTS)
 
-test/%.test: test/%.o libft/libft.a
+tre: tfclean all
+
+testbin:
+	@mkdir -p bin
+
+bin/%: test/%.o libft/libft.a | testbin
 	$(CC) $(CFLAGS) $^ -o $@
 
 $(TEST_OBJS): %.o: %.c
