@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:39:43 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/22 14:59:33 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:38:08 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,28 @@ static void	print_result(int status, const char *name)
 int	main(void)
 {
 	int						status;
-	int						all_success;
+	int						count;
+	int						count_success;
 	struct s_test_list_node	*test;
 
 	printf("\e[0;33mRunning tests...\e[0m\n\n");
-	all_success = 1;
+	count = 0;
+	count_success = 0;
 	test = g_test_list_head;
 	while (test)
 	{
 		status = test->test_func();
 		print_result(status, test->test_name);
-		if (status)
-			all_success = 0;
+		count++;
+		if (status == 0)
+			count_success++;
 		test = test->next;
 	}
-	if (!all_success)
+	if (count_success != count)
 	{
-		printf("\n\e[0;33mSome tests failed\e[0m\n");
+		printf("\n\e[0;33m%d/%d tests passed\e[0m\n", count_success, count);
 		return (1);
 	}
-	printf("\n\e[0;32mAll tests passed\e[0m\n");
+	printf("\n\e[0;32m%d/%d tests passed\e[0m\n", count_success, count);
 	return (0);
 }
