@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:03:25 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/17 11:31:58 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:47:10 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ char	*ft_strrchr(const char *s, int c)
 			found = (char *)s;
 		s++;
 	}
+	if (*s == c)
+		found = (char *)s;
 	return (found);
 }
