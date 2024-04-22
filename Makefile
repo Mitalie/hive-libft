@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/18 17:43:22 by amakinen         ###   ########.fr        #
+#    Updated: 2024/04/22 14:25:17 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS = \
 	ft_putnbr_fd.c \
 
 OBJS := $(patsubst %.c,$(SUBDIR)%.o,$(SRCS))
+DEPS := $(OBJS:.o=.d)
 
 CFLAGS += -Wall -Wextra -Werror
 CC ?= cc
@@ -61,7 +62,7 @@ AR ?= ar
 all: $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(DEPS)
 
 fclean: clean
 	rm -f $(NAME)
@@ -72,4 +73,6 @@ $(NAME): $(OBJS)
 	$(AR) -crs $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
+
+-include $(DEPS)
