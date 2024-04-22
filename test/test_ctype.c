@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_ischar.c                                      :+:      :+:    :+:   */
+/*   test_ctype.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 18:17:46 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/19 19:02:24 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:50:26 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <limits.h>
 #include <stdio.h>
 
-int	test_is(int (*ft_f)(int), int (std_f)(int), char *fn)
+int	test_ctype(int (*ft_f)(int), int (std_f)(int), char *fn, int is_bool)
 {
 	int	c;
 	int	fail;
@@ -26,8 +26,13 @@ int	test_is(int (*ft_f)(int), int (std_f)(int), char *fn)
 	fail = 0;
 	while (c <= UCHAR_MAX)
 	{
-		ft_r = ft_f(c) != 0;
-		std_r = std_f(c) != 0;
+		ft_r = ft_f(c);
+		std_r = std_f(c);
+		if (is_bool)
+		{
+			ft_r = !!ft_r;
+			std_r = !!std_r;
+		}
 		if (ft_r != std_r)
 		{
 			printf("ft_%s failed on %d: "
@@ -44,13 +49,15 @@ int	test_is(int (*ft_f)(int), int (std_f)(int), char *fn)
 	return (fail);
 }
 
-#define TEST(n) test_is(ft_ ## n, n, #n)
+#define TEST(n, b) test_ctype(ft_ ## n, n, #n, b)
 
 int	main(void)
 {
-	TEST(isalpha);
-	TEST(isdigit);
-	TEST(isalnum);
-	TEST(isascii);
-	TEST(isprint);
+	TEST(isalpha, 1);
+	TEST(isdigit, 1);
+	TEST(isalnum, 1);
+	TEST(isascii, 1);
+	TEST(isprint, 1);
+	TEST(toupper, 0);
+	TEST(tolower, 0);
 }
