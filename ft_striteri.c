@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:33:47 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/18 13:38:11 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:02:18 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 	len = ft_strlen(s);
 	idx = 0;
 	while (idx < len)
+	{
 		(*f)(idx, &s[idx]);
+		idx++;
+	}
 }
