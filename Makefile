@@ -6,13 +6,11 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/22 14:25:17 by amakinen         ###   ########.fr        #
+#    Updated: 2024/04/23 11:56:30 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# When this Makefile is used alone, SUBDIR is undefined/empty string. Another
-# Makefile can define it and include this one to use libft as a dependency.
-NAME := $(SUBDIR)libft.a
+NAME = libft.a
 
 SRCS = \
 	ft_isalpha.c \
@@ -50,7 +48,7 @@ SRCS = \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
 
-OBJS := $(patsubst %.c,$(SUBDIR)%.o,$(SRCS))
+OBJS = $(SRCS:.c=.o)
 DEPS := $(OBJS:.o=.d)
 
 CFLAGS += -Wall -Wextra -Werror
