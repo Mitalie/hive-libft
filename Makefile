@@ -10,6 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
+CFLAGS += -Wall -Wextra -Werror
+CPPFLAGS += -MMD -MP
+CC ?= cc
+AR ?= ar
+
 NAME = libft.a
 
 SRCS = \
@@ -49,18 +54,15 @@ SRCS = \
 	ft_putnbr_fd.c \
 
 OBJS = $(SRCS:.c=.o)
-DEPS := $(OBJS:.o=.d)
+DEPS = $(OBJS:.o=.d)
 
-CFLAGS += -Wall -Wextra -Werror
-CC ?= cc
-AR ?= ar
-
-.PHONY: all clean fclear re
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
 clean:
-	rm -f $(OBJS) $(DEPS)
+	rm -f $(OBJS)
+	rm -f $(DEPS)
 
 fclean: clean
 	rm -f $(NAME)
@@ -68,9 +70,9 @@ fclean: clean
 re: fclean all
 
 $(NAME): $(OBJS)
-	$(AR) -crs $@ $^
+	$(AR) -crs $@ $?
 
 %.o: %.c
-	$(CC) $(CFLAGS) -MMD -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)
