@@ -6,49 +6,50 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:58:00 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/22 14:25:26 by amakinen         ###   ########.fr        #
+#    Updated: 2024/04/23 12:24:32 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SUBDIR = libft/
-include libft/Makefile
-SUBDIR =
+CFLAGS += -Wall -Wextra -Werror
+CPPFLAGS += -MMD -MP -I../libft
+LIBFT = ../libft/libft.a
+CC ?= cc
+AR ?= ar
 
-.PHONY: all clean tclean fclean tfclean tre test
+BINDIR = bin
+TESTFW = $(BINDIR)/testfw
 
-TESTFW_BIN = bin/testfw
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
+DEPS = $(OBJS:.o=.d)
 
-TEST_SRCS = $(wildcard test/*.c)
-TEST_OBJS = $(TEST_SRCS:.c=.o)
-TEST_DEPS = $(TEST_OBJS:.o=.d)
-TESTFW_OBJS = $(filter test/testfw%,$(TEST_OBJS))
-TESTS = $(TESTFW_BIN) $(patsubst test/%.c,bin/%,$(wildcard test/test_*.c))
+TESTFW_OBJS = $(filter testfw%,$(OBJS))
+SIMPLE_TESTS = $(patsubst %.c,$(BINDIR)/%,$(wildcard test_*.c))
+TESTS = $(SIMPLE_TESTS) $(TESTFW)
+
+.PHONY: all clean fclean re
 
 all: $(TESTS)
 
-clean: tclean
-tclean:
-	rm -f $(TEST_OBJS) $(TEST_DEPS)
+clean:
+	rm -f $(OBJS)
+	rm -f $(DEPS)
 
-fclean: tfclean
-tfclean: tclean
+fclean: clean
 	rm -f $(TESTS)
 
-tre: tfclean all
+re: fclean all
 
-testbin:
-	@mkdir -p bin
+$(BINDIR):
+	@mkdir -p $@
 
-test: $(TESTFW_BIN)
-	@./$(TESTFW_BIN)
+$(TESTFW): $(TESTFW_OBJS) $(LIBFT) | $(BINDIR)
+	$(CC) $^ -o $@
 
-$(TESTFW_BIN): $(TESTFW_OBJS) libft/libft.a | testbin
-	$(CC) $(CFLAGS) $^ -o $@
+$(SIMPLE_TESTS): $(BINDIR)/%: %.o $(LIBFT) | $(BINDIR)
+	$(CC) $^ -o $@
 
-bin/%: test/%.o libft/libft.a | testbin
-	$(CC) $(CFLAGS) $^ -o $@
+$(OBJS): %.o: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-$(TEST_OBJS): %.o: %.c
-	$(CC) $(CFLAGS) -MMD -Ilibft -c $< -o $@
-
--include $(TEST_DEPS)
+-include $(DEPS)
