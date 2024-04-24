@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:05:44 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/22 17:24:54 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:50:54 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,23 @@
 	std_r = fn(s, c); \
 	if (ft_r != std_r) \
 	{ \
-		printf("ft_" #fn "(\"%s\", '%c'<%d>) failed: " \
+		TEST_FAIL("ft_" #fn "(\"%s\", '%c'<%d>) failed: " \
 			"ft_ returned %p, std returned %p\n", \
 			s, c, c, ft_r, std_r); \
-		fail = 1; \
 	}
 
 #define TESTCHR(n) \
 TEST(ft_##n)\
 {\
-	int		fail;\
 	char	*ft_r;\
 	char	*std_r;\
 \
-	fail = 0;\
 	MATCHCHR(n, "abc", 'a')\
 	MATCHCHR(n, "abc", 'b')\
 	MATCHCHR(n, "abc", 'c')\
 	MATCHCHR(n, "abc", '\0')\
 	MATCHCHR(n, "abc", 'd')\
 	MATCHCHR(n, "abc", 'A')\
-	return (fail);\
 }
 
 TESTCHR(strchr)
@@ -51,19 +47,16 @@ TESTCHR(strrchr)
 	std_r = memchr(s, c, n); \
 	if (ft_r != std_r) \
 	{ \
-		printf("ft_memchr(\"%s\", '%c'<%d>, %d) failed: " \
+		TEST_FAIL("ft_memchr(\"%s\", '%c'<%d>, %d) failed: " \
 			"ft_ returned %p, std returned %p\n", \
 			s, c, c, n, ft_r, std_r); \
-		fail = 1; \
 	}
 
 TEST(ft_memchr)
 {
-	int		fail;
 	char	*ft_r;
 	char	*std_r;
 
-	fail = 0;
 	MATCHMEMCHR("abc", 'a', 4)
 	MATCHMEMCHR("abc", 'b', 4)
 	MATCHMEMCHR("abc", 'c', 4)
@@ -71,7 +64,6 @@ TEST(ft_memchr)
 	MATCHMEMCHR("abc", '\0', 3)
 	MATCHMEMCHR("abc", 'd', 4)
 	MATCHMEMCHR("abc", 'A', 4)
-	return (fail);
 }
 
 #define MATCHSTRNSTR(haystack, needle, len) \
@@ -79,19 +71,16 @@ TEST(ft_memchr)
 	ft_r = ft_strnstr(haystack, needle, len); \
 	if (ft_r != std_r) \
 	{ \
-		printf("ft_strnstr(\"%s\", \"%s\", %d) failed: " \
+		TEST_FAIL("ft_strnstr(\"%s\", \"%s\", %d) failed: " \
 			"ft_ returned %p, std returned %p\n", \
 			haystack, needle, len, ft_r, std_r); \
-		fail = 1; \
 	}
 
 TEST(ft_strnstr)
 {
-	int		fail;
 	char	*ft_r;
 	char	*std_r;
 
-	fail = 0;
 	MATCHSTRNSTR("abcd", "abcd", 4)
 	MATCHSTRNSTR("abcd", "abcd", 3)
 	MATCHSTRNSTR("abcd", "bc", 4)
@@ -116,5 +105,4 @@ TEST(ft_strnstr)
 	MATCHSTRNSTR("abcd", "cb", 4)
 	MATCHSTRNSTR((char*)0, "", 1)
 	MATCHSTRNSTR((char*)0, "", 0)
-	return (fail);
 }

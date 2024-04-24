@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:39:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/22 17:51:23 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:41:53 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,16 @@
 	std_r = atoi(s); \
 	if (ft_r != std_r) \
 	{ \
-		printf("ft_atoi(\"%s\") failed: " \
+		TEST_FAIL("ft_atoi(\"%s\") failed: " \
 			"ft_ returned %d, std returned %d\n", \
 			s, ft_r, std_r); \
-		fail = 1; \
 	}
 
 TEST(ft_atoi)
 {
-	int	fail;
 	int	ft_r;
 	int	std_r;
 
-	fail = 0;
 	MATCHATOI("abc")
 	MATCHATOI("abc99")
 	MATCHATOI("99abc")
@@ -53,5 +50,4 @@ TEST(ft_atoi)
 	MATCHATOI("2147483646")
 	MATCHATOI("-2147483647")
 	MATCHATOI("-2147483648")
-	return (fail);
 }

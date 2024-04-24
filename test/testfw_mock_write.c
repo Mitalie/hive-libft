@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:56:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 13:28:55 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:49:51 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,17 @@ size_t	unmock_write(int fildes, void **buf)
 	return mocks[fildes].buf_len;
 }
 
-int	check_unmock_write(char *fn, int fildes, const void *exp_data, size_t exp_len)
+void	check_unmock_write(char *fn, int fildes, const void *exp_data, size_t exp_len)
 {
 	void	*buf;
 	size_t	len;
-	int		fail;
 
-	fail = 0;
 	len = unmock_write(fildes, &buf);
 	if (len != exp_len)
-	{
-		printf("%s: captured write length %zu doesn't match expected %zu\n",
+		TEST_FAIL("%s: captured write length %zu doesn't match expected %zu\n",
 			fn, len, exp_len);
-		fail = 1;
-	}
-	if (!fail && memcmp(buf, exp_data, exp_len))
-	{
-		printf("%s: captured data \"%s\" doesn't match expected \"%s\"\n",
+	else if (memcmp(buf, exp_data, exp_len))
+		TEST_FAIL("%s: captured data \"%s\" doesn't match expected \"%s\"\n",
 			fn, (char *)buf, (char *)exp_data);
-		fail = 1;
-	}
 	free(buf);
-	return (fail);
 }
