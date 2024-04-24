@@ -6,21 +6,24 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:10:43 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/17 16:56:55 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 10:41:00 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static size_t	count_sep(char const *s, char sep)
+static size_t	count_pieces(char const *s, char sep)
 {
 	size_t	count;
 
 	count = 0;
 	while (*s)
-		if (*s++ == sep)
+	{
+		if (*s != sep && !(s[1] && s[1] != sep))
 			count++;
+		s++;
+	}
 	return (count);
 }
 
@@ -47,7 +50,7 @@ char	**ft_split(char const *s, char c)
 	size_t		arridx;
 	char		**arr;
 
-	arrsize = count_sep(s, c) + 1;
+	arrsize = count_pieces(s, c);
 	arr = malloc((arrsize + 1) * sizeof(*arr));
 	if (!arr)
 		return (0);
@@ -55,6 +58,8 @@ char	**ft_split(char const *s, char c)
 	arridx = 0;
 	while (arridx < arrsize)
 	{
+		while (*s == c)
+			s++;
 		s = dup_piece(s, c, &arr[arridx]);
 		if (!arr[arridx++])
 		{
