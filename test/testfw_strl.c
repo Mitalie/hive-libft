@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:22:59 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:03:49 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void	test_ft_strlen(void)
 	size_t	ft_r;
 	size_t	std_r;
 
-	MATCHSTRLEN("abc")
-	MATCHSTRLEN("abcd")
-	MATCHSTRLEN("")
-	MATCHSTRLEN("\0")
-	MATCHSTRLEN("ab\0c")
+	MATCHSTRLEN("abc");
+	MATCHSTRLEN("abcd");
+	MATCHSTRLEN("");
+	MATCHSTRLEN("\0");
+	MATCHSTRLEN("ab\0c");
 }
 
 #define MATCHSTRLC(f, d, s, l) \
@@ -64,14 +64,14 @@ static void	test_ft_strlcpy(void)
 	char	std_d[21];
 	size_t	std_r;
 
-	MATCHSTRLCPY("abcde", 0)
-	MATCHSTRLCPY("abcde", 4)
-	MATCHSTRLCPY("abcde", 5)
-	MATCHSTRLCPY("abcde", 6)
-	MATCHSTRLCPY("abcde", 7)
-	MATCHSTRLCPY("", 0)
-	MATCHSTRLCPY("", 1)
-	MATCHSTRLCPY("", 2)
+	MATCHSTRLCPY("abcde", 0);
+	MATCHSTRLCPY("abcde", 4);
+	MATCHSTRLCPY("abcde", 5);
+	MATCHSTRLCPY("abcde", 6);
+	MATCHSTRLCPY("abcde", 7);
+	MATCHSTRLCPY("", 0);
+	MATCHSTRLCPY("", 1);
+	MATCHSTRLCPY("", 2);
 }
 
 #define MATCHSTRLCAT(d, s, l) \
@@ -88,23 +88,23 @@ static void	test_ft_strlcat(void)
 	char	std_d[21];
 	size_t	std_r;
 
-	MATCHSTRLCAT("abc", "def", 0)
-	MATCHSTRLCAT("abc", "def", 3)
-	MATCHSTRLCAT("abc", "def", 4)
-	MATCHSTRLCAT("abc", "def", 5)
-	MATCHSTRLCAT("abc", "def", 6)
-	MATCHSTRLCAT("abc", "def", 7)
-	MATCHSTRLCAT("abc", "def", 8)
-	MATCHSTRLCAT("", "def", 0)
-	MATCHSTRLCAT("", "def", 1)
-	MATCHSTRLCAT("", "def", 2)
-	MATCHSTRLCAT("", "def", 3)
-	MATCHSTRLCAT("", "def", 4)
-	MATCHSTRLCAT("", "def", 5)
-	MATCHSTRLCAT("abc", "", 0)
-	MATCHSTRLCAT("abc", "", 1)
-	MATCHSTRLCAT("abc", "", 2)
-	MATCHSTRLCAT("abc", "", 3)
-	MATCHSTRLCAT("abc", "", 4)
-	MATCHSTRLCAT("abc", "", 5)
+	MATCHSTRLCAT("abc", "def", 0);
+	MATCHSTRLCAT("abc", "def", 3);
+	MATCHSTRLCAT("abc", "def", 4);
+	MATCHSTRLCAT("abc", "def", 5);
+	MATCHSTRLCAT("abc", "def", 6);
+	MATCHSTRLCAT("abc", "def", 7);
+	MATCHSTRLCAT("abc", "def", 8);
+	MATCHSTRLCAT("", "def", 0);
+	MATCHSTRLCAT("", "def", 1);
+	MATCHSTRLCAT("", "def", 2);
+	MATCHSTRLCAT("", "def", 3);
+	MATCHSTRLCAT("", "def", 4);
+	MATCHSTRLCAT("", "def", 5);
+	MATCHSTRLCAT("abc", "", 0);
+	MATCHSTRLCAT("abc", "", 1);
+	MATCHSTRLCAT("abc", "", 2);
+	MATCHSTRLCAT("abc", "", 3);
+	MATCHSTRLCAT("abc", "", 4);
+	MATCHSTRLCAT("abc", "", 5);
 }

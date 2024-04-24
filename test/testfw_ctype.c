@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 18:17:46 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:01:34 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include <limits.h>
 #include <stdio.h>
 
-static void	test_ctype(int (*ft_f)(int), int (std_f)(int), char *fn, int is_bool)
+static void	test_ctype(int (*ft_f)(int), int (std_f)(int),
+	char *fn, int is_bool)
 {
 	int	c;
 	int	ft_r;
@@ -50,11 +51,10 @@ static void	test_ft_##n(void) \
 	test_ctype(ft_##n, n, #n, b); \
 }
 
-
-TEST_CTYPE(isalpha, 1)
-TEST_CTYPE(isdigit, 1)
-TEST_CTYPE(isalnum, 1)
-TEST_CTYPE(isascii, 1)
-TEST_CTYPE(isprint, 1)
-TEST_CTYPE(toupper, 0)
-TEST_CTYPE(tolower, 0)
+TEST_CTYPE(isalpha, 1);
+TEST_CTYPE(isdigit, 1);
+TEST_CTYPE(isalnum, 1);
+TEST_CTYPE(isascii, 1);
+TEST_CTYPE(isprint, 1);
+TEST_CTYPE(toupper, 0);
+TEST_CTYPE(tolower, 0);

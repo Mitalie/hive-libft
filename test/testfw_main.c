@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:39:43 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:56:14 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:41:40 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ int	main(void)
 	}
 	if (count_success != count)
 	{
-		fprintf(stderr, "\n\e[0;33m%d/%d tests passed\e[0m\n", count_success, count);
+		fprintf(stderr, "\n\e[0;33m%d/%d tests passed\e[0m\n",
+			count_success, count);
 		return (1);
 	}
-	fprintf(stderr, "\n\e[0;32m%d/%d tests passed\e[0m\n", count_success, count);
+	fprintf(stderr, "\n\e[0;32m%d/%d tests passed\e[0m\n",
+		count_success, count);
 	return (0);
 }

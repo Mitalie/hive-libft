@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:53:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:42:06 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	test_ft_memset(void)
 {
 	char	buf1[20];
 	char	buf2[20];
+
 	bzero(buf1, 20);
 	bzero(buf2, 20);
 	ft_memset(buf1 + 5, 0x55, 10);

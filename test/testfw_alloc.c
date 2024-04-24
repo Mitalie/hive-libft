@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:17:06 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:04:41 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 
 #define COUNT 5000
 #define SIZE 4000
-#define HUGE (1l << 34)
+// HUGE = 2^34
+#define HUGE 17179869184ul
 
 REGISTER_TEST(ft_calloc);
 
+// Expect crash if full size of returned memory is not writable
 static void	test_ft_calloc(void)
 {
 	char	*buf;
@@ -35,21 +37,19 @@ static void	test_ft_calloc(void)
 	{
 		if (buf[idx])
 			TEST_FAIL("ft_calloc did not zero memory at index %d\n", idx);
-		// Make sure it's writable - expect crash if not
 		buf[idx++] = 1;
 	}
 	free(buf);
 	buf = ft_calloc(HUGE, HUGE);
 	if (buf)
-	{
 		TEST_FAIL("ft_calloc(%ld, %ld) returned a non-null pointer"
 			" (impossibly large alloc)\n", HUGE, HUGE);
-	}
 	free(buf);
 }
 
 REGISTER_TEST(ft_strdup);
 
+// Expect crash if full size of returned memory is not writable
 static void	test_ft_strdup(void)
 {
 	const char	*str;
@@ -60,22 +60,13 @@ static void	test_ft_strdup(void)
 	str = "abcdef";
 	dup = ft_strdup(str);
 	if (dup == str)
-	{
 		TEST_FAIL("ft_strdup returned the original address\n");
-	}
 	if (!dup)
-	{
 		TEST_FAIL("ft_strdup returned a null pointer\n");
-	}
 	if (dup && strcmp(str, dup))
-	{
 		TEST_FAIL("ft_strdup returned wrong string\n");
-	}
 	free(dup);
 	dup = ft_strdup(str);
 	while (dup && idx <= 6)
-	{
-		// Make sure it's writable - expect crash if not
 		dup[idx++] = 0;
-	}
 }

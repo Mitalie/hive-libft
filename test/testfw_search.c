@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:05:44 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:03:24 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	test_ft_##n(void)\
 	MATCHCHR(n, "abc", 'A')\
 }
 
-TESTCHR(strchr)
-TESTCHR(strrchr)
+TESTCHR(strchr);
+TESTCHR(strrchr);
 
 #define MATCHMEMCHR(s, c, n) \
 	ft_r = ft_memchr(s, c, n); \
@@ -61,13 +61,13 @@ static void	test_ft_memchr(void)
 	char	*ft_r;
 	char	*std_r;
 
-	MATCHMEMCHR("abc", 'a', 4)
-	MATCHMEMCHR("abc", 'b', 4)
-	MATCHMEMCHR("abc", 'c', 4)
-	MATCHMEMCHR("abc", '\0', 4)
-	MATCHMEMCHR("abc", '\0', 3)
-	MATCHMEMCHR("abc", 'd', 4)
-	MATCHMEMCHR("abc", 'A', 4)
+	MATCHMEMCHR("abc", 'a', 4);
+	MATCHMEMCHR("abc", 'b', 4);
+	MATCHMEMCHR("abc", 'c', 4);
+	MATCHMEMCHR("abc", '\0', 4);
+	MATCHMEMCHR("abc", '\0', 3);
+	MATCHMEMCHR("abc", 'd', 4);
+	MATCHMEMCHR("abc", 'A', 4);
 }
 
 #define MATCHSTRNSTR(haystack, needle, len) \
@@ -87,28 +87,28 @@ static void	test_ft_strnstr(void)
 	char	*ft_r;
 	char	*std_r;
 
-	MATCHSTRNSTR("abcd", "abcd", 4)
-	MATCHSTRNSTR("abcd", "abcd", 3)
-	MATCHSTRNSTR("abcd", "bc", 4)
-	MATCHSTRNSTR("abcd", "bc", 3)
-	MATCHSTRNSTR("abcd", "bc", 2)
-	MATCHSTRNSTR("abcd", "cd", 4)
-	MATCHSTRNSTR("abcd", "cd", 3)
-	MATCHSTRNSTR("abcd", "a", 5)
-	MATCHSTRNSTR("abcd", "a", 1)
-	MATCHSTRNSTR("abcd", "a", 0)
-	MATCHSTRNSTR("\0abcd", "a", 5)
-	MATCHSTRNSTR("abcd", "", 5)
-	MATCHSTRNSTR("abcd", "", 1)
-	MATCHSTRNSTR("abcd", "", 0)
-	MATCHSTRNSTR("abcd", "\0a", 4)
-	MATCHSTRNSTR("abcd", "\0a", 1)
-	MATCHSTRNSTR("abcd", "\0a", 0)
-	MATCHSTRNSTR("abcd", "abcde", 5)
-	MATCHSTRNSTR("abcd", "abcde", 4)
-	MATCHSTRNSTR("abcd", "abce", 4)
-	MATCHSTRNSTR("abcd", "abce", 3)
-	MATCHSTRNSTR("abcd", "cb", 4)
-	MATCHSTRNSTR((char*)0, "", 1)
-	MATCHSTRNSTR((char*)0, "", 0)
+	MATCHSTRNSTR("abcd", "abcd", 4);
+	MATCHSTRNSTR("abcd", "abcd", 3);
+	MATCHSTRNSTR("abcd", "bc", 4);
+	MATCHSTRNSTR("abcd", "bc", 3);
+	MATCHSTRNSTR("abcd", "bc", 2);
+	MATCHSTRNSTR("abcd", "cd", 4);
+	MATCHSTRNSTR("abcd", "cd", 3);
+	MATCHSTRNSTR("abcd", "a", 5);
+	MATCHSTRNSTR("abcd", "a", 1);
+	MATCHSTRNSTR("abcd", "a", 0);
+	MATCHSTRNSTR("\0abcd", "a", 5);
+	MATCHSTRNSTR("abcd", "", 5);
+	MATCHSTRNSTR("abcd", "", 1);
+	MATCHSTRNSTR("abcd", "", 0);
+	MATCHSTRNSTR("abcd", "\0a", 4);
+	MATCHSTRNSTR("abcd", "\0a", 1);
+	MATCHSTRNSTR("abcd", "\0a", 0);
+	MATCHSTRNSTR("abcd", "abcde", 5);
+	MATCHSTRNSTR("abcd", "abcde", 4);
+	MATCHSTRNSTR("abcd", "abce", 4);
+	MATCHSTRNSTR("abcd", "abce", 3);
+	MATCHSTRNSTR("abcd", "cb", 4);
+	MATCHSTRNSTR((char *)0, "", 1);
+	MATCHSTRNSTR((char *)0, "", 0);
 }

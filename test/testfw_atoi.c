@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:39:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:59:02 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ static void	test_ft_atoi(void)
 	int	ft_r;
 	int	std_r;
 
-	MATCHATOI("abc")
-	MATCHATOI("abc99")
-	MATCHATOI("99abc")
-	MATCHATOI("9abc9")
-	MATCHATOI("a99bc")
-	MATCHATOI("0")
-	MATCHATOI("1")
-	MATCHATOI("-1")
-	MATCHATOI("+1")
-	MATCHATOI("--1")
-	MATCHATOI("-+1")
-	MATCHATOI("+-1")
-	MATCHATOI("++1")
-	MATCHATOI("999")
-	MATCHATOI("-999")
-	MATCHATOI("2147483647")
-	MATCHATOI("2147483646")
-	MATCHATOI("-2147483647")
-	MATCHATOI("-2147483648")
+	MATCHATOI("abc");
+	MATCHATOI("abc99");
+	MATCHATOI("99abc");
+	MATCHATOI("9abc9");
+	MATCHATOI("a99bc");
+	MATCHATOI("0");
+	MATCHATOI("1");
+	MATCHATOI("-1");
+	MATCHATOI("+1");
+	MATCHATOI("--1");
+	MATCHATOI("-+1");
+	MATCHATOI("+-1");
+	MATCHATOI("++1");
+	MATCHATOI("999");
+	MATCHATOI("-999");
+	MATCHATOI("2147483647");
+	MATCHATOI("2147483646");
+	MATCHATOI("-2147483647");
+	MATCHATOI("-2147483648");
 }

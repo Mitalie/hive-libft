@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:49:05 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:56:31 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,9 @@ static void	test_ft_strmapi(void)
 
 static void	testtrans(unsigned int idx, char *cp)
 {
-	char c = *cp;
+	char	c;
+
+	c = *cp;
 	if (c >= 'a' && c <= 'z')
 		c = 'a' + (c - 'a' + idx) % 26;
 	else if (c >= 'A' && c <= 'Z')
@@ -199,20 +201,24 @@ do { \
 
 REGISTER_TEST(ft_split);
 
+/* These tests expect empty strings between multiple separatos */
+/*
 static void	test_ft_split(void)
 {
-	/* These tests expect empty strings between multiple separatos */
-	/*
-	CHECK_STRARR("", '|', ((char *[]){ "", 0 }));
-	CHECK_STRARR("abc", '|', ((char *[]){ "abc", 0 }));
-	CHECK_STRARR("a|b|c", '|', ((char *[]){ "a", "b", "c", 0 }));
-	CHECK_STRARR("a||b", '|', ((char *[]){ "a", "", "b", 0 }));
-	CHECK_STRARR("|a|||b|", '|', ((char *[]){ "", "a", "", "", "b", "", 0 }));
-	*/
-	/* These tests expect empty strings to not be included in the output */
-	CHECK_STRARR("", '|', ((char *[]){ 0 }));
-	CHECK_STRARR("abc", '|', ((char *[]){ "abc", 0 }));
-	CHECK_STRARR("a|b|c", '|', ((char *[]){ "a", "b", "c", 0 }));
-	CHECK_STRARR("a||b", '|', ((char *[]){ "a", "b", 0 }));
-	CHECK_STRARR("|a|||b|", '|', ((char *[]){ "a", "b", 0 }));
+	CHECK_STRARR("", '|', ((char *[]){"", 0}));
+	CHECK_STRARR("abc", '|', ((char *[]){"abc", 0}));
+	CHECK_STRARR("a|b|c", '|', ((char *[]){"a", "b", "c", 0}));
+	CHECK_STRARR("a||b", '|', ((char *[]){"a", "", "b", 0}));
+	CHECK_STRARR("|a|||b|", '|', ((char *[]){"", "a", "", "", "b", "", 0}));
+}
+*/
+
+/* These tests expect empty strings to not be included in the output */
+static void	test_ft_split(void)
+{
+	CHECK_STRARR("", '|', ((char *[]){0}));
+	CHECK_STRARR("abc", '|', ((char *[]){"abc", 0}));
+	CHECK_STRARR("a|b|c", '|', ((char *[]){"a", "b", "c", 0}));
+	CHECK_STRARR("a||b", '|', ((char *[]){"a", "b", 0}));
+	CHECK_STRARR("|a|||b|", '|', ((char *[]){"a", "b", 0}));
 }

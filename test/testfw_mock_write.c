@@ -6,11 +6,12 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:56:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:49:51 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:02:44 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testfw.h"
+#include "testfw_mock_write.h"
 #include <assert.h>
 #include <dlfcn.h>
 #include <stddef.h>
@@ -19,62 +20,61 @@
 #include <string.h>
 #include <unistd.h>
 
-static ssize_t (*real_write)(int fildes, const void *buf, size_t nbyte) = 0;
+static ssize_t				(*g_real_write)(int fildes,
+		const void *buf, size_t nbyte) = 0;
 
-struct mock_data {
-	void	*buf;
-	size_t	buf_len;
-};
+static struct s_mock_data	*g_mocks = 0;
+static int					g_max_mock_fd = -1;
 
-static struct mock_data *mocks = 0;
-static int				max_mock_fd = -1;
-
+// Stored buffer is appended with a null byte to make it usable with
+// printf %s in check_unmock_write
 static ssize_t	mocked_write(int fildes, const void *buf, size_t nbyte)
 {
-	struct mock_data	*mock;
+	struct s_mock_data	*mock;
 
 	assert(nbyte);
-	mock = &mocks[fildes];
+	mock = &g_mocks[fildes];
 	mock->buf = realloc(mock->buf, mock->buf_len + nbyte + 1);
 	assert(mock->buf);
 	memcpy(mock->buf + mock->buf_len, buf, nbyte);
 	mock->buf_len += nbyte;
-	((char *)mock->buf)[mock->buf_len] = 0; // null terminator for printf("%s") in check_unmock_write
+	((char *)mock->buf)[mock->buf_len] = 0;
 	return (nbyte);
 }
 
 ssize_t	write(int fildes, const void *buf, size_t nbyte)
 {
-	if (!real_write)
-		real_write = dlsym(RTLD_NEXT, "write");
-	if (fildes >= 0 && fildes <= max_mock_fd && mocks[fildes].buf)
+	if (!g_real_write)
+		g_real_write = dlsym(RTLD_NEXT, "write");
+	if (fildes >= 0 && fildes <= g_max_mock_fd && g_mocks[fildes].buf)
 		return (mocked_write(fildes, buf, nbyte));
-	return (real_write(fildes, buf, nbyte));
+	return (g_real_write(fildes, buf, nbyte));
 }
 
 void	mock_write(int fildes)
 {
-	if (fildes > max_mock_fd)
+	if (fildes > g_max_mock_fd)
 	{
-		mocks = realloc(mocks, sizeof (*mocks) * (fildes + 1));
-		assert(mocks);
-		while (max_mock_fd < fildes)
-			mocks[++max_mock_fd].buf = 0;
+		g_mocks = realloc(g_mocks, sizeof (*g_mocks) * (fildes + 1));
+		assert(g_mocks);
+		while (g_max_mock_fd < fildes)
+			g_mocks[++g_max_mock_fd].buf = 0;
 	}
-	assert(mocks[fildes].buf == 0);
-	mocks[fildes].buf = malloc(0);
-	mocks[fildes].buf_len = 0;
+	assert(g_mocks[fildes].buf == 0);
+	g_mocks[fildes].buf = malloc(0);
+	g_mocks[fildes].buf_len = 0;
 }
 
 size_t	unmock_write(int fildes, void **buf)
 {
-	assert(fildes <= max_mock_fd && mocks[fildes].buf);
-	*buf = mocks[fildes].buf;
-	mocks[fildes].buf = 0;
-	return mocks[fildes].buf_len;
+	assert(fildes <= g_max_mock_fd && g_mocks[fildes].buf);
+	*buf = g_mocks[fildes].buf;
+	g_mocks[fildes].buf = 0;
+	return (g_mocks[fildes].buf_len);
 }
 
-void	check_unmock_write(char *fn, int fildes, const void *exp_data, size_t exp_len)
+void	check_unmock_write(char *fn, int fildes,
+	const void *exp_data, size_t exp_len)
 {
 	void	*buf;
 	size_t	len;

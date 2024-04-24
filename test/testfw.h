@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:19:21 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:32:31 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:58:01 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,5 @@ void	testfw_fail(void);
 
 // Set the fail flag for current test, and print message to stderr (accepts printf arguments)
 # define TEST_FAIL(...) do { testfw_fail(); fprintf(stderr, __VA_ARGS__); } while (0)
-
-void	mock_write(int fildes);
-size_t	unmock_write(int fildes, void **buf);
-void	check_unmock_write(char *fn, int fildes, const void *exp_data, size_t exp_len);
 
 #endif

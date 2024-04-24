@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:09:47 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:59:09 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ static void	test_ft_##n(void)\
 	MATCHCMP(n, "a\0bc", "b\0bc", 4)\
 }
 
-TESTCMP(memcmp)
-TESTCMP(strncmp)
+TESTCMP(memcmp);
+TESTCMP(strncmp);
