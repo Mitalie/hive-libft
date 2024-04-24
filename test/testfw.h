@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:19:21 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:48:07 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:32:31 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ struct s_test_list_node
 
 extern struct s_test_list_node	**g_test_list_tail_next;
 
-# define TEST(n) \
-	static void _test_func_##n(void); \
-	static struct s_test_list_node _test_entry_##n = { _test_func_##n, #n, 0 }; \
+// Register a test function to be run. For registration name `n`, the function must be declared as `static void test_n(void)`.
+# define REGISTER_TEST(n) \
+	static void test_##n(void); \
+	static struct s_test_list_node _test_entry_##n = { test_##n, #n, 0 }; \
 	__attribute__((constructor)) \
 	static void _test_reg_##n(void) { \
 		*g_test_list_tail_next = &_test_entry_##n; \
 		g_test_list_tail_next = &(_test_entry_##n.next); \
-	} \
-	static void _test_func_##n(void)
+	}
 
 void	testfw_fail(void);
 

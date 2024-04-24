@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:05:44 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:50:54 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 	}
 
 #define TESTCHR(n) \
-TEST(ft_##n)\
+REGISTER_TEST(ft_##n);\
+\
+static void	test_ft_##n(void)\
 {\
 	char	*ft_r;\
 	char	*std_r;\
@@ -52,7 +54,9 @@ TESTCHR(strrchr)
 			s, c, c, n, ft_r, std_r); \
 	}
 
-TEST(ft_memchr)
+REGISTER_TEST(ft_memchr);
+
+static void	test_ft_memchr(void)
 {
 	char	*ft_r;
 	char	*std_r;
@@ -76,7 +80,9 @@ TEST(ft_memchr)
 			haystack, needle, len, ft_r, std_r); \
 	}
 
-TEST(ft_strnstr)
+REGISTER_TEST(ft_strnstr);
+
+static void	test_ft_strnstr(void)
 {
 	char	*ft_r;
 	char	*std_r;

@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:53:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:47:09 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <strings.h>
 #include <stdio.h>
 
-TEST(ft_memset)
+REGISTER_TEST(ft_memset);
+
+static void	test_ft_memset(void)
 {
 	char	buf1[20];
 	char	buf2[20];
@@ -32,7 +34,9 @@ TEST(ft_memset)
 		TEST_FAIL("Full buffer ft_memset didn't match stdlib\n");
 }
 
-TEST(ft_bzero)
+REGISTER_TEST(ft_bzero);
+
+static void	test_ft_bzero(void)
 {
 	char	buf1[20];
 	char	buf2[20];
@@ -49,7 +53,9 @@ TEST(ft_bzero)
 		TEST_FAIL("Full buffer ft_bzero didn't match stdlib\n");
 }
 
-TEST(ft_memcpy)
+REGISTER_TEST(ft_memcpy);
+
+static void	test_ft_memcpy(void)
 {
 	char	buf1[20];
 	char	buf2[20];
@@ -66,7 +72,9 @@ TEST(ft_memcpy)
 		TEST_FAIL("Full buffer ft_memcpy didn't match stdlib\n");
 }
 
-TEST(ft_memmove)
+REGISTER_TEST(ft_memmove);
+
+static void	test_ft_memmove(void)
 {
 	char	buf1[20];
 	char	buf2[20];

@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:22:59 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:51:24 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@
 			s, ft_r, std_r); \
 	}
 
-TEST(ft_strlen)
+REGISTER_TEST(ft_strlen);
+
+static void	test_ft_strlen(void)
 {
 	size_t	ft_r;
 	size_t	std_r;
@@ -53,7 +55,9 @@ TEST(ft_strlen)
 #define MATCHSTRLCPY(s, l) \
 	MATCHSTRLC(strlcpy, "12345678901234567890", s, l)
 
-TEST(ft_strlcpy)
+REGISTER_TEST(ft_strlcpy);
+
+static void	test_ft_strlcpy(void)
 {
 	char	ft_d[21];
 	size_t	ft_r;
@@ -75,7 +79,9 @@ TEST(ft_strlcpy)
 	strcpy(std_d, "12345678901234567890"); \
 	MATCHSTRLC(strlcat, d, s, l)
 
-TEST(ft_strlcat)
+REGISTER_TEST(ft_strlcat);
+
+static void	test_ft_strlcat(void)
 {
 	char	ft_d[21];
 	size_t	ft_r;

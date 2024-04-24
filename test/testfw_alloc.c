@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:17:06 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:41:29 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 #define SIZE 4000
 #define HUGE (1l << 34)
 
-TEST(ft_calloc)
+REGISTER_TEST(ft_calloc);
+
+static void	test_ft_calloc(void)
 {
 	char	*buf;
 	int		idx;
@@ -46,7 +48,9 @@ TEST(ft_calloc)
 	free(buf);
 }
 
-TEST(ft_strdup)
+REGISTER_TEST(ft_strdup);
+
+static void	test_ft_strdup(void)
 {
 	const char	*str;
 	char		*dup;

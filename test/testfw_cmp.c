@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:09:47 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:42:09 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 	}
 
 #define TESTCMP(n) \
-TEST(ft_##n)\
+REGISTER_TEST(ft_##n);\
+\
+static void	test_ft_##n(void)\
 {\
 	int ft_r;\
 	int std_r;\

@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:49:05 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:53:53 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ do { \
 	free(sub); \
 } while (0)
 
-TEST(ft_substr)
+REGISTER_TEST(ft_substr);
+
+static void	test_ft_substr(void)
 {
 	CHECK_SUBSTR("abc", 0, 0, "");
 	CHECK_SUBSTR("abc", 0, 2, "ab");
@@ -51,7 +53,9 @@ do { \
 	free (joined); \
 } while (0)
 
-TEST(ft_strjoin)
+REGISTER_TEST(ft_strjoin);
+
+static void	test_ft_strjoin(void)
 {
 	CHECK_STRJOIN("", "", "");
 	CHECK_STRJOIN("abc", "", "abc");
@@ -66,7 +70,9 @@ do { \
 	free (trimmed); \
 } while (0)
 
-TEST(ft_strtrim)
+REGISTER_TEST(ft_strtrim);
+
+static void	test_ft_strtrim(void)
 {
 	CHECK_STRTRIM("", "", "");
 	CHECK_STRTRIM("abcd", "", "abcd");
@@ -87,7 +93,9 @@ do { \
 	free (str); \
 } while (0)
 
-TEST(ft_itoa)
+REGISTER_TEST(ft_itoa);
+
+static void	test_ft_itoa(void)
 {
 	CHECK_ITOA(2147483647);
 	CHECK_ITOA(2147483646);
@@ -116,7 +124,9 @@ do { \
 	free (mapped); \
 } while (0)
 
-TEST(ft_strmapi)
+REGISTER_TEST(ft_strmapi);
+
+static void	test_ft_strmapi(void)
 {
 	CHECK_MAP("", "");
 	CHECK_MAP("abcdEFGH", "acegIKMO");
@@ -140,7 +150,9 @@ do { \
 	check_str("ft_striteri(\"" s "\", testmap)", buf, match); \
 } while (0)
 
-TEST(ft_striteri)
+REGISTER_TEST(ft_striteri);
+
+static void	test_ft_striteri(void)
 {
 	CHECK_ITER("", "");
 	CHECK_ITER("abcdEFGH", "acegIKMO");
@@ -185,7 +197,9 @@ do { \
 	free (arr); \
 } while (0)
 
-TEST(ft_split)
+REGISTER_TEST(ft_split);
+
+static void	test_ft_split(void)
 {
 	/* These tests expect empty strings between multiple separatos */
 	/*

@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:39:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 15:41:53 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:35:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 			s, ft_r, std_r); \
 	}
 
-TEST(ft_atoi)
+REGISTER_TEST(ft_atoi);
+
+static void	test_ft_atoi(void)
 {
 	int	ft_r;
 	int	std_r;
