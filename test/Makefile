@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:58:00 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/23 12:24:32 by amakinen         ###   ########.fr        #
+#    Updated: 2024/04/24 11:14:38 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,10 +44,10 @@ $(BINDIR):
 	@mkdir -p $@
 
 $(TESTFW): $(TESTFW_OBJS) $(LIBFT) | $(BINDIR)
-	$(CC) $^ -o $@
+	$(CC) $(LDFLAGS) $^ -o $@
 
 $(SIMPLE_TESTS): $(BINDIR)/%: %.o $(LIBFT) | $(BINDIR)
-	$(CC) $^ -o $@
+	$(CC) $(LDFLAGS) $^ -o $@
 
 $(OBJS): %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
