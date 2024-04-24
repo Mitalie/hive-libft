@@ -6,12 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:19:21 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/22 14:55:49 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:59:21 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTFW_H
 # define TESTFW_H
+# include <stddef.h>
 
 struct s_test_list_node
 {
@@ -31,5 +32,9 @@ extern struct s_test_list_node	**g_test_list_tail_next;
 		g_test_list_tail_next = &(_test_entry_##n.next); \
 	} \
 	static int _test_func_##n(void)
+
+void	mock_write(int fildes);
+size_t	unmock_write(int fildes, void **buf);
+int		check_unmock_write(char *fn, int fildes, const void *exp_data, size_t exp_len);
 
 #endif
