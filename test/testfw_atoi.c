@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:39:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 16:17:55 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:51:33 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	test_ft_atoi(void)
 	match_atoi("-+1");
 	match_atoi("+-1");
 	match_atoi("++1");
+	match_atoi("10");
+	match_atoi("-10");
 	match_atoi("999");
 	match_atoi("-999");
 	match_atoi("2147483647");
