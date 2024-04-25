@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:53:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 16:42:06 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:25:02 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,19 @@ REGISTER_TEST(ft_memset);
 
 static void	test_ft_memset(void)
 {
-	char	buf1[20];
-	char	buf2[20];
+	char	buf[20];
+	char	*ret;
 
-	bzero(buf1, 20);
-	bzero(buf2, 20);
-	ft_memset(buf1 + 5, 0x55, 10);
-	memset(buf2 + 5, 0x55, 10);
-	if (memcmp(buf1, buf2, 20))
+	bzero(buf, 20);
+	ret = ft_memset(buf + 5, 'a', 10);
+	if (ret != buf + 5)
+		TEST_FAIL("Sub-buffer ft_memset returned wrong pointer\n");
+	if (memcmp(buf, "\0\0\0\0\0aaaaaaaaaa\0\0\0\0\0", 20))
 		TEST_FAIL("Sub-buffer ft_memset didn't match stdlib\n");
-	ft_memset(buf1, 0xaa, 20);
-	memset(buf2, 0xaa, 20);
-	if (memcmp(buf1, buf2, 20))
+	ret = ft_memset(buf, 'b', 20);
+	if (ret != buf)
+		TEST_FAIL("Full buffer ft_memset returned wrong pointer\n");
+	if (memcmp(buf, "bbbbbbbbbbbbbbbbbbbb", 20))
 		TEST_FAIL("Full buffer ft_memset didn't match stdlib\n");
 }
 
@@ -39,57 +40,54 @@ REGISTER_TEST(ft_bzero);
 
 static void	test_ft_bzero(void)
 {
-	char	buf1[20];
-	char	buf2[20];
+	char	buf[20];
 
-	memset(buf1, 0xcc, 20);
-	memset(buf2, 0xcc, 20);
-	ft_bzero(buf1 + 5, 10);
-	bzero(buf2 + 5, 10);
-	if (memcmp(buf1, buf2, 20))
-		TEST_FAIL("Sub-buffer ft_bzero didn't match stdlib\n");
-	ft_bzero(buf1, 20);
-	bzero(buf2, 20);
-	if (memcmp(buf1, buf2, 20))
-		TEST_FAIL("Full buffer ft_bzero didn't match stdlib\n");
+	memset(buf, 'a', 20);
+	ft_bzero(buf + 5, 10);
+	if (memcmp(buf, "aaaaa\0\0\0\0\0\0\0\0\0\0aaaaa", 20))
+		TEST_FAIL("Sub-buffer ft_bzero didn't match expected\n");
+	ft_bzero(buf, 20);
+	if (memcmp(buf, "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 20))
+		TEST_FAIL("Full buffer ft_bzero didn't match expected\n");
 }
 
 REGISTER_TEST(ft_memcpy);
 
 static void	test_ft_memcpy(void)
 {
-	char	buf1[20];
-	char	buf2[20];
+	char	buf[20];
+	void	*ret;
 
-	memcpy(buf1, "ABCDEFGHIJKLMNOPQRST", 20);
-	memcpy(buf2, "ABCDEFGHIJKLMNOPQRST", 20);
-	ft_memcpy(buf1 + 5, "abcdefghijklmnopqrst", 10);
-	memcpy(buf2 + 5, "abcdefghijklmnopqrst", 10);
-	if (memcmp(buf1, buf2, 20))
-		TEST_FAIL("Sub-buffer ft_memcpy didn't match stdlib\n");
-	ft_memcpy(buf1, "abcdefghijklmnopqrst", 20);
-	memcpy(buf2, "abcdefghijklmnopqrst", 20);
-	if (memcmp(buf1, buf2, 20))
-		TEST_FAIL("Full buffer ft_memcpy didn't match stdlib\n");
+	memcpy(buf, "12345678901234567890", 20);
+	ret = ft_memcpy(buf + 5, "ABCDEFGHIJKLMNOPQRST", 10);
+	if (ret != buf + 5)
+		TEST_FAIL("Sub-buffer ft_memcpy returned wrong pointer\n");
+	if (memcmp(buf, "12345ABCDEFGHIJ67890", 20))
+		TEST_FAIL("Sub-buffer ft_memcpy didn't match expected data\n");
+	ret = ft_memcpy(buf, "abcdefghijklmnopqrst", 20);
+	if (ret != buf)
+		TEST_FAIL("Full buffer ft_memcpy returned wrong pointer\n");
+	if (memcmp(buf, "abcdefghijklmnopqrst", 20))
+		TEST_FAIL("Full buffer ft_memcpy didn't match expected data\n");
 }
 
 REGISTER_TEST(ft_memmove);
 
 static void	test_ft_memmove(void)
 {
-	char	buf1[20];
-	char	buf2[20];
+	char	buf[20];
+	char	*ret;
 
-	memcpy(buf1, "ABCDEFGHIJKLMNOPQRST", 20);
-	memcpy(buf2, "ABCDEFGHIJKLMNOPQRST", 20);
-	ft_memmove(buf1, buf1 + 5, 15);
-	memmove(buf2, buf2 + 5, 15);
-	if (memcmp(buf1, buf2, 20))
+	memcpy(buf, "ABCDEFGHIJKLMNOPQRST", 20);
+	ret = ft_memmove(buf, buf + 5, 15);
+	if (ret != buf)
+		TEST_FAIL("Downwards ft_memmove returned wrong pointer\n");
+	if (memcmp(buf, "FGHIJKLMNOPQRSTPQRST", 20))
 		TEST_FAIL("Downwards ft_memmove didn't match stdlib\n");
-	memcpy(buf1, "ABCDEFGHIJKLMNOPQRST", 20);
-	memcpy(buf2, "ABCDEFGHIJKLMNOPQRST", 20);
-	ft_memmove(buf1 + 5, buf1, 15);
-	memmove(buf2 + 5, buf2, 15);
-	if (memcmp(buf1, buf2, 20))
+	memcpy(buf, "abcdefghijklmnopqrst", 20);
+	ret = ft_memmove(buf + 5, buf, 15);
+	if (ret != buf + 5)
+		TEST_FAIL("Upwards ft_memmove returned wrong pointer\n");
+	if (memcmp(buf, "abcdeabcdefghijklmno", 20))
 		TEST_FAIL("Upwards ft_memmove didn't match stdlib\n");
 }
