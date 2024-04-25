@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:49:05 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 17:14:35 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:01:09 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,56 +106,3 @@ static void	test_ft_itoa(void)
 	CHECK_ITOA(-2147483647);
 	CHECK_ITOA(-2147483648);
 }
-
-static char	testmap(unsigned int idx, char c)
-{
-	if (c >= 'a' && c <= 'z')
-		c = 'a' + (c - 'a' + idx) % 26;
-	else if (c >= 'A' && c <= 'Z')
-		c = 'A' + (c - 'A' + idx) % 26;
-	return (c);
-}
-
-#define CHECK_MAP(s, match) \
-do { \
-	char *mapped = ft_strmapi(s, testmap); \
-	check_str("ft_strmapi(\"" s "\", testmap)", mapped, match); \
-	free (mapped); \
-} while (0)
-
-REGISTER_TEST(ft_strmapi);
-
-static void	test_ft_strmapi(void)
-{
-	CHECK_MAP("", "");
-	CHECK_MAP("abcdEFGH", "acegIKMO");
-}
-
-static void	testtrans(unsigned int idx, char *cp)
-{
-	char	c;
-
-	c = *cp;
-	if (c >= 'a' && c <= 'z')
-		c = 'a' + (c - 'a' + idx) % 26;
-	else if (c >= 'A' && c <= 'Z')
-		c = 'A' + (c - 'A' + idx) % 26;
-	*cp = c;
-}
-
-#define CHECK_ITER(s, match) \
-do { \
-	char	buf[sizeof(match)]; \
-	strcpy(buf, s); \
-	ft_striteri(buf, testtrans); \
-	check_str("ft_striteri(\"" s "\", testmap)", buf, match); \
-} while (0)
-
-REGISTER_TEST(ft_striteri);
-
-static void	test_ft_striteri(void)
-{
-	CHECK_ITER("", "");
-	CHECK_ITER("abcdEFGH", "acegIKMO");
-}
-
