@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:17:06 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 10:04:41 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 11:10:00 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ static void	test_ft_strdup(void)
 		TEST_FAIL("ft_strdup returned a null pointer\n");
 	if (dup && strcmp(str, dup))
 		TEST_FAIL("ft_strdup returned wrong string\n");
-	free(dup);
-	dup = ft_strdup(str);
 	while (dup && idx <= 6)
 		dup[idx++] = 0;
+	free(dup);
 }
