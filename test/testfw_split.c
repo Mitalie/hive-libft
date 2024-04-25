@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:00:36 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 17:37:32 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:39:52 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static void	check_strarr(const char *fn, char **arr, char **match)
 	size_t	idx;
 
 	idx = 0;
-	if (!arr)
-		TEST_FAIL("%s returned null pointer", fn);
-	while (arr && match && (*arr || *match))
+	while (match && (*arr || *match))
 	{
 		if (!*arr)
 			TEST_FAIL("%s: mismatch at idx %zu, "
@@ -53,9 +51,12 @@ static void	check_split(const char *s, char c, char *match[])
 	fn = malloc(10 + strlen(s) + 6);
 	sprintf(fn, "ft_split(\"%s\", %c)", s, c);
 	arr = ft_split(s, c);
-	check_strarr(fn, arr, match);
+	if (arr)
+		check_strarr(fn, arr, match);
+	else
+		TEST_FAIL("%s returned null pointer", fn);
 	iter = arr;
-	while (*iter)
+	while (iter && *iter)
 		free(*iter++);
 	free (arr);
 }
