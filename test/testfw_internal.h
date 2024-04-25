@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testfw_mock_write.h                                :+:      :+:    :+:   */
+/*   testfw_internal.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 16:43:07 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 10:37:27 by amakinen         ###   ########.fr       */
+/*   Created: 2024/04/25 10:28:47 by amakinen          #+#    #+#             */
+/*   Updated: 2024/04/25 11:13:35 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTFW_MOCK_WRITE_H
-# define TESTFW_MOCK_WRITE_H
+#ifndef TESTFW_INTERNAL_H
+# define TESTFW_INTERNAL_H
 
 # include <stddef.h>
 
-void	mock_write(int fildes);
-size_t	unmock_write(int fildes, void **buf);
-void	check_unmock_write(char *fn, int fildes,
-			const void *exp_data, size_t exp_len);
+struct s_test_list_node
+{
+	void					(*test_func)(void);
+	const char				*test_name;
+	struct s_test_list_node	*next;
+};
+
+struct s_mock_data
+{
+	void	*buf;
+	size_t	buf_len;
+};
 
 #endif

@@ -6,12 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:56:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 17:02:44 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 11:25:19 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testfw.h"
 #include "testfw_mock_write.h"
+#include "testfw_internal.h"
 #include <assert.h>
 #include <dlfcn.h>
 #include <stddef.h>
@@ -26,28 +27,26 @@ static ssize_t				(*g_real_write)(int fildes,
 static struct s_mock_data	*g_mocks = 0;
 static int					g_max_mock_fd = -1;
 
-// Stored buffer is appended with a null byte to make it usable with
+// Stored buffer in mocks is appended with a null byte to make it usable with
 // printf %s in check_unmock_write
-static ssize_t	mocked_write(int fildes, const void *buf, size_t nbyte)
-{
-	struct s_mock_data	*mock;
-
-	assert(nbyte);
-	mock = &g_mocks[fildes];
-	mock->buf = realloc(mock->buf, mock->buf_len + nbyte + 1);
-	assert(mock->buf);
-	memcpy(mock->buf + mock->buf_len, buf, nbyte);
-	mock->buf_len += nbyte;
-	((char *)mock->buf)[mock->buf_len] = 0;
-	return (nbyte);
-}
 
 ssize_t	write(int fildes, const void *buf, size_t nbyte)
 {
+	struct s_mock_data	*mock;
+
 	if (!g_real_write)
 		g_real_write = dlsym(RTLD_NEXT, "write");
 	if (fildes >= 0 && fildes <= g_max_mock_fd && g_mocks[fildes].buf)
-		return (mocked_write(fildes, buf, nbyte));
+	{
+		assert(nbyte);
+		mock = &g_mocks[fildes];
+		mock->buf = realloc(mock->buf, mock->buf_len + nbyte + 1);
+		assert(mock->buf);
+		memcpy(mock->buf + mock->buf_len, buf, nbyte);
+		mock->buf_len += nbyte;
+		((char *)mock->buf)[mock->buf_len] = 0;
+		return (nbyte);
+	}
 	return (g_real_write(fildes, buf, nbyte));
 }
 
@@ -87,4 +86,10 @@ void	check_unmock_write(char *fn, int fildes,
 		TEST_FAIL("%s: captured data \"%s\" doesn't match expected \"%s\"\n",
 			fn, (char *)buf, (char *)exp_data);
 	free(buf);
+}
+
+__attribute__((destructor))
+static void	free_mocks_array(void)
+{
+	free(g_mocks);
 }
