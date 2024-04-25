@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 19:11:07 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/16 19:18:54 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:46:48 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	scan = (unsigned char *)s;
 	while (n--)
 	{
-		if (*scan == c)
+		if (*scan == (unsigned char)c)
 			return (scan);
 		scan++;
 	}

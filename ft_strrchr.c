@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:03:25 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/22 16:47:10 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:40:13 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*ft_strrchr(const char *s, int c)
 	found = 0;
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == (char)c)
 			found = (char *)s;
 		s++;
 	}
-	if (*s == c)
+	if (*s == (char)c)
 		found = (char *)s;
 	return (found);
 }
