@@ -6,14 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:09:47 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 16:04:18 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:18:00 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testfw.h"
 #include "libft.h"
 #include <string.h>
-#include <stdio.h>
 
 static void	match_memcmp(char *s1, char *s2, size_t n)
 {

@@ -6,14 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:05:44 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 17:03:24 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:19:40 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testfw.h"
 #include "libft.h"
 #include <string.h>
-#include <stdio.h>
 
 #define MATCHCHR(fn, s, c) \
 	ft_r = ft_##fn(s, c); \

@@ -6,13 +6,14 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:19:21 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 10:39:57 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:22:47 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTFW_H
 # define TESTFW_H
 # include <stddef.h>
+# include <stdio.h>
 
 void	testfw_register(char *name, void (*test_func)(void));
 

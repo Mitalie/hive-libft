@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:39:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 11:34:31 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:17:55 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include <limits.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 static void	match_atoi(const char *s)
 {

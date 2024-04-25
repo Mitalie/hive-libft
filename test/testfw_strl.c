@@ -6,14 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:22:59 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 17:03:49 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:19:49 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testfw.h"
 #include "libft.h"
 #include <string.h>
-#include <stdio.h>
 
 #define MATCHSTRLEN(s) \
 	ft_r = ft_strlen(s); \

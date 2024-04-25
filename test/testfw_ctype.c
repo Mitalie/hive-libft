@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 18:17:46 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/24 17:01:34 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:18:44 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include <ctype.h>
 #include <limits.h>
-#include <stdio.h>
 
 static void	test_ctype(int (*ft_f)(int), int (std_f)(int),
 	char *fn, int is_bool)

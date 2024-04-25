@@ -6,13 +6,12 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:17:06 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 11:10:00 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:17:52 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testfw.h"
 #include "libft.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 

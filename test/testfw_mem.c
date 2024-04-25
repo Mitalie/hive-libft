@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:53:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 10:25:02 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:18:58 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include <string.h>
 #include <strings.h>
-#include <stdio.h>
 
 REGISTER_TEST(ft_memset);
 
