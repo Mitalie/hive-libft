@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:49:05 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 16:20:11 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:14:35 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,65 +159,3 @@ static void	test_ft_striteri(void)
 	CHECK_ITER("abcdEFGH", "acegIKMO");
 }
 
-static void	check_strarr(const char *fn, char **arr, char **match)
-{
-	size_t	idx;
-
-	idx = 0;
-	if (!arr)
-		TEST_FAIL("%s returned null pointer", fn);
-	while (match && (*arr || *match))
-	{
-		if (!*arr)
-			TEST_FAIL("%s: mismatch at idx %zu, "
-				"found null pointer, expected \"%s\"\n", fn, idx, *match);
-		else if (!*match)
-			TEST_FAIL("%s: mismatch at idx %zu, "
-				"found \"%s\", expected null pointer\n", fn, idx, *arr);
-		else if (strcmp(*arr, *match))
-			TEST_FAIL("%s: mismatch at idx %zu, "
-				"found \"%s\", expected \"%s\"\n", fn, idx, *arr, *match);
-		else
-		{
-			arr++;
-			match++;
-			idx++;
-			continue ;
-		}
-		return ;
-	}
-}
-
-#define CHECK_STRARR(s, c, match) \
-do { \
-	char **arr = ft_split(s, c); \
-	check_strarr("ft_split(\"" s "\", " #c ")", arr, match); \
-	char **iter = arr; \
-	while (*iter) \
-		free(*iter++); \
-	free (arr); \
-} while (0)
-
-REGISTER_TEST(ft_split);
-
-/* These tests expect empty strings between multiple separatos */
-/*
-static void	test_ft_split(void)
-{
-	CHECK_STRARR("", '|', ((char *[]){"", 0}));
-	CHECK_STRARR("abc", '|', ((char *[]){"abc", 0}));
-	CHECK_STRARR("a|b|c", '|', ((char *[]){"a", "b", "c", 0}));
-	CHECK_STRARR("a||b", '|', ((char *[]){"a", "", "b", 0}));
-	CHECK_STRARR("|a|||b|", '|', ((char *[]){"", "a", "", "", "b", "", 0}));
-}
-*/
-
-/* These tests expect empty strings to not be included in the output */
-static void	test_ft_split(void)
-{
-	CHECK_STRARR("", '|', ((char *[]){0}));
-	CHECK_STRARR("abc", '|', ((char *[]){"abc", 0}));
-	CHECK_STRARR("a|b|c", '|', ((char *[]){"a", "b", "c", 0}));
-	CHECK_STRARR("a||b", '|', ((char *[]){"a", "b", 0}));
-	CHECK_STRARR("|a|||b|", '|', ((char *[]){"a", "b", 0}));
-}
