@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:05:44 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 16:31:09 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:46:08 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	test_strchr(void)
 	match_strchr(0, "abc", '\0');
 	match_strchr(0, "abc", 'd');
 	match_strchr(0, "abc", 'A');
+	match_strchr(0, "abc", 'a' + 1024);
+	match_strchr(0, "a\300c", 0300 + 1024);
 }
 
 REGISTER_TEST(strrchr);
@@ -60,6 +62,8 @@ static void	test_strrchr(void)
 	match_strchr(1, "abc", '\0');
 	match_strchr(1, "abc", 'd');
 	match_strchr(1, "abc", 'A');
+	match_strchr(1, "abc", 'a' + 1024);
+	match_strchr(1, "a\300c", 0300 + 1024);
 }
 
 static void	match_memchr(const char *s, int c, size_t n)
@@ -86,4 +90,7 @@ static void	test_ft_memchr(void)
 	match_memchr("abc", '\0', 3);
 	match_memchr("abc", 'd', 4);
 	match_memchr("abc", 'A', 4);
+	match_memchr("abc", 'a' + 1024, 4);
+	match_memchr("abc", 'a' + 1024, 0);
+	match_memchr("a\300c", 0300 + 1024, 3);
 }
