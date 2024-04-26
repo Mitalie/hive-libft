@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:05:44 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 16:46:08 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:56:51 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static void	match_strchr(int reverse, const char *s, int c)
 			fn, s, c, c, ft_r, ft_r, std_r, std_r);
 }
 
-REGISTER_TEST(strchr);
+REGISTER_TEST(ft_strchr);
 
-static void	test_strchr(void)
+static void	test_ft_strchr(void)
 {
 	match_strchr(0, "abc", 'a');
 	match_strchr(0, "abc", 'b');
@@ -52,9 +52,9 @@ static void	test_strchr(void)
 	match_strchr(0, "a\300c", 0300 + 1024);
 }
 
-REGISTER_TEST(strrchr);
+REGISTER_TEST(ft_strrchr);
 
-static void	test_strrchr(void)
+static void	test_ft_strrchr(void)
 {
 	match_strchr(1, "abc", 'a');
 	match_strchr(1, "abc", 'b');
