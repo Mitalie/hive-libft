@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:17:06 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 16:17:52 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:25:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 REGISTER_TEST(ft_calloc);
 
 // Expect crash if full size of returned memory is not writable
+// Zero size or count shouldn't crash, but may return null;
 static void	test_ft_calloc(void)
 {
 	char	*buf;
@@ -43,6 +44,12 @@ static void	test_ft_calloc(void)
 	if (buf)
 		TEST_FAIL("ft_calloc(%ld, %ld) returned a non-null pointer"
 			" (impossibly large alloc)\n", HUGE, HUGE);
+	free(buf);
+	buf = ft_calloc(0, 1);
+	free(buf);
+	buf = ft_calloc(1, 0);
+	free(buf);
+	buf = ft_calloc(0, 0);
 	free(buf);
 }
 
