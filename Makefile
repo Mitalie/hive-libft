@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/23 11:56:30 by amakinen         ###   ########.fr        #
+#    Updated: 2024/04/26 17:53:35 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,15 +53,27 @@ SRCS = \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
 
-OBJS = $(SRCS:.c=.o)
-DEPS = $(OBJS:.o=.d)
+BONUS_SRCS = \
+	ft_lstnew_bonus.c \
+	ft_lstadd_front_bonus.c \
+	ft_lstsize_bonus.c \
+	ft_lstlast_bonus.c \
+	ft_lstadd_back_bonus.c \
+	ft_lstdelone_bonus.c \
+	ft_lstclear_bonus.c \
+	ft_lstiter_bonus.c \
+	ft_lstmap_bonus.c \
 
-.PHONY: all clean fclean re
+OBJS = $(SRCS:.c=.o)
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+DEPS = $(OBJS:.o=.d) $(BONUS_OBJS:.o=.d)
+
+.PHONY: all clean fclean re bonus
 
 all: $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(BONUS_OBJS)
 	rm -f $(DEPS)
 
 fclean: clean
@@ -71,6 +83,18 @@ re: fclean all
 
 $(NAME): $(OBJS)
 	$(AR) -crs $@ $?
+
+# Bonus doesn't create a its own target file which make could use to determine
+# whether the it needs updating, so instead we target a dummy archive member
+# which specifies the actual dependencies and the ar recipe.
+bonus: $(NAME)(.bonus-timestamp)
+
+# Order-only dependency on the non-bonus part ensures make can't corrupt the
+# archive by executing both ar recipes modifying it simultaneously.
+$(NAME)(.bonus-timestamp): $(BONUS_OBJS) | $(NAME)
+	@touch .bonus-timestamp
+	$(AR) -crs $(NAME) .bonus-timestamp $?
+	@rm .bonus-timestamp
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
