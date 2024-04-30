@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:53:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 16:18:58 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/02 12:38:41 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,17 @@ static void	test_ft_memcpy(void)
 		TEST_FAIL("Full buffer ft_memcpy returned wrong pointer\n");
 	if (memcmp(buf, "abcdefghijklmnopqrst", 20))
 		TEST_FAIL("Full buffer ft_memcpy didn't match expected data\n");
+#ifdef TEST_UNDEF
+/*
+	Passing NULL pointers to real memcpy invokes undefined behaviour, but on
+	macOS Mojave it seems to no-op when pointers are equal, and some evaluators
+	and test kits expect matching this behaviour.
+*/
+	ret = ft_memcpy(0, 0, 1);
+	if (ret != 0)
+		TEST_FAIL(
+			"Double NULL ft_memcpy didn't crash but returned wrong address");
+#endif
 }
 
 REGISTER_TEST(ft_memmove);
@@ -89,4 +100,15 @@ static void	test_ft_memmove(void)
 		TEST_FAIL("Upwards ft_memmove returned wrong pointer\n");
 	if (memcmp(buf, "abcdeabcdefghijklmno", 20))
 		TEST_FAIL("Upwards ft_memmove didn't match stdlib\n");
+#ifdef TEST_UNDEF
+/*
+	Passing NULL pointers to real memmove invokes undefined behaviour, but on
+	macOS Mojave it seems to no-op when pointers are equal, and some evaluators
+	and test kits expect matching this behaviour.
+*/
+	ret = ft_memmove(0, 0, 1);
+	if (ret != 0)
+		TEST_FAIL(
+			"Double NULL ft_memmove didn't crash but returned wrong address");
+#endif
 }

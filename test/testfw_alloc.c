@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:17:06 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 18:25:36 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/02 12:50:34 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@
 
 REGISTER_TEST(ft_calloc);
 
-// Expect crash if full size of returned memory is not writable
-// Zero size or count shouldn't crash, but may return null;
+/*
+	Expect crash if full size of returned memory is not writable.
+	Zero size or count shouldn't crash, but it is implementation defined whether
+	it returns a NULL pointer or a valid unique pointer. On macOS Mojave the
+	libc calloc returns a valid pointer, and Moulinette and some test kits
+	require ft_calloc does too.
+*/
 static void	test_ft_calloc(void)
 {
 	char	*buf;
@@ -46,10 +51,16 @@ static void	test_ft_calloc(void)
 			" (impossibly large alloc)\n", HUGE, HUGE);
 	free(buf);
 	buf = ft_calloc(0, 1);
+	if (!buf)
+		TEST_FAIL("ft_calloc(0, 1) returned a null pointer\n");
 	free(buf);
 	buf = ft_calloc(1, 0);
+	if (!buf)
+		TEST_FAIL("ft_calloc(1, 0) returned a null pointer\n");
 	free(buf);
 	buf = ft_calloc(0, 0);
+	if (!buf)
+		TEST_FAIL("ft_calloc(0, 0) returned a null pointer\n");
 	free(buf);
 }
 

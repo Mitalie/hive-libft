@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:39:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 16:51:33 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/02 12:36:12 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,18 @@ static void	test_ft_atoi(void)
 	match_atoi("2147483646");
 	match_atoi("-2147483647");
 	match_atoi("-2147483648");
+#ifdef TEST_UNDEF
+/*
+	These calls test behaviour around 64-bit LONG_MAX/MIN. These inputs invoke
+	undefined behaviour for atoi, but since this fact is not mentioned in the
+	system manpages, some evaluators expect matching libc which on macOS Mojave
+	defers to strtol and its clamping behaviour.
+*/
+	match_atoi("9223372036854775807");
+	match_atoi("9223372036854775808");
+	match_atoi("9223372036854775809");
+	match_atoi("-9223372036854775808");
+	match_atoi("-9223372036854775809");
+	match_atoi("-9223372036854775810");
+#endif
 }
