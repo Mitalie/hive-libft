@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:23:22 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/30 13:11:02 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/02 11:08:07 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 	requires matching the libc function behaviour, so we avoid filtering zero
 	sizes with an early return and pass them on to libc malloc.
 
-	Some libft testers explicitly require non-NULL pointers, which this
-	implementation would fail if malloc returns NULL, but if that happens it's
-	likely libc calloc would also return NULL and therefore the test is wrong.
+	Moulinette seems to require non-NULL pointer, so this implementation would
+	fail if malloc returned NULL. That doesn't happen on our platform, and it's
+	not clear what would be expected on platforms where it doesn't.
 */
 
 void	*ft_calloc(size_t count, size_t size)
