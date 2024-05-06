@@ -6,13 +6,12 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 18:02:53 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:43:44 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
 #include "libft.h"
-#include <unistd.h>
 
 static int	utoa_arr_b(unsigned int n, char *arr, char *base, size_t nbase)
 {

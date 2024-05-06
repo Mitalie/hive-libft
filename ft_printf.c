@@ -6,16 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 18:05:06 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:44:46 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "ft_printf_internal.h"
-#include <limits.h>
 #include <stdarg.h>
-#include <stdbool.h>
-#include <unistd.h>
 
 #define BASE_DEC "0123456789"
 #define BASE_HEXL "0123456789abcdef"

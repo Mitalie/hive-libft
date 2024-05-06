@@ -6,14 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:00:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 18:03:01 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:44:03 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
 #include "libft.h"
 #include <stdint.h>
-#include <unistd.h>
 
 static int	ptoa_arr_b(uintptr_t n, char *arr, char *base, size_t nbase)
 {
