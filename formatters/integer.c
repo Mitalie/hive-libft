@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 18:43:44 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:50:42 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	utoa_arr_b(unsigned int n, char *arr, char *base, size_t nbase)
 	return (len + 1);
 }
 
-bool	format_unsigned(int *written, unsigned int n, char *base)
+bool	format_unsigned(t_printf_state *s, unsigned int n, char *base)
 {
 	size_t	nbase;
 	size_t	len;
@@ -32,12 +32,12 @@ bool	format_unsigned(int *written, unsigned int n, char *base)
 
 	nbase = ft_strlen(base);
 	len = utoa_arr_b(n, arr, base, nbase);
-	if (!check_write(written, arr, len))
+	if (!check_write(s, arr, len))
 		return (false);
 	return (true);
 }
 
-bool	format_signed(int *written, int n, char *base)
+bool	format_signed(t_printf_state *s, int n, char *base)
 {
 	size_t	nbase;
 	size_t	len;
@@ -51,7 +51,7 @@ bool	format_signed(int *written, int n, char *base)
 	}
 	else
 		len = utoa_arr_b(n, arr, base, nbase);
-	if (!check_write(written, arr, len))
+	if (!check_write(s, arr, len))
 		return (false);
 	return (true);
 }

@@ -6,22 +6,30 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 18:07:26 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:55:46 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_INTERNAL_H
 # define FT_PRINTF_INTERNAL_H
 
+# include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
 
-bool	check_write(int *written, const void *data, size_t len);
+typedef struct s_printf_state
+{
+	const char	*fmt;
+	va_list		args;
+	int			written;
+}	t_printf_state;
 
-bool	format_char(int *written, char c);
-bool	format_string(int *written, char *s);
-bool	format_pointer(int *written, void *p);
-bool	format_unsigned(int *written, unsigned int n, char *base);
-bool	format_signed(int *written, int n, char *base);
+bool	check_write(t_printf_state *s, const void *data, size_t len);
+
+bool	format_char(t_printf_state *s, char c);
+bool	format_string(t_printf_state *s, char *str);
+bool	format_pointer(t_printf_state *s, void *p);
+bool	format_unsigned(t_printf_state *s, unsigned int n, char *base);
+bool	format_signed(t_printf_state *s, int n, char *base);
 
 #endif
