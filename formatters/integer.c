@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 17:54:13 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:02:53 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ bool	format_unsigned(int *written, unsigned int n, char *base)
 
 	nbase = ft_strlen(base);
 	len = utoa_arr_b(n, arr, base, nbase);
-	if (write(STDOUT_FILENO, arr, len) < 0)
+	if (!check_write(written, arr, len))
 		return (false);
-	*written += len;
 	return (true);
 }
 
@@ -53,8 +52,7 @@ bool	format_signed(int *written, int n, char *base)
 	}
 	else
 		len = utoa_arr_b(n, arr, base, nbase);
-	if (write(STDOUT_FILENO, arr, len) < 0)
+	if (!check_write(written, arr, len))
 		return (false);
-	*written += len;
 	return (true);
 }

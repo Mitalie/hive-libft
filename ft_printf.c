@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 17:51:29 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:05:06 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,9 @@ static bool	print_until_specifier(const char **fmt, int *written)
 	len = 0;
 	while ((*fmt)[len] && (*fmt)[len] != '%')
 		len++;
-	if (len > (unsigned)INT_MAX - *written)
-		return (false);
-	if (write(STDOUT_FILENO, *fmt, len) < 0)
+	if (!check_write(written, *fmt, len))
 		return (false);
 	*fmt += len;
-	*written += len;
 	return (true);
 }
 

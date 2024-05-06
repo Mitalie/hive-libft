@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 17:51:30 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:07:26 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define FT_PRINTF_INTERNAL_H
 
 # include <stdbool.h>
+# include <stddef.h>
+
+bool	check_write(int *written, const void *data, size_t len);
 
 bool	format_char(int *written, char c);
 bool	format_string(int *written, char *s);

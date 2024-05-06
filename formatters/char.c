@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:27:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 17:51:03 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:01:31 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 bool	format_char(int *written, char c)
 {
-	if (write(STDOUT_FILENO, &c, 1) < 0)
+	if (!check_write(written, &c, 1))
 		return (false);
-	(*written)++;
 	return (true);
 }

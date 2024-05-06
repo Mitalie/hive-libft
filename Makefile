@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/06 16:43:47 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/06 18:08:08 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ NAME = libftprintf.a
 
 SRCS = \
 	ft_printf.c \
+	check_write.c \
 	formatters/char.c \
 	formatters/string.c \
 	formatters/pointer.c \
