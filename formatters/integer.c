@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 18:50:42 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:06:44 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ static int	utoa_arr_b(unsigned int n, char *arr, char *base, size_t nbase)
 	return (len + 1);
 }
 
-bool	format_unsigned(t_printf_state *s, unsigned int n, char *base)
+bool	format_unsigned(t_printf_state *s, char *base)
 {
-	size_t	nbase;
-	size_t	len;
-	char	arr[32];
+	size_t			nbase;
+	size_t			len;
+	char			arr[32];
+	unsigned int	n;
 
+	n = va_arg(s->args, unsigned int);
 	nbase = ft_strlen(base);
 	len = utoa_arr_b(n, arr, base, nbase);
 	if (!check_write(s, arr, len))
@@ -37,12 +39,14 @@ bool	format_unsigned(t_printf_state *s, unsigned int n, char *base)
 	return (true);
 }
 
-bool	format_signed(t_printf_state *s, int n, char *base)
+bool	format_signed(t_printf_state *s, char *base)
 {
 	size_t	nbase;
 	size_t	len;
 	char	arr[33];
+	int		n;
 
+	n = va_arg(s->args, int);
 	nbase = ft_strlen(base);
 	if (n < 0)
 	{

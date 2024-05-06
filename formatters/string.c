@@ -6,17 +6,19 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:45:56 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 18:51:06 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:05:54 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
 #include "libft.h"
 
-bool	format_string(t_printf_state *s, char *str)
+bool	format_string(t_printf_state *s)
 {
-	size_t	len;
+	size_t		len;
+	const char	*str;
 
+	str = va_arg(s->args, const char *);
 	if (!str)
 		str = "(null)";
 	len = ft_strlen(str);
