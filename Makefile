@@ -6,12 +6,12 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/06 16:12:11 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/06 16:43:47 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS += -Wall -Wextra -Werror
-CPPFLAGS += -MMD -MP -I./libft
+CPPFLAGS += -MMD -MP -I./libft -I.
 CC ?= cc
 AR ?= ar
 
@@ -19,6 +19,10 @@ NAME = libftprintf.a
 
 SRCS = \
 	ft_printf.c \
+	formatters/char.c \
+	formatters/string.c \
+	formatters/pointer.c \
+	formatters/integer.c \
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
