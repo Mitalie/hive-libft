@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 19:10:52 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:48:28 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
+# include <stdint.h>
 
 typedef struct s_printf_state
 {
@@ -23,6 +24,9 @@ typedef struct s_printf_state
 	va_list		args;
 	int			written;
 }	t_printf_state;
+
+int		utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb);
+int		ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
 
 bool	check_write(t_printf_state *s, const void *data, size_t len);
 

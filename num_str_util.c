@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pointer.c                                          :+:      :+:    :+:   */
+/*   num_str_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 17:00:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 11:48:41 by amakinen         ###   ########.fr       */
+/*   Created: 2024/05/07 11:10:41 by amakinen          #+#    #+#             */
+/*   Updated: 2024/05/07 11:48:22 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
 
-bool	format_pointer(t_printf_state *s)
+int	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb)
 {
-	size_t		len;
-	char		arr[18];
-	const void	*p;
+	int	len;
 
-	p = va_arg(s->args, const void *);
-	arr[0] = '0';
-	arr[1] = 'x';
-	len = 2 + ptoa_arr_base((uintptr_t)p, arr + 2, "0123456789abcdef", 16);
-	if (!check_write(s, arr, len))
-		return (false);
-	return (true);
+	len = 0;
+	if (n >= nb)
+		len += utoa_arr_base(n / nb, arr, base, nb);
+	arr[len] = base[n % nb];
+	return (len + 1);
+}
+
+int	ptoa_arr_base(uintptr_t n, char *arr, char *base, size_t nb)
+{
+	size_t	len;
+
+	len = 0;
+	if (n >= nb)
+		len += ptoa_arr_base(n / nb, arr, base, nb);
+	arr[len] = base[n % nb];
+	return (len + 1);
 }
