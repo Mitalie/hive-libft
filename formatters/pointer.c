@@ -6,18 +6,19 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:00:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 12:05:48 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:39:52 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
 
-bool	format_p(t_printf_state *s)
+bool	format_p(t_printf_state *s, t_specifier *spec)
 {
 	size_t		len;
 	char		arr[18];
 	const void	*p;
 
+	(void)spec;
 	p = va_arg(s->args, const void *);
 	arr[0] = '0';
 	arr[1] = 'x';

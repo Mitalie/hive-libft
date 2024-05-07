@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 12:13:28 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:36:13 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,27 @@
 
 static bool	handle_specifier(t_printf_state *s)
 {
-	bool	success;
+	bool		success;
+	t_specifier	spec;
 
+	if (!parse_specifier(s, &spec))
+		return (false);
 	if (*s->fmt == 'c')
-		success = format_c(s);
+		success = format_c(s, &spec);
 	else if (*s->fmt == 's')
-		success = format_s(s);
+		success = format_s(s, &spec);
 	else if (*s->fmt == 'p')
-		success = format_p(s);
+		success = format_p(s, &spec);
 	else if (*s->fmt == 'd' || *s->fmt == 'i')
-		success = format_d(s);
+		success = format_d(s, &spec);
 	else if (*s->fmt == 'u')
-		success = format_u(s);
+		success = format_u(s, &spec);
 	else if (*s->fmt == 'x')
-		success = format_x(s);
+		success = format_x(s, &spec);
 	else if (*s->fmt == 'X')
-		success = format_x_upper(s);
+		success = format_x_upper(s, &spec);
 	else if (*s->fmt == '%')
-		success = format_percent(s);
+		success = format_percent(s, &spec);
 	else
 		return (false);
 	s->fmt++;

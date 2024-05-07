@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/07 11:13:40 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/07 15:35:58 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS = \
 	ft_printf.c \
 	check_write.c \
 	num_str_util.c \
+	parse_specifier.c \
 	formatters/char.c \
 	formatters/string.c \
 	formatters/pointer.c \
