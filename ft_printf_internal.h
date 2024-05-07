@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 17:35:42 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:05:47 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 typedef struct s_printf_state
 {
+	int			fd;
 	const char	*fmt;
 	va_list		args;
 	int			written;

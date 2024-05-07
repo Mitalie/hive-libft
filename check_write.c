@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:03:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 18:49:58 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:08:07 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ bool	check_write(t_printf_state *s, const void *data, size_t len)
 	if (len > (unsigned)INT_MAX - s->written)
 		return (false);
 	s->written += len;
-	return (write_retry(STDOUT_FILENO, data, len));
+	return (write_retry(s->fd, data, len));
 }

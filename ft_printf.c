@@ -6,12 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 17:00:57 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:06:09 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "ft_printf_internal.h"
+#include <unistd.h>
 
 static bool	handle_specifier(t_printf_state *s)
 {
@@ -38,7 +39,7 @@ static bool	handle_specifier(t_printf_state *s)
 	else if (conv == '%')
 		return (format_percent(s, &spec));
 	else
-		return (check_write(s, (t_buf){&conv, 1}));
+		return (check_write(s, &conv, 1));
 }
 
 static bool	print_until_specifier(t_printf_state *s)
@@ -59,6 +60,7 @@ int	ft_printf(const char *fmt, ...)
 	t_printf_state	s;
 	bool			success;
 
+	s.fd = STDOUT_FILENO;
 	s.fmt = fmt;
 	va_start(s.args, fmt);
 	s.written = 0;
