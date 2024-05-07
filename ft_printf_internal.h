@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 15:32:38 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:35:42 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,17 @@ typedef enum e_sign_mode
 
 typedef struct s_specifier
 {
-	bool		alternate;
-	t_pad_mode	pad_mode;
-	t_sign_mode	sign_mode;
-	int			width;
-	int			precision;
+	bool			alternate;
+	t_pad_mode		pad_mode;
+	t_sign_mode		sign_mode;
+	unsigned int	width;
+	unsigned int	precision;
+	bool			use_precision;
 }	t_specifier;
 
 size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb);
 size_t	ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
+bool	parse_uint(const char **str, unsigned int *value);
 
 bool	check_write(t_printf_state *s, const void *data, size_t len);
 

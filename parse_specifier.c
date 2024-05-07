@@ -6,31 +6,11 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 10:35:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 15:34:43 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:37:00 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
-#include <limits.h>
-#include "libft.h"
-
-static bool	parse_decimal(const char **str, int *value)
-{
-	int	v;
-	int	digit;
-
-	v = 0;
-	while (ft_isdigit(**str))
-	{
-		digit = **str - '0';
-		if (v > (INT_MAX - digit) / 10)
-			return (false);
-		v = 10 * v + digit;
-		(*str)++;
-	}
-	*value = v;
-	return (true);
-}
 
 static void	parse_spec_flags(t_printf_state *s, t_specifier *spec)
 {
@@ -58,15 +38,16 @@ static void	parse_spec_flags(t_printf_state *s, t_specifier *spec)
 
 static bool	parse_spec_width(t_printf_state *s, t_specifier *spec)
 {
-	return (parse_decimal(&s->fmt, &spec->width));
+	return (parse_uint(&s->fmt, &spec->width));
 }
 
 static bool	parse_spec_precision(t_printf_state *s, t_specifier *spec)
 {
 	if (*s->fmt == '.')
 	{
+		spec->use_precision = true;
 		s->fmt++;
-		return (parse_decimal(&s->fmt, &spec->precision));
+		return (parse_uint(&s->fmt, &spec->precision));
 	}
 	return (true);
 }
@@ -77,7 +58,8 @@ bool	parse_specifier(t_printf_state *s, t_specifier *spec)
 	spec->pad_mode = PAD_BLANK;
 	spec->sign_mode = SIGN_MINUS_ONLY;
 	spec->width = 0;
-	spec->precision = -1;
+	spec->precision = 0;
+	spec->use_precision = false;
 	parse_spec_flags(s, spec);
 	if (!parse_spec_width(s, spec))
 		return (false);
