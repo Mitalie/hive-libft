@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 11:12:21 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:01:14 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ bool	format_unsigned(t_printf_state *s, char *base)
 	n = va_arg(s->args, unsigned int);
 	nbase = ft_strlen(base);
 	len = utoa_arr_base(n, arr, base, nbase);
-	if (!check_write(s, arr, len))
-		return (false);
-	return (true);
+	return (check_write(s, arr, len));
 }
 
 bool	format_signed(t_printf_state *s, char *base)
@@ -44,7 +42,5 @@ bool	format_signed(t_printf_state *s, char *base)
 	}
 	else
 		len = utoa_arr_base(n, arr, base, nbase);
-	if (!check_write(s, arr, len))
-		return (false);
-	return (true);
+	return (check_write(s, arr, len));
 }

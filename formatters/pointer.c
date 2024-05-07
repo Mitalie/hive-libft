@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:00:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 11:48:41 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:01:37 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,5 @@ bool	format_pointer(t_printf_state *s)
 	arr[0] = '0';
 	arr[1] = 'x';
 	len = 2 + ptoa_arr_base((uintptr_t)p, arr + 2, "0123456789abcdef", 16);
-	if (!check_write(s, arr, len))
-		return (false);
-	return (true);
+	return (check_write(s, arr, len));
 }
