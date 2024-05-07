@@ -6,13 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 11:48:22 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:30:59 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
 
-int	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb)
+size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb)
 {
 	int	len;
 
@@ -23,7 +23,7 @@ int	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb)
 	return (len + 1);
 }
 
-int	ptoa_arr_base(uintptr_t n, char *arr, char *base, size_t nb)
+size_t	ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb)
 {
 	size_t	len;
 

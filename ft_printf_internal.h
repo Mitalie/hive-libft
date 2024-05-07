@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 12:13:23 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:30:24 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct s_printf_state
 	int			written;
 }	t_printf_state;
 
-int		utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb);
-int		ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
+size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb);
+size_t	ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
 
 bool	check_write(t_printf_state *s, const void *data, size_t len);
 
