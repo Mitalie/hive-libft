@@ -6,13 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:00:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 12:01:37 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:05:48 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
 
-bool	format_pointer(t_printf_state *s)
+bool	format_p(t_printf_state *s)
 {
 	size_t		len;
 	char		arr[18];

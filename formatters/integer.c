@@ -6,41 +6,63 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 12:01:14 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:13:17 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
 #include "libft.h"
 
-bool	format_unsigned(t_printf_state *s, char *base)
-{
-	size_t			nbase;
-	size_t			len;
-	char			arr[32];
-	unsigned int	n;
+#define BASE_DEC "0123456789"
+#define BASE_HEXL "0123456789abcdef"
+#define BASE_HEXU "0123456789ABCDEF"
 
-	n = va_arg(s->args, unsigned int);
-	nbase = ft_strlen(base);
-	len = utoa_arr_base(n, arr, base, nbase);
-	return (check_write(s, arr, len));
-}
-
-bool	format_signed(t_printf_state *s, char *base)
+bool	format_d(t_printf_state *s)
 {
-	size_t	nbase;
 	size_t	len;
-	char	arr[33];
+	char	arr[11];
 	int		n;
 
 	n = va_arg(s->args, int);
-	nbase = ft_strlen(base);
 	if (n < 0)
 	{
 		arr[0] = '-';
-		len = 1 + utoa_arr_base(-(unsigned int)n, arr + 1, base, nbase);
+		len = 1 + utoa_arr_base(-(unsigned int)n, arr + 1, BASE_DEC, 10);
 	}
 	else
-		len = utoa_arr_base(n, arr, base, nbase);
+		len = utoa_arr_base(n, arr, BASE_DEC, 10);
+	return (check_write(s, arr, len));
+}
+
+bool	format_u(t_printf_state *s)
+{
+	size_t			len;
+	char			arr[10];
+	unsigned int	n;
+
+	n = va_arg(s->args, unsigned int);
+	len = utoa_arr_base(n, arr, BASE_DEC, 10);
+	return (check_write(s, arr, len));
+}
+
+bool	format_x(t_printf_state *s)
+{
+	size_t			len;
+	char			arr[10];
+	unsigned int	n;
+
+	n = va_arg(s->args, unsigned int);
+	len = utoa_arr_base(n, arr, BASE_HEXL, 16);
+	return (check_write(s, arr, len));
+}
+
+bool	format_x_upper(t_printf_state *s)
+{
+	size_t			len;
+	char			arr[10];
+	unsigned int	n;
+
+	n = va_arg(s->args, unsigned int);
+	len = utoa_arr_base(n, arr, BASE_HEXU, 16);
 	return (check_write(s, arr, len));
 }

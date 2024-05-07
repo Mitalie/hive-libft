@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 11:48:28 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:13:23 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ int		ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
 
 bool	check_write(t_printf_state *s, const void *data, size_t len);
 
-bool	format_char(t_printf_state *s);
-bool	format_string(t_printf_state *s);
-bool	format_pointer(t_printf_state *s);
-bool	format_unsigned(t_printf_state *s, char *base);
-bool	format_signed(t_printf_state *s, char *base);
+bool	format_c(t_printf_state *s);
+bool	format_s(t_printf_state *s);
+bool	format_p(t_printf_state *s);
+bool	format_d(t_printf_state *s);
+bool	format_u(t_printf_state *s);
+bool	format_x(t_printf_state *s);
+bool	format_x_upper(t_printf_state *s);
 bool	format_percent(t_printf_state *s);
 
 #endif

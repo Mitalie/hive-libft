@@ -6,14 +6,14 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:45:56 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 12:01:29 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:05:47 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
 #include "libft.h"
 
-bool	format_string(t_printf_state *s)
+bool	format_s(t_printf_state *s)
 {
 	size_t		len;
 	const char	*str;

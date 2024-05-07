@@ -6,35 +6,31 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/06 19:10:35 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:13:28 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "ft_printf_internal.h"
 
-#define BASE_DEC "0123456789"
-#define BASE_HEXL "0123456789abcdef"
-#define BASE_HEXU "0123456789ABCDEF"
-
 static bool	handle_specifier(t_printf_state *s)
 {
 	bool	success;
 
 	if (*s->fmt == 'c')
-		success = format_char(s);
+		success = format_c(s);
 	else if (*s->fmt == 's')
-		success = format_string(s);
+		success = format_s(s);
 	else if (*s->fmt == 'p')
-		success = format_pointer(s);
+		success = format_p(s);
 	else if (*s->fmt == 'd' || *s->fmt == 'i')
-		success = format_signed(s, BASE_DEC);
+		success = format_d(s);
 	else if (*s->fmt == 'u')
-		success = format_unsigned(s, BASE_DEC);
+		success = format_u(s);
 	else if (*s->fmt == 'x')
-		success = format_unsigned(s, BASE_HEXL);
+		success = format_x(s);
 	else if (*s->fmt == 'X')
-		success = format_unsigned(s, BASE_HEXU);
+		success = format_x_upper(s);
 	else if (*s->fmt == '%')
 		success = format_percent(s);
 	else
