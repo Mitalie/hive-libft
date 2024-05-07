@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 15:36:13 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:00:57 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,30 @@
 
 static bool	handle_specifier(t_printf_state *s)
 {
-	bool		success;
 	t_specifier	spec;
+	char		conv;
 
 	if (!parse_specifier(s, &spec))
 		return (false);
-	if (*s->fmt == 'c')
-		success = format_c(s, &spec);
-	else if (*s->fmt == 's')
-		success = format_s(s, &spec);
-	else if (*s->fmt == 'p')
-		success = format_p(s, &spec);
-	else if (*s->fmt == 'd' || *s->fmt == 'i')
-		success = format_d(s, &spec);
-	else if (*s->fmt == 'u')
-		success = format_u(s, &spec);
-	else if (*s->fmt == 'x')
-		success = format_x(s, &spec);
-	else if (*s->fmt == 'X')
-		success = format_x_upper(s, &spec);
-	else if (*s->fmt == '%')
-		success = format_percent(s, &spec);
+	conv = *s->fmt++;
+	if (conv == 'c')
+		return (format_c(s, &spec));
+	else if (conv == 's')
+		return (format_s(s, &spec));
+	else if (conv == 'p')
+		return (format_p(s, &spec));
+	else if (conv == 'd' || conv == 'i')
+		return (format_d(s, &spec));
+	else if (conv == 'u')
+		return (format_u(s, &spec));
+	else if (conv == 'x')
+		return (format_x(s, &spec));
+	else if (conv == 'X')
+		return (format_x_upper(s, &spec));
+	else if (conv == '%')
+		return (format_percent(s, &spec));
 	else
-		return (false);
-	s->fmt++;
-	return (success);
+		return (check_write(s, (t_buf){&conv, 1}));
 }
 
 static bool	print_until_specifier(t_printf_state *s)
