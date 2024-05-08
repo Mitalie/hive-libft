@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 18:05:47 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/08 11:21:19 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb);
 size_t	ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
 bool	parse_uint(const char **str, unsigned int *value);
 
-bool	check_write(t_printf_state *s, const void *data, size_t len);
+bool	write_simple(t_printf_state *s, const void *data, size_t len);
 
 bool	parse_specifier(t_printf_state *s, t_specifier *spec);
 

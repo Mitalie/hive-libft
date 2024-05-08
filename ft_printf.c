@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 18:06:09 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/08 11:21:13 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static bool	handle_specifier(t_printf_state *s)
 	else if (conv == '%')
 		return (format_percent(s, &spec));
 	else
-		return (check_write(s, &conv, 1));
+		return (write_simple(s, &conv, 1));
 }
 
 static bool	print_until_specifier(t_printf_state *s)
@@ -49,7 +49,7 @@ static bool	print_until_specifier(t_printf_state *s)
 	len = 0;
 	while (s->fmt[len] && s->fmt[len] != '%')
 		len++;
-	if (!check_write(s, s->fmt, len))
+	if (!write_simple(s, s->fmt, len))
 		return (false);
 	s->fmt += len;
 	return (true);

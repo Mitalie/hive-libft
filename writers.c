@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_write.c                                      :+:      :+:    :+:   */
+/*   writers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:03:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 18:08:07 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/08 11:21:07 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool	write_retry(int fd, const void *buf, size_t len)
 	return (true);
 }
 
-bool	check_write(t_printf_state *s, const void *data, size_t len)
+bool	write_simple(t_printf_state *s, const void *data, size_t len)
 {
 	if (len > (unsigned)INT_MAX - s->written)
 		return (false);
