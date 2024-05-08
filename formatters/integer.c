@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/08 13:52:25 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:55:31 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,21 @@ bool	format_d(t_printf_state *s, t_specifier *spec)
 	char		digits[10];
 	t_number	num;
 
-	num = (t_number){digits, 0, 0, 0};
+	num = (t_number){digits, 0, "-", 1};
 	n = va_arg(s->args, int);
 	if (n < 0)
-	{
 		num.digits_len = utoa_arr_base(-(unsigned int)n, digits, BASE_DEC, 10);
-		num.prefix = "-";
-		num.prefix_len = 1;
+	else
+	{
+		if (n != 0 || !spec->use_precision || spec->precision != 0)
+			num.digits_len = utoa_arr_base(n, digits, BASE_DEC, 10);
+		if (spec->sign_mode == SIGN_BLANK)
+			num.prefix = " ";
+		else if (spec->sign_mode == SIGN_PLUS)
+			num.prefix = "+";
+		else
+			num.prefix_len = 0;
 	}
-	else if (n != 0 || !spec->use_precision || spec->precision != 0)
-		num.digits_len = utoa_arr_base(n, digits, BASE_DEC, 10);
 	return (write_number(s, spec, num));
 }
 
