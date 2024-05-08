@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/08 11:23:20 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:41:27 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,32 @@ typedef struct s_specifier
 	bool			use_precision;
 }	t_specifier;
 
+typedef struct s_number
+{
+	const void	*digits;
+	size_t		digits_len;
+	const void	*prefix;
+	size_t		prefix_len;
+}	t_number;
+typedef struct s_num_pad
+{
+	size_t	left;
+	size_t	zeroes;
+	size_t	right;
+	size_t	total;
+}	t_num_pad;
+
 size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb);
 size_t	ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
 bool	parse_uint(const char **str, unsigned int *value);
 
+bool	calculate_number_padding(t_specifier *spec, t_num_pad *p,
+			size_t digits, size_t prefix);
+
 bool	write_simple(t_printf_state *s, const void *data, size_t len);
 bool	write_padded(t_printf_state *s, t_specifier *spec,
 			const void *data, size_t len);
+bool	write_number(t_printf_state *s, t_specifier *spec, t_number n);
 
 bool	parse_specifier(t_printf_state *s, t_specifier *spec);
 

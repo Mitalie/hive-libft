@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/08 11:19:02 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/08 13:31:29 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ NAME = libftprintf.a
 
 SRCS = \
 	ft_printf.c \
+	calculate_padding.c \
 	writers.c \
 	num_str_util.c \
 	parse_specifier.c \
