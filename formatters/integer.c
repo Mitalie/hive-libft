@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/08 13:44:31 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:52:25 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ bool	format_x(t_printf_state *s, t_specifier *spec)
 	char			digits[8];
 	t_number		num;
 
-	num = (t_number){digits, 0, 0, 0};
+	num = (t_number){digits, 0, "0x", 0};
 	n = va_arg(s->args, unsigned int);
 	if (n != 0 || !spec->use_precision || spec->precision != 0)
 		num.digits_len = utoa_arr_base(n, digits, BASE_HEXL, 16);
+	if (n != 0 && spec->alternate)
+		num.prefix_len = 2;
 	return (write_number(s, spec, num));
 }
 
@@ -68,9 +70,11 @@ bool	format_x_upper(t_printf_state *s, t_specifier *spec)
 	char			digits[8];
 	t_number		num;
 
-	num = (t_number){digits, 0, 0, 0};
+	num = (t_number){digits, 0, "0X", 0};
 	n = va_arg(s->args, unsigned int);
 	if (n != 0 || !spec->use_precision || spec->precision != 0)
 		num.digits_len = utoa_arr_base(n, digits, BASE_HEXU, 16);
+	if (n != 0 && spec->alternate)
+		num.prefix_len = 2;
 	return (write_number(s, spec, num));
 }
