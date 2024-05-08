@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:02:07 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/08 13:41:29 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:01:31 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 bool	calculate_number_padding(t_specifier *spec, t_num_pad *p,
 			size_t digits, size_t prefix)
 {
-	*p = (t_num_pad){0};
+	p->left = 0;
+	p->zeroes = 0;
+	p->right = 0;
 	p->total = digits;
 	if (spec->use_precision && p->total < spec->precision)
 	{
