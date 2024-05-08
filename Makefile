@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/08 13:31:29 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/08 16:46:02 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,36 +31,39 @@ SRCS = \
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 
-.PHONY: all clean fclean re libft
+.PHONY: all bonus clean -clean fclean -fclean re
 
 all: $(NAME)
 
-clean:
+# The same ft_printf function meets both mandatory and bonus requirements, so
+# there are no separate bonus files to build.
+bonus: $(NAME)
+
+clean: libft/clean -clean
+-clean:
 	rm -f $(OBJS)
 	rm -f $(DEPS)
 
-fclean: clean
+fclean: libft/fclean -fclean
+-fclean: -clean
 	rm -f $(NAME)
 
 re: fclean all
 
-# We need to call recursive make in a phony target since top level Make doesn't
-# know the subdirectory's dependencies and won't notice if they change. But if
-# our real target depends directly on a phony target, it is always rebuilt as
-# the phony dependency doesn't have a timestamp to determine it didn't change.
-# By having an intermediate real target that depends on the phony target, and
-# defining a(n empty) recipe for that real target, Make will build the phony
-# target, execute the recipe, and then check timestamps to determine if the
-# dependent targets need to be updated.
-libft:
-	+make -C libft
+# Build any targets with libft/ prefix with recursive make
+libft/clean libft/fclean libft/libft.a: libft/%:
+	+make -C libft $*
 
-libft/libft.a: libft
-	@
+# We must always execute the recursive make as this Makefile doesn't know
+# whether the recursive target needs updating, but libft/libft.a must not be
+# marked as a phony target directly or its dependents will get rebuilt
+# regardless of whether it changed or not.
+.PHONY: libft/clean libft/fclean phony
+libft/libft.a: phony
 
 $(NAME): libft/libft.a $(OBJS)
 	cp libft/libft.a $@
-	$(AR) -crs $@ $(filter-out libft/libft.a,$^)
+	$(AR) -crs $@ $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
