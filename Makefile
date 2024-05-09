@@ -6,12 +6,12 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 16:03:34 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/09 10:27:50 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/09 12:45:02 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS += -Wall -Wextra -Werror
-CPPFLAGS += -MMD -MP -I./printf
+_CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
+_CPPFLAGS = -MMD -MP -I./printf $(CPPFLAGS)
 CC ?= cc
 AR ?= ar
 
@@ -20,8 +20,8 @@ OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 
 ifneq (,$(SANITIZE))
-    export CFLAGS += -g -fsanitize=$(SANITIZE)
-    export LDFLAGS += -fsanitize=$(SANITIZE)
+    export CFLAGS := -g -fsanitize=$(SANITIZE) $(CFLAGS)
+    export LDFLAGS := -fsanitize=$(SANITIZE) $(LDFLAGS)
 endif
 
 .PHONY: runtest all clean -clean fclean -fclean re
@@ -60,6 +60,6 @@ bin:
 	@mkdir -p $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)
