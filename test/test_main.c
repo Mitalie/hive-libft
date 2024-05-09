@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:17:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/09 14:53:35 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:32:48 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,18 @@ do {                                                                            
 	size_t std_len = std_ret;                                                             \
 	if (ft_ret == std_ret && ft_len == std_len && !memcmp(ft_out, std_out, ft_len))       \
 		break; /* good */                                                                 \
-	printf("printf(%s)\n", #__VA_ARGS__);                                                 \
+	printf("\e[1;36mprintf(%s)\n\e[0m", #__VA_ARGS__);                                    \
 	if (ft_ret != std_ret)                                                                \
-		printf("ft returned %d, std returned %d\n", ft_ret, std_ret);                     \
+		printf("\e[1;33mft returned %d, std returned %d\n\e[0m", ft_ret, std_ret);        \
 	if (ft_len != std_len || memcmp(ft_out, std_out, ft_len))                             \
 	{                                                                                     \
-		printf("ft wrote %zu bytes:\n", ft_len);                                          \
+		printf("\e[0;31mft wrote %zu bytes:\n", ft_len);                                  \
+		fflush(stdout);                                                                   \
 		dump_buffer(ft_out, ft_len);                                                      \
-		printf("std wrote %zu bytes:\n", std_len);                                        \
+		printf("\e[0;32mstd wrote %zu bytes:\n", std_len);                                \
+		fflush(stdout);                                                                   \
 		dump_buffer(std_out, std_len);                                                    \
+		printf("\e[0m");                                                                  \
 	}                                                                                     \
 	free(ft_out);                                                                         \
 	free(std_out);                                                                        \
