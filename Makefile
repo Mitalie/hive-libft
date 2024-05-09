@@ -6,16 +6,16 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 16:03:34 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/09 12:45:02 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/09 15:13:37 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 _CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
-_CPPFLAGS = -MMD -MP -I./printf $(CPPFLAGS)
+_CPPFLAGS = -MMD -MP -I./printf -I./test/ $(CPPFLAGS)
 CC ?= cc
 AR ?= ar
 
-SRCS = $(wildcard test/*.c)
+SRCS = $(wildcard test/*.c test/**/*.c)
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
 
@@ -53,7 +53,7 @@ printf/clean printf/fclean printf/libftprintf.a: printf/%:
 .PHONY: printf/clean printf/fclean phony
 printf/libftprintf.a: phony
 
-bin/test: printf/libftprintf.a test/test_main.o | bin
+bin/test: printf/libftprintf.a $(OBJS) | bin
 	$(CC) $(LDFLAGS) $^ -o $@
 
 bin:
