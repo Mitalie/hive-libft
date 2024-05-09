@@ -6,12 +6,12 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/26 17:53:35 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/09 12:22:17 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS += -Wall -Wextra -Werror
-CPPFLAGS += -MMD -MP
+_CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
+_CPPFLAGS = -MMD -MP $(CPPFLAGS)
 CC ?= cc
 AR ?= ar
 
@@ -97,6 +97,6 @@ $(NAME)(.bonus-timestamp): $(BONUS_OBJS) | $(NAME)
 	@rm .bonus-timestamp
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)

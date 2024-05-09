@@ -6,12 +6,12 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/08 16:46:02 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/09 12:13:36 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS += -Wall -Wextra -Werror
-CPPFLAGS += -MMD -MP -I./libft -I.
+_CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
+_CPPFLAGS = -MMD -MP -I./libft -I. $(CPPFLAGS)
 CC ?= cc
 AR ?= ar
 
@@ -66,6 +66,6 @@ $(NAME): libft/libft.a $(OBJS)
 	$(AR) -crs $@ $(OBJS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)
