@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:16:17 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/09 14:20:05 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:20:02 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ struct s_mock_data
 	size_t	buf_len;
 };
 
-void	dump_buffer(void *buf, size_t len);
+void	dump_buffer(void *buf, size_t len, int indent);
 void	mock_write(int fildes);
 size_t	unmock_write(int fildes, void **buf);
 
