@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:03:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/08 13:50:04 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/10 13:37:10 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ bool	write_padded(t_printf_state *s, t_specifier *spec,
 		return (false);
 	s->written += len + pad_len;
 	if (spec->pad_mode == PAD_BLANK && !write_char_repeat(s->fd, ' ', pad_len))
+		return (false);
+	if (spec->pad_mode == PAD_ZERO && !write_char_repeat(s->fd, '0', pad_len))
 		return (false);
 	if (!write_retry(s->fd, data, len))
 		return (false);
