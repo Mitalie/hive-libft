@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:13:19 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/09 14:18:16 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/10 10:34:05 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ static ssize_t				(*g_real_write)(int fildes,
 static struct s_mock_data	*g_mocks = 0;
 static int					g_max_mock_fd = -1;
 
-// Stored buffer in mocks is appended with a null byte to make it usable with
-// printf %s in check_unmock_write
-
 ssize_t	write(int fildes, const void *buf, size_t nbyte)
 {
 	struct s_mock_data	*mock;
@@ -37,11 +34,10 @@ ssize_t	write(int fildes, const void *buf, size_t nbyte)
 	{
 		assert(nbyte);
 		mock = &g_mocks[fildes];
-		mock->buf = realloc(mock->buf, mock->buf_len + nbyte + 1);
+		mock->buf = realloc(mock->buf, mock->buf_len + nbyte);
 		assert(mock->buf);
 		memcpy(mock->buf + mock->buf_len, buf, nbyte);
 		mock->buf_len += nbyte;
-		((char *)mock->buf)[mock->buf_len] = 0;
 		return (nbyte);
 	}
 	return (g_real_write(fildes, buf, nbyte));
