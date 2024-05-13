@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 10:35:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 17:37:00 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/13 11:27:18 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	parse_spec_flags(t_printf_state *s, t_specifier *spec)
 			spec->sign_mode = SIGN_BLANK;
 		else if (c == '+')
 			spec->sign_mode = SIGN_PLUS;
+		else if (c == '0' || c == ' ')
+			;
 		else
 			return ;
 		s->fmt++;
