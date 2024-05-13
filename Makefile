@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 16:03:34 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/09 15:13:37 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/13 13:50:17 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ AR ?= ar
 SRCS = $(wildcard test/*.c test/**/*.c)
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
+BINS = bin/test bin/bigtest
 
 ifneq (,$(SANITIZE))
     export CFLAGS := -g -fsanitize=$(SANITIZE) $(CFLAGS)
@@ -26,19 +27,21 @@ endif
 
 .PHONY: runtest all clean -clean fclean -fclean re
 
-runtest: bin/test
+runtest: bin/test bin/bigtest
 	bin/test
+	bin/bigtest
 
-all: bin/test
+all: $(BINS)
 
 clean: printf/clean -clean
 -clean:
 	rm -f $(OBJS)
 	rm -f $(DEPS)
+	rm -rf test/gen/
 
 fclean: printf/fclean -fclean
 -fclean: -clean
-	rm -f bin/test
+	rm -f $(BINS)
 
 re: fclean all
 
@@ -53,10 +56,15 @@ printf/clean printf/fclean printf/libftprintf.a: printf/%:
 .PHONY: printf/clean printf/fclean phony
 printf/libftprintf.a: phony
 
-bin/test: printf/libftprintf.a $(OBJS) | bin
+test/gen/%.inc: test/gen_%.sh | test/gen
+	$< > $@
+
+test/bigtest_main.c: test/gen/test_calls.inc test/gen/test_flags.inc
+
+$(BINS): bin/%: test/%_main.o $(filter-out %_main.o,$(OBJS)) printf/libftprintf.a | bin
 	$(CC) $(LDFLAGS) $^ -o $@
 
-bin:
+test/gen bin:
 	@mkdir -p $@
 
 %.o: %.c
