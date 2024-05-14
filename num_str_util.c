@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/07 17:35:15 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/14 10:58:51 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb)
 {
-	int	len;
+	size_t	len;
 
 	len = 0;
 	if (n >= nb)
