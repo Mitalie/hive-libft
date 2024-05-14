@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/14 10:48:29 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/14 10:54:26 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb);
 size_t	ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
 bool	parse_uint(const char **str, unsigned int *value);
 
-bool	calculate_number_padding(t_specifier *spec, t_num_pad *p,
-			size_t digits, size_t prefix);
 bool	write_all(int fd, const void *buf, size_t len);
 
 bool	write_simple(t_printf_state *s, const void *data, size_t len);
