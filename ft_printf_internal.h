@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/14 10:54:26 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:50:17 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_number
 	const void	*prefix;
 	size_t		prefix_len;
 }	t_number;
+
 typedef struct s_num_pad
 {
 	size_t	left;
