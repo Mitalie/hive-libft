@@ -6,32 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:03:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/10 13:37:10 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/14 10:49:37 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
-#include <errno.h>
 #include <limits.h>
-#include <unistd.h>
 #include "libft.h"
-
-static bool	write_retry(int fd, const void *buf, size_t len)
-{
-	ssize_t	ret;
-
-	while (len)
-	{
-		ret = write(fd, buf, len);
-		if (ret < 0 && errno == EINTR)
-			continue ;
-		else if (ret < 0)
-			return (false);
-		buf = (char *)buf + ret;
-		len -= ret;
-	}
-	return (true);
-}
 
 static bool	write_char_repeat(int fd, char c, size_t n)
 {
@@ -40,11 +21,11 @@ static bool	write_char_repeat(int fd, char c, size_t n)
 	ft_memset(buf, c, sizeof(buf));
 	while (n > sizeof(buf))
 	{
-		if (!write_retry(fd, buf, sizeof(buf)))
+		if (!write_all(fd, buf, sizeof(buf)))
 			return (false);
 		n -= sizeof(buf);
 	}
-	return (write_retry(fd, buf, n));
+	return (write_all(fd, buf, n));
 }
 
 bool	write_simple(t_printf_state *s, const void *data, size_t len)
@@ -52,7 +33,7 @@ bool	write_simple(t_printf_state *s, const void *data, size_t len)
 	if (len > (unsigned)INT_MAX - s->written)
 		return (false);
 	s->written += len;
-	return (write_retry(s->fd, data, len));
+	return (write_all(s->fd, data, len));
 }
 
 bool	write_padded(t_printf_state *s, t_specifier *spec,
@@ -70,7 +51,7 @@ bool	write_padded(t_printf_state *s, t_specifier *spec,
 		return (false);
 	if (spec->pad_mode == PAD_ZERO && !write_char_repeat(s->fd, '0', pad_len))
 		return (false);
-	if (!write_retry(s->fd, data, len))
+	if (!write_all(s->fd, data, len))
 		return (false);
 	if (spec->pad_mode == PAD_RIGHT && !write_char_repeat(s->fd, ' ', pad_len))
 		return (false);
@@ -88,11 +69,11 @@ bool	write_number(t_printf_state *s, t_specifier *spec, t_number n)
 	s->written += pad.total;
 	if (!write_char_repeat(s->fd, ' ', pad.left))
 		return (false);
-	if (!write_retry(s->fd, n.prefix, n.prefix_len))
+	if (!write_all(s->fd, n.prefix, n.prefix_len))
 		return (false);
 	if (!write_char_repeat(s->fd, '0', pad.zeroes))
 		return (false);
-	if (!write_retry(s->fd, n.digits, n.digits_len))
+	if (!write_all(s->fd, n.digits, n.digits_len))
 		return (false);
 	if (!write_char_repeat(s->fd, ' ', pad.right))
 		return (false);
