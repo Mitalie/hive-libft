@@ -6,12 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:46:00 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/14 15:01:14 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:55:12 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <errno.h>
+#include <stdint.h>
 #include <stdlib.h>
 
 static size_t	get_line_len(const char *buf, size_t len)
@@ -32,13 +33,19 @@ static bool	append_to_line(t_linebuf *line, const char *data, size_t len)
 
 	if (len > line->alloc - line->len)
 	{
-		if (!line->alloc)
-			line->alloc = BUFFER_SIZE;
-		while (len > line->alloc - line->len)
-			line->alloc *= 2;
-		newbuf = malloc(line->alloc);
-		if (newbuf)
-			ft_memcpy(newbuf, line->buf, line->len);
+		newbuf = 0;
+		if (len <= SIZE_MAX - line->len)
+		{
+			if (!line->alloc)
+				line->alloc = BUFFER_SIZE;
+			while (len > line->alloc - line->len && line->alloc <= SIZE_MAX / 2)
+				line->alloc *= 2;
+			if (len > line->alloc - line->len)
+				line->alloc = SIZE_MAX;
+			newbuf = malloc(line->alloc);
+			if (newbuf)
+				ft_memcpy(newbuf, line->buf, line->len);
+		}
 		free(line->buf);
 		line->buf = newbuf;
 	}
