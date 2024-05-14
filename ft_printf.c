@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/08 11:21:13 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:47:43 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static bool	handle_specifier(t_printf_state *s)
 		return (format_x_upper(s, &spec));
 	else if (conv == '%')
 		return (format_percent(s, &spec));
-	else
-		return (write_simple(s, &conv, 1));
+	s->fmt--;
+	return (true);
 }
 
 static bool	print_until_specifier(t_printf_state *s)
