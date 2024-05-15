@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 15:49:44 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/13 15:58:24 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/14 15:03:05 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ clean:
 	rm -f $(DEPS)
 	rm -rf test/gen/
 
-fclean:
+fclean: clean
 	rm -f $(BINS)
 
 re: fclean all
