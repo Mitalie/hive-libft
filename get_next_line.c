@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:46:00 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/15 10:30:46 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:20:53 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-static size_t	get_line_len(const char *buf, size_t len)
+static size_t	size_to_linebreak(const char *buf, size_t len)
 {
 	size_t	idx;
 
@@ -27,7 +27,7 @@ static size_t	get_line_len(const char *buf, size_t len)
 	return (idx + 1);
 }
 
-static bool	append_to_line(t_linebuf *line, const char *data, size_t len)
+static bool	linebuf_append(t_linebuf *line, const char *data, size_t len)
 {
 	if (len > SIZE_MAX - line->len)
 	{
@@ -51,7 +51,7 @@ static bool	append_to_line(t_linebuf *line, const char *data, size_t len)
 	return (true);
 }
 
-static char	*complete_line(t_linebuf *line, const char *data, size_t line_len)
+static char	*linebuf_finish(t_linebuf *line, const char *data, size_t line_len)
 {
 	char	*newstr;
 
@@ -96,21 +96,21 @@ char	*get_next_line(int fd)
 	char				*line;
 
 	linebuf = (t_linebuf){0};
-	line_len = get_line_len(readbuf.buf, readbuf.len);
-	while (!line_len)
+	line_len = size_to_linebreak(readbuf.buf, readbuf.len);
+	while (line_len == 0)
 	{
-		if (!append_to_line(&linebuf, readbuf.buf, readbuf.len))
+		if (!linebuf_append(&linebuf, readbuf.buf, readbuf.len))
 			return (0);
 		if (!read_helper(fd, &readbuf))
 		{
 			free(linebuf.buf);
 			return (0);
 		}
-		line_len = get_line_len(readbuf.buf, readbuf.len);
+		line_len = size_to_linebreak(readbuf.buf, readbuf.len);
 		if (readbuf.len == 0)
 			break ;
 	}
-	line = complete_line(&linebuf, readbuf.buf, line_len);
+	line = linebuf_finish(&linebuf, readbuf.buf, line_len);
 	readbuf.len -= line_len;
 	ft_memcpy(readbuf.buf, readbuf.buf + line_len, readbuf.len);
 	return (line);
