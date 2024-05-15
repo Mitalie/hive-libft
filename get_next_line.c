@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:46:00 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/15 11:20:53 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:07:33 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,28 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-static size_t	size_to_linebreak(const char *buf, size_t len)
+static bool	find_linebreak(t_readbuf *readbuf, size_t *line_len)
 {
 	size_t	idx;
 
+	*line_len = 0;
+	if (readbuf->len == 0)
+		return (true);
 	idx = 0;
-	while (idx < len && buf[idx] != '\n')
+	while (idx < readbuf->len && readbuf->buf[idx] != '\n')
 		idx++;
-	if (idx == len)
-		return (0);
-	return (idx + 1);
+	if (idx == readbuf->len)
+		return (false);
+	*line_len = idx + 1;
+	return (true);
 }
 
-static bool	linebuf_append(t_linebuf *line, const char *data, size_t len)
+static bool	linebuf_append(t_linebuf *line, t_readbuf *readbuf)
 {
+	size_t	len;
+
+	len = readbuf->len;
+	readbuf->len = 0;
 	if (len > SIZE_MAX - line->len)
 	{
 		free(line->buf);
@@ -46,12 +54,13 @@ static bool	linebuf_append(t_linebuf *line, const char *data, size_t len)
 	}
 	if (len && !line->buf)
 		return (false);
-	ft_memcpy(line->buf + line->len, data, len);
+	ft_memcpy(line->buf + line->len, readbuf->buf, len);
 	line->len += len;
 	return (true);
 }
 
-static char	*linebuf_finish(t_linebuf *line, const char *data, size_t line_len)
+static char	*linebuf_finish(t_linebuf *line, t_readbuf *readbuf,
+	size_t line_len)
 {
 	char	*newstr;
 
@@ -61,9 +70,11 @@ static char	*linebuf_finish(t_linebuf *line, const char *data, size_t line_len)
 	if (newstr)
 	{
 		ft_memcpy(newstr, line->buf, line->len);
-		ft_memcpy(newstr + line->len, data, line_len);
+		ft_memcpy(newstr + line->len, readbuf->buf, line_len);
 		newstr[line->len + line_len] = 0;
 	}
+	readbuf->len -= line_len;
+	ft_memcpy(readbuf->buf, readbuf->buf + line_len, readbuf->len);
 	free(line->buf);
 	return (newstr);
 }
@@ -90,28 +101,20 @@ static bool	read_helper(int fd, t_readbuf *readbuf)
 
 char	*get_next_line(int fd)
 {
-	static t_readbuf	readbuf = {0};
+	static t_readbuf	readbuf;
 	t_linebuf			linebuf;
 	size_t				line_len;
-	char				*line;
 
 	linebuf = (t_linebuf){0};
-	line_len = size_to_linebreak(readbuf.buf, readbuf.len);
-	while (line_len == 0)
+	while (true)
 	{
-		if (!linebuf_append(&linebuf, readbuf.buf, readbuf.len))
-			return (0);
-		if (!read_helper(fd, &readbuf))
-		{
-			free(linebuf.buf);
-			return (0);
-		}
-		line_len = size_to_linebreak(readbuf.buf, readbuf.len);
-		if (readbuf.len == 0)
+		if (readbuf.len == 0 && !read_helper(fd, &readbuf))
 			break ;
+		if (find_linebreak(&readbuf, &line_len))
+			return (linebuf_finish(&linebuf, &readbuf, line_len));
+		if (!linebuf_append(&linebuf, &readbuf))
+			return (0);
 	}
-	line = linebuf_finish(&linebuf, readbuf.buf, line_len);
-	readbuf.len -= line_len;
-	ft_memcpy(readbuf.buf, readbuf.buf + line_len, readbuf.len);
-	return (line);
+	free(linebuf.buf);
+	return (0);
 }
