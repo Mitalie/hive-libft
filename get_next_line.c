@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:46:00 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/15 16:07:33 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:13:29 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	find_linebreak(t_readbuf *readbuf, size_t *line_len)
 	if (readbuf->len == 0)
 		return (true);
 	idx = 0;
-	while (idx < readbuf->len && readbuf->buf[idx] != '\n')
+	while (idx < readbuf->len && readbuf->buf[idx] != '\n' && readbuf->buf[idx])
 		idx++;
 	if (idx == readbuf->len)
 		return (false);
@@ -64,7 +64,7 @@ static char	*linebuf_finish(t_linebuf *line, t_readbuf *readbuf,
 {
 	char	*newstr;
 
-	if (line->len == 0 && line_len == 0)
+	if (line->len == 0 && line_len == 0 && !readbuf->prev_nullterm)
 		return (0);
 	newstr = malloc(line->len + line_len + 1);
 	if (newstr)
@@ -73,6 +73,9 @@ static char	*linebuf_finish(t_linebuf *line, t_readbuf *readbuf,
 		ft_memcpy(newstr + line->len, readbuf->buf, line_len);
 		newstr[line->len + line_len] = 0;
 	}
+	readbuf->prev_nullterm = false;
+	if (line_len && readbuf->buf[line_len - 1] == 0)
+		readbuf->prev_nullterm = true;
 	readbuf->len -= line_len;
 	ft_memcpy(readbuf->buf, readbuf->buf + line_len, readbuf->len);
 	free(line->buf);

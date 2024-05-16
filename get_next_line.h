@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:45:20 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/15 10:28:07 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:52:20 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_readbuf
 {
 	ssize_t	len;
 	char	buf[BUFFER_SIZE];
+	bool	prev_nullterm;
 }	t_readbuf;
 
 typedef struct s_linebuf
