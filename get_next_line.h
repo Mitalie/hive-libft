@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:45:20 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/16 13:48:16 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:22:52 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_linebuf
 
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_reallocf(void *old_alloc, size_t new_size, size_t old_data_len);
+char	*bufs_to_str(const char *b1, size_t l1, const char *b2, size_t l2);
 
 char	*get_next_line(int fd);
 
