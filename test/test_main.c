@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:50:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/16 15:49:37 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:10:13 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "get_next_line.h"
+
+void	printstr_escaped(char *str)
+{
+	while (*str)
+	{
+		if (*str == '\n')
+			printf("\\n");
+		else if (*str < 32 || *str > 126)
+			printf("\\x%02x", *str);
+		else
+			printf("%c", *str);
+		str++;
+	}
+}
 
 int	main(void)
 {
@@ -27,8 +41,10 @@ int	main(void)
 	line = get_next_line(fd);
 	while (line)
 	{
-		printf("%5zu: %s", ++linenbr, line);
+		printf("%5zu: $", ++linenbr);
+		printstr_escaped(line);
+		printf("$\n");
 		line = get_next_line(fd);
 	}
-	printf("\nGot %zu lines\n", linenbr);
+	printf("Got %zu lines\n", linenbr);
 }
