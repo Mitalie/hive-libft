@@ -6,13 +6,11 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/14 10:58:51 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:30:25 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
-#include <limits.h>
-#include "libft.h"
 
 size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb)
 {
@@ -34,22 +32,4 @@ size_t	ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb)
 		len += ptoa_arr_base(n / nb, arr, base, nb);
 	arr[len] = base[n % nb];
 	return (len + 1);
-}
-
-bool	parse_uint(const char **str, unsigned int *value)
-{
-	unsigned int	v;
-	unsigned int	digit;
-
-	v = 0;
-	while (ft_isdigit(**str))
-	{
-		digit = **str - '0';
-		if (v > (UINT_MAX - digit) / 10)
-			return (false);
-		v = 10 * v + digit;
-		(*str)++;
-	}
-	*value = v;
-	return (true);
 }

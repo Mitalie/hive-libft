@@ -6,11 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 10:35:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:28:18 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:30:45 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_internal.h"
+#include <limits.h>
+#include "libft.h"
 
 static void	parse_spec_flags(t_printf_state *s, t_specifier *spec)
 {
@@ -36,6 +38,24 @@ static void	parse_spec_flags(t_printf_state *s, t_specifier *spec)
 		s->fmt++;
 		c = *s->fmt;
 	}
+}
+
+static bool	parse_uint(const char **str, unsigned int *value)
+{
+	unsigned int	v;
+	unsigned int	digit;
+
+	v = 0;
+	while (ft_isdigit(**str))
+	{
+		digit = **str - '0';
+		if (v > (UINT_MAX - digit) / 10)
+			return (false);
+		v = 10 * v + digit;
+		(*str)++;
+	}
+	*value = v;
+	return (true);
 }
 
 static bool	parse_specifier(t_printf_state *s, t_specifier *spec)

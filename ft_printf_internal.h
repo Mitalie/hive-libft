@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:22:06 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:30:53 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_num_pad
 
 size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb);
 size_t	ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
-bool	parse_uint(const char **str, unsigned int *value);
 
 bool	write_all(int fd, const void *buf, size_t len);
 
