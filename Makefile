@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 16:03:34 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/13 13:50:17 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/17 13:00:20 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,12 @@ fclean: printf/fclean -fclean
 re: fclean all
 
 # Build any targets with printf/ prefix with recursive make
-printf/clean printf/fclean printf/libftprintf.a: printf/%:
+printf/clean printf/fclean: printf/%:
 	+make -C printf $*
+
+# Tests require bonus functionality
+ printf/libftprintf.a:
+	+make -C printf bonus
 
 # We must always execute the recursive make as this Makefile doesn't know
 # whether the recursive target needs updating, but printf/libftprintf.a must not
