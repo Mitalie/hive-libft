@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char.c                                             :+:      :+:    :+:   */
+/*   format_string_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 16:27:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:45:47 by amakinen         ###   ########.fr       */
+/*   Created: 2024/05/06 16:45:56 by amakinen          #+#    #+#             */
+/*   Updated: 2024/05/17 11:52:12 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal_bonus.h"
+#include "libft.h"
 
-bool	format_c(t_printf_state *s, t_specifier *spec)
+bool	format_s(t_printf_state *s, t_specifier *spec)
 {
-	char	c;
+	size_t		len;
+	const char	*str;
 
-	c = va_arg(s->args, int);
-	return (write_padded(s, spec, &c, 1));
-}
-
-bool	format_percent(t_printf_state *s, t_specifier *spec)
-{
-	char	c;
-
-	c = '%';
-	return (write_padded(s, spec, &c, 1));
+	str = va_arg(s->args, const char *);
+	if (!str)
+		str = "(null)";
+	len = ft_strlen(str);
+	if (spec->use_precision && len > spec->precision)
+		len = spec->precision;
+	return (write_padded(s, spec, str, len));
 }

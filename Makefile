@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/17 11:37:31 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/17 11:52:43 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,13 @@ NAME = libftprintf.a
 
 SRCS = \
 	ft_printf.c \
-	specifier.c \
+	bonus/specifier_bonus.c \
 	util_shared.c \
-	util_bonus.c \
-	formatters/char.c \
-	formatters/string.c \
-	formatters/pointer.c \
-	formatters/integer.c \
+	bonus/util_bonus.c \
+	bonus/format_char_bonus.c \
+	bonus/format_string_bonus.c \
+	bonus/format_pointer_bonus.c \
+	bonus/format_integer_bonus.c \
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(OBJS:.o=.d)
