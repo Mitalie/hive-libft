@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 10:35:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:22:50 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:28:18 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,6 @@ static void	parse_spec_flags(t_printf_state *s, t_specifier *spec)
 	}
 }
 
-static bool	parse_spec_width(t_printf_state *s, t_specifier *spec)
-{
-	return (parse_uint(&s->fmt, &spec->width));
-}
-
-static bool	parse_spec_precision(t_printf_state *s, t_specifier *spec)
-{
-	if (*s->fmt == '.')
-	{
-		spec->use_precision = true;
-		s->fmt++;
-		return (parse_uint(&s->fmt, &spec->precision));
-	}
-	return (true);
-}
-
 static bool	parse_specifier(t_printf_state *s, t_specifier *spec)
 {
 	spec->alternate = false;
@@ -63,9 +47,15 @@ static bool	parse_specifier(t_printf_state *s, t_specifier *spec)
 	spec->precision = 0;
 	spec->use_precision = false;
 	parse_spec_flags(s, spec);
-	if (!parse_spec_width(s, spec))
+	if (!parse_uint(&s->fmt, &spec->width))
 		return (false);
-	return (parse_spec_precision(s, spec));
+	if (*s->fmt == '.')
+	{
+		spec->use_precision = true;
+		s->fmt++;
+		return (parse_uint(&s->fmt, &spec->precision));
+	}
+	return (true);
 }
 
 bool	handle_specifier(t_printf_state *s)
