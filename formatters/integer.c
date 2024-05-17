@@ -6,11 +6,11 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/08 13:55:31 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:45:50 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_internal.h"
+#include "internal_bonus.h"
 #include "libft.h"
 
 #define BASE_DEC "0123456789"

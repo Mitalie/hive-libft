@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_internal.h                               :+:      :+:    :+:   */
+/*   internal_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:30:53 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:43:27 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_INTERNAL_H
-# define FT_PRINTF_INTERNAL_H
+#ifndef INTERNAL_BONUS_H
+# define INTERNAL_BONUS_H
 
-# include <stdarg.h>
-# include <stdbool.h>
-# include <stddef.h>
-# include <stdint.h>
-
-typedef struct s_printf_state
-{
-	int			fd;
-	const char	*fmt;
-	va_list		args;
-	int			written;
-}	t_printf_state;
+# include "internal_shared.h"
 
 typedef enum e_pad_mode
 {
@@ -66,17 +55,9 @@ typedef struct s_num_pad
 	size_t	total;
 }	t_num_pad;
 
-size_t	utoa_arr_base(unsigned int n, char *arr, char *base, unsigned int nb);
-size_t	ptoa_arr_base(uintptr_t n, char *arr, char *base, uintptr_t nb);
-
-bool	write_all(int fd, const void *buf, size_t len);
-
-bool	write_simple(t_printf_state *s, const void *data, size_t len);
 bool	write_padded(t_printf_state *s, t_specifier *spec,
 			const void *data, size_t len);
 bool	write_number(t_printf_state *s, t_specifier *spec, t_number n);
-
-bool	handle_specifier(t_printf_state *s);
 
 bool	format_c(t_printf_state *s, t_specifier *spec);
 bool	format_s(t_printf_state *s, t_specifier *spec);

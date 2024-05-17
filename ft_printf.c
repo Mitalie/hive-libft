@@ -6,12 +6,12 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:22:09 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:45:08 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "ft_printf_internal.h"
+#include "internal_shared.h"
 #include <unistd.h>
 
 static bool	print_until_specifier(t_printf_state *s)

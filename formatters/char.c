@@ -6,11 +6,11 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:27:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/08 11:48:52 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:45:47 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_internal.h"
+#include "internal_bonus.h"
 
 bool	format_c(t_printf_state *s, t_specifier *spec)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   writers.c                                          :+:      :+:    :+:   */
+/*   util_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:03:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:34:25 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:44:12 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_internal.h"
+#include "internal_bonus.h"
 #include <limits.h>
 #include "libft.h"
 

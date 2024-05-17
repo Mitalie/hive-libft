@@ -6,11 +6,11 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:10:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:34:12 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:44:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_internal.h"
+#include "internal_shared.h"
 #include <errno.h>
 #include <limits.h>
 #include <unistd.h>
