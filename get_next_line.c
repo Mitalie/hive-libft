@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:46:00 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/16 14:22:54 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:34:18 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static bool	linebuf_append(t_linebuf *line, t_readbuf *readbuf)
 	if (len > SIZE_MAX - line->len)
 	{
 		free(line->buf);
+		line->buf = 0;
 		return (false);
 	}
 	if (len > line->alloc - line->len)
@@ -110,7 +111,7 @@ char	*get_next_line(int fd)
 		if (find_linebreak(&readbuf, &line_len))
 			return (linebuf_finish(&linebuf, &readbuf, line_len));
 		if (!linebuf_append(&linebuf, &readbuf))
-			return (0);
+			break ;
 	}
 	free(linebuf.buf);
 	return (0);
