@@ -6,12 +6,11 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:49:13 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 12:04:55 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:30:09 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
-#include "libft.h"
 
 #define BASE_DEC "0123456789"
 #define BASE_HEXL "0123456789abcdef"
