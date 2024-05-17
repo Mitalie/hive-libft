@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/17 11:52:43 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/17 14:13:22 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,26 +17,38 @@ AR ?= ar
 
 NAME = libftprintf.a
 
-SRCS = \
+SRCS_SHARED = \
 	ft_printf.c \
-	bonus/specifier_bonus.c \
 	util_shared.c \
+
+SRCS_MANDATORY = \
+	mandatory/specifier.c \
+	mandatory/format_char.c \
+	mandatory/format_string.c \
+	mandatory/format_pointer.c \
+	mandatory/format_integer.c \
+
+SRCS_BONUS = \
 	bonus/util_bonus.c \
+	bonus/specifier_bonus.c \
 	bonus/format_char_bonus.c \
 	bonus/format_string_bonus.c \
 	bonus/format_pointer_bonus.c \
 	bonus/format_integer_bonus.c \
 
-OBJS = $(SRCS:.c=.o)
+OBJ_SHARED = $(SRCS_SHARED:.c=.o)
+OBJ_MANDATORY = $(SRCS_MANDATORY:.c=.o)
+OBJ_BONUS = $(SRCS_BONUS:.c=.o)
+OBJS = $(OBJ_SHARED) $(OBJ_MANDATORY) $(OBJ_BONUS)
 DEPS = $(OBJS:.o=.d)
 
 .PHONY: all bonus clean -clean fclean -fclean re
 
 all: $(NAME)
 
-# The same ft_printf function meets both mandatory and bonus requirements, so
-# there are no separate bonus files to build.
-bonus: $(NAME)
+$(NAME): $(NAME)(.nobonus)
+
+bonus: $(NAME)(.bonus)
 
 clean: libft/clean -clean
 -clean:
@@ -60,9 +72,17 @@ libft/clean libft/fclean libft/libft.a: libft/%:
 .PHONY: libft/clean libft/fclean phony
 libft/libft.a: phony
 
-$(NAME): libft/libft.a $(OBJS)
-	cp libft/libft.a $@
-	$(AR) -crs $@ $(OBJS)
+$(NAME)(.nobonus): libft/libft.a $(OBJ_SHARED) $(OBJ_MANDATORY)
+	cp libft/libft.a $(NAME)
+	@touch .nobonus
+	$(AR) -crs $(NAME) .nobonus $(OBJ_SHARED) $(OBJ_MANDATORY)
+	@rm .nobonus
+
+$(NAME)(.bonus): libft/libft.a $(OBJ_SHARED) $(OBJ_BONUS)
+	cp libft/libft.a $(NAME)
+	@touch .bonus
+	$(AR) -crs $(NAME) .bonus $(OBJ_SHARED) $(OBJ_BONUS)
+	@rm .bonus
 
 %.o: %.c
 	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
