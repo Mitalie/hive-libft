@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_specifier.c                                  :+:      :+:    :+:   */
+/*   specifier.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 10:35:26 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/13 11:27:18 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:22:50 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	parse_spec_precision(t_printf_state *s, t_specifier *spec)
 	return (true);
 }
 
-bool	parse_specifier(t_printf_state *s, t_specifier *spec)
+static bool	parse_specifier(t_printf_state *s, t_specifier *spec)
 {
 	spec->alternate = false;
 	spec->pad_mode = PAD_BLANK;
@@ -66,4 +66,32 @@ bool	parse_specifier(t_printf_state *s, t_specifier *spec)
 	if (!parse_spec_width(s, spec))
 		return (false);
 	return (parse_spec_precision(s, spec));
+}
+
+bool	handle_specifier(t_printf_state *s)
+{
+	t_specifier	spec;
+	char		conv;
+
+	if (!parse_specifier(s, &spec))
+		return (false);
+	conv = *s->fmt++;
+	if (conv == 'c')
+		return (format_c(s, &spec));
+	else if (conv == 's')
+		return (format_s(s, &spec));
+	else if (conv == 'p')
+		return (format_p(s, &spec));
+	else if (conv == 'd' || conv == 'i')
+		return (format_d(s, &spec));
+	else if (conv == 'u')
+		return (format_u(s, &spec));
+	else if (conv == 'x')
+		return (format_x(s, &spec));
+	else if (conv == 'X')
+		return (format_x_upper(s, &spec));
+	else if (conv == '%')
+		return (format_percent(s, &spec));
+	s->fmt--;
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:32 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/14 13:50:17 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:22:06 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	write_padded(t_printf_state *s, t_specifier *spec,
 			const void *data, size_t len);
 bool	write_number(t_printf_state *s, t_specifier *spec, t_number n);
 
-bool	parse_specifier(t_printf_state *s, t_specifier *spec);
+bool	handle_specifier(t_printf_state *s);
 
 bool	format_c(t_printf_state *s, t_specifier *spec);
 bool	format_s(t_printf_state *s, t_specifier *spec);
