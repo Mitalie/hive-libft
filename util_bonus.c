@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:03:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/14 10:54:16 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:34:25 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@ static bool	write_char_repeat(int fd, char c, size_t n)
 		n -= sizeof(buf);
 	}
 	return (write_all(fd, buf, n));
-}
-
-bool	write_simple(t_printf_state *s, const void *data, size_t len)
-{
-	if (len > (unsigned)INT_MAX - s->written)
-		return (false);
-	s->written += len;
-	return (write_all(s->fd, data, len));
 }
 
 bool	write_padded(t_printf_state *s, t_specifier *spec,
