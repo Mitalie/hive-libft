@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:04:46 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/16 14:42:04 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:35:31 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static bool	linebuf_append(t_linebuf *line, t_readbuf *readbuf)
 	if (len > SIZE_MAX - line->len)
 	{
 		free(line->buf);
+		line->buf = 0;
 		return (false);
 	}
 	if (len > line->alloc - line->len)
