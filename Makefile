@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 15:49:44 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/16 16:05:13 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/27 17:36:39 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ GNLB_OBJS = $(GNLB_SRCS:.c=.o)
 SRCS = $(wildcard test/*.c test/**/*.c)
 OBJS = $(SRCS:.c=.o) $(GNL_OBJS) $(GNLB_OBJS)
 DEPS = $(OBJS:.o=.d)
-BINS = bin/test
-B_BINS = bin/bonustest
+BINS = bin/test bin/nulltest
+B_BINS = bin/bonustest bin/bnulltest
 
 ifneq (,$(SANITIZE))
     export CFLAGS := -g -fsanitize=$(SANITIZE) $(CFLAGS)
@@ -32,9 +32,11 @@ endif
 
 .PHONY: runtest all clean fclean re
 
-runtest: bin/test bin/bonustest
+runtest: bin/test bin/nulltest bin/bonustest bin/bnulltest
 	bin/test
+	bin/nulltest
 	bin/bonustest
+	bin/bnulltest
 
 all: $(BINS) $(B_BINS)
 
