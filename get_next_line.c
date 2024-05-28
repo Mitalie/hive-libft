@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:46:00 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/27 16:58:57 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:49:26 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static bool	find_line(t_buf *buf, size_t read_len, size_t *line_len)
 /*
 	If line_len is 0 there's a null character at the front of the buffer; emit
 	it alone as an empty string and consume it from the buffer. Empty strings
-	are	only emitted as a result of null characters, so caller of get_next_line
+	are only emitted as a result of null characters, so caller of get_next_line
 	can reliably interpret empty strings as null characters.
 */
 static char	*split_line(t_buf *buf, size_t line_len)
