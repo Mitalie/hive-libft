@@ -6,14 +6,14 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:03:45 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/27 15:38:28 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:58:33 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# include <unistd.h>
+# include <stddef.h>
 # include <stdbool.h>
 
 # ifndef BUFFER_SIZE

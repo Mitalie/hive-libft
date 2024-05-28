@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:04:46 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/28 10:49:55 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:59:02 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <limits.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 static bool	buf_ensure_space(t_buf *buf, size_t space)
 {
