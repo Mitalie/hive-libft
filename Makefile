@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 16:03:34 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/17 13:00:20 by amakinen         ###   ########.fr        #
+#    Updated: 2024/05/20 12:46:05 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,5 +73,19 @@ test/gen bin:
 
 %.o: %.c
 	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
+
+# Use cflow to generate function dependency graphs in dot format (which can then
+# be rendered with graphviz or online tools). To make the graph more readable,
+# use sed to remove extra label text and add formatting settings.
+graphb.dot: # printf/**/*.c
+	cflow printf/{bonus,libft}/*.c printf/*.c -m ft_printf -f dot | sed \
+		-e '/\[label=".*"\]/d' \
+		-e '/\[label="/,/"\]$$/d' \
+		-e '2{p;s/.*/    graph [pad="0.5", nodesep="1", ranksep="2"]/;}' > graphb.dot
+graphm.dot: # printf/**/*.c
+	cflow printf/{mandatory,libft}/*.c printf/*.c -m ft_printf -f dot | sed \
+		-e '/\[label=".*"\]/d' \
+		-e '/\[label="/,/"\]$$/d' \
+		-e '2{p;s/.*/    graph [pad="0.5", nodesep="1", ranksep="2"]/;}' > graphm.dot
 
 -include $(DEPS)
