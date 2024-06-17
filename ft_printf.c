@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:28:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:45:08 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:25:45 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	ft_printf(const char *fmt, ...)
 		else
 			success = print_until_specifier(&s);
 		if (!success)
+		{
+			va_end(s.args);
 			return (-1);
+		}
 	}
 	va_end(s.args);
 	return (s.written);
