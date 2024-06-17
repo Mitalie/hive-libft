@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:13:19 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/10 10:34:05 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:19:44 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ ssize_t	write(int fildes, const void *buf, size_t nbyte)
 		g_real_write = dlsym(RTLD_NEXT, "write");
 	if (fildes >= 0 && fildes <= g_max_mock_fd && g_mocks[fildes].buf)
 	{
-		assert(nbyte);
 		mock = &g_mocks[fildes];
 		mock->buf = realloc(mock->buf, mock->buf_len + nbyte);
 		assert(mock->buf);
