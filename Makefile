@@ -6,14 +6,17 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/09 12:22:17 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/24 16:54:12 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+BUILDDIR = build
 
 _CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
 _CPPFLAGS = -MMD -MP $(CPPFLAGS)
 CC ?= cc
 AR ?= ar
+mktargetdir = @mkdir -p $(@D)
 
 NAME = libft.a
 
@@ -64,8 +67,8 @@ BONUS_SRCS = \
 	ft_lstiter_bonus.c \
 	ft_lstmap_bonus.c \
 
-OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+OBJS = $(SRCS:%.c=$(BUILDDIR)/%.o)
+BONUS_OBJS = $(BONUS_SRCS:%.c=$(BUILDDIR)/%.o)
 DEPS = $(OBJS:.o=.d) $(BONUS_OBJS:.o=.d)
 
 .PHONY: all clean fclean re bonus
@@ -73,8 +76,7 @@ DEPS = $(OBJS:.o=.d) $(BONUS_OBJS:.o=.d)
 all: $(NAME)
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
-	rm -f $(DEPS)
+	rm -rf $(BUILDDIR)
 
 fclean: clean
 	rm -f $(NAME)
@@ -96,7 +98,8 @@ $(NAME)(.bonus-timestamp): $(BONUS_OBJS) | $(NAME)
 	$(AR) -crs $(NAME) .bonus-timestamp $?
 	@rm .bonus-timestamp
 
-%.o: %.c
+$(BUILDDIR)/%.o: %.c
+	$(mktargetdir)
 	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)
