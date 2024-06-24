@@ -6,21 +6,21 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/26 14:00:43 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/26 14:11:05 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 BUILDDIR = build
 
 _CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
-_CPPFLAGS = -MMD -MP $(CPPFLAGS)
+_CPPFLAGS = -MMD -MP -I include $(CPPFLAGS)
 CC ?= cc
 AR ?= ar
 mktargetdir = @mkdir -p $(@D)
 
 NAME = libft.a
 
-SRCS = \
+SRCS = $(addprefix src/base/,\
 	ft_isalpha.c \
 	ft_isdigit.c \
 	ft_isalnum.c \
@@ -55,8 +55,9 @@ SRCS = \
 	ft_putstr_fd.c \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
+)
 
-BONUS_SRCS = \
+BONUS_SRCS = $(addprefix src/list/,\
 	ft_lstnew_bonus.c \
 	ft_lstadd_front_bonus.c \
 	ft_lstsize_bonus.c \
@@ -66,9 +67,10 @@ BONUS_SRCS = \
 	ft_lstclear_bonus.c \
 	ft_lstiter_bonus.c \
 	ft_lstmap_bonus.c \
+)
 
-OBJS = $(SRCS:%.c=$(BUILDDIR)/%.o)
-BONUS_OBJS = $(BONUS_SRCS:%.c=$(BUILDDIR)/%.o)
+OBJS = $(SRCS:src/%.c=$(BUILDDIR)/%.o)
+BONUS_OBJS = $(BONUS_SRCS:src/%.c=$(BUILDDIR)/%.o)
 DEPS = $(OBJS:.o=.d) $(BONUS_OBJS:.o=.d)
 
 # Inform make that .o files don't need to be remade if the actual target
@@ -111,7 +113,7 @@ $(NAME)(.bonus-timestamp): $(BONUS_OBJS) | $(NAME)
 	$(AR) -crs $(NAME) .bonus-timestamp $?
 	@rm .bonus-timestamp
 
-$(BUILDDIR)/%.o: %.c
+$(BUILDDIR)/%.o: src/%.c
 	$(mktargetdir)
 	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
 
