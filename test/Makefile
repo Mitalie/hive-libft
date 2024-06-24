@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:58:00 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/24 11:14:38 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/24 18:08:12 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,12 +44,23 @@ $(BINDIR):
 	@mkdir -p $@
 
 $(TESTFW): $(TESTFW_OBJS) $(LIBFT) | $(BINDIR)
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 $(SIMPLE_TESTS): $(BINDIR)/%: %.o $(LIBFT) | $(BINDIR)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 $(OBJS): %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+ifeq ($(shell uname -s),Linux)
+# _GNU_SOURCE must be defined to get RTLD_NEXT from dlfcn.h
+testfw_mock_write.o: CPPFLAGS += -D_GNU_SOURCE
+# strlcpy and strlcat are libbsd functions
+testfw_strl.o: CPPFLAGS += -DLIBBSD_OVERLAY -isystem /usr/include/bsd
+# strnstr is a libbsd function
+testfw_strnstr.o: CPPFLAGS += -DLIBBSD_OVERLAY -isystem /usr/include/bsd
+# link libbsd into the final binary
+$(TESTFW): LDLIBS += -lbsd
+endif
 
 -include $(DEPS)
