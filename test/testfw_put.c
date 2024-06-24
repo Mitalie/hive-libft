@@ -6,12 +6,11 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:45:48 by amakinen          #+#    #+#             */
-/*   Updated: 2024/06/24 19:21:35 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:27:36 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testfw.h"
-#include "testfw_mock_write.h"
 #include "libft.h"
 
 #define CHECK_MOCKED_WRITE(expr, fd, expdata, explen) \
