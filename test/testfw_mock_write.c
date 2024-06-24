@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:56:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 11:25:19 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:22:15 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static struct s_mock_data	*g_mocks = 0;
 static int					g_max_mock_fd = -1;
 
 // Stored buffer in mocks is appended with a null byte to make it usable with
-// printf %s in check_unmock_write
+// printf %s in testfw_unmock_write_check
 
 ssize_t	write(int fildes, const void *buf, size_t nbyte)
 {
@@ -50,7 +50,7 @@ ssize_t	write(int fildes, const void *buf, size_t nbyte)
 	return (g_real_write(fildes, buf, nbyte));
 }
 
-void	mock_write(int fildes)
+void	testfw_mock_write(int fildes)
 {
 	if (fildes > g_max_mock_fd)
 	{
@@ -64,7 +64,7 @@ void	mock_write(int fildes)
 	g_mocks[fildes].buf_len = 0;
 }
 
-size_t	unmock_write(int fildes, void **buf)
+size_t	testfw_unmock_write(int fildes, void **buf)
 {
 	assert(fildes <= g_max_mock_fd && g_mocks[fildes].buf);
 	*buf = g_mocks[fildes].buf;
@@ -72,13 +72,13 @@ size_t	unmock_write(int fildes, void **buf)
 	return (g_mocks[fildes].buf_len);
 }
 
-void	check_unmock_write(char *fn, int fildes,
+void	testfw_unmock_write_check(int fildes, char *fn,
 	const void *exp_data, size_t exp_len)
 {
 	void	*buf;
 	size_t	len;
 
-	len = unmock_write(fildes, &buf);
+	len = testfw_unmock_write(fildes, &buf);
 	if (len != exp_len)
 		TEST_FAIL("%s: captured write length %zu doesn't match expected %zu\n",
 			fn, len, exp_len);

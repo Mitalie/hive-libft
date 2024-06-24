@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:43:07 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 10:37:27 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:22:00 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include <stddef.h>
 
-void	mock_write(int fildes);
-size_t	unmock_write(int fildes, void **buf);
-void	check_unmock_write(char *fn, int fildes,
+void	testfw_mock_write(int fildes);
+size_t	testfw_unmock_write(int fildes, void **buf);
+void	testfw_unmock_write_check(int fildes, char *fn,
 			const void *exp_data, size_t exp_len);
 
 #endif

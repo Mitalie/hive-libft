@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 12:45:48 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 16:52:13 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:21:35 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 #define CHECK_MOCKED_WRITE(expr, fd, expdata, explen) \
 do { \
-	mock_write(fd); \
+	testfw_mock_write(fd); \
 	expr; \
-	check_unmock_write(#expr, fd, expdata, explen); \
+	testfw_unmock_write_check(fd, #expr, expdata, explen); \
 } while (0)
 
 #define CHECK_PUTCHAR(fd, c) \
