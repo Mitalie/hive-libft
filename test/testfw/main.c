@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testfw_main.c                                      :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:39:43 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 11:22:06 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:24:55 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testfw.h"
-#include "testfw_internal.h"
+#include "internal.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdbool.h>

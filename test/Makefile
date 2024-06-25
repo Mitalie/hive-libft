@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:58:00 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/25 13:48:18 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/25 14:25:08 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,11 +54,11 @@ $(OBJS): %.o: %.c
 
 ifeq ($(shell uname -s),Linux)
 # _GNU_SOURCE must be defined to get RTLD_NEXT from dlfcn.h
-testfw/testfw_mock_write.o: CPPFLAGS += -D_GNU_SOURCE
+testfw/mock_write.o: CPPFLAGS += -D_GNU_SOURCE
 # strlcpy and strlcat are libbsd functions
-base/testfw_strl.o: CPPFLAGS += -DLIBBSD_OVERLAY -isystem /usr/include/bsd
+base/strl.o: CPPFLAGS += -DLIBBSD_OVERLAY -isystem /usr/include/bsd
 # strnstr is a libbsd function
-base/testfw_strnstr.o: CPPFLAGS += -DLIBBSD_OVERLAY -isystem /usr/include/bsd
+base/strnstr.o: CPPFLAGS += -DLIBBSD_OVERLAY -isystem /usr/include/bsd
 # link libbsd into the final binary
 $(TESTFW): LDLIBS += -lbsd
 endif

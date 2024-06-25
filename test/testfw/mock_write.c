@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testfw_mock_write.c                                :+:      :+:    :+:   */
+/*   mock_write.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:56:33 by amakinen          #+#    #+#             */
-/*   Updated: 2024/06/24 19:27:31 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:24:53 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "testfw.h"
-#include "testfw_internal.h"
+#include "internal.h"
 #include <assert.h>
 #include <dlfcn.h>
 #include <stddef.h>

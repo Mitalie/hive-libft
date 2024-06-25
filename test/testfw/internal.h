@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testfw_internal.h                                  :+:      :+:    :+:   */
+/*   internal.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:28:47 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 11:13:35 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:24:57 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTFW_INTERNAL_H
-# define TESTFW_INTERNAL_H
+#ifndef INTERNAL_H
+# define INTERNAL_H
 
 # include <stddef.h>
 
