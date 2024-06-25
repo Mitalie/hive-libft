@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/24 16:54:12 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/25 15:58:39 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,15 @@ $(NAME): $(OBJS)
 # whether the it needs updating, so instead we target a dummy archive member
 # which specifies the actual dependencies and the ar recipe.
 bonus: $(NAME)(.bonus-timestamp)
+
+# Some Linux distros configure ar to enable deterministic mode by default, which
+# breaks make's archive member checks and causes our bonus target to repack even
+# without changes. Use -U flag to disable, but only on Linux as not all ar
+# implementations understand the -U flag.
+ifeq ($(shell uname -s),Linux)
+AR_U ?= -U
+AR += $(AR_U)
+endif
 
 # Order-only dependency on the non-bonus part ensures make can't corrupt the
 # archive by executing both ar recipes modifying it simultaneously.
