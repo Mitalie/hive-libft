@@ -6,12 +6,12 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:58:00 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/26 13:53:58 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/26 14:08:58 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS += -Wall -Wextra -Werror
-CPPFLAGS += -MMD -MP -I ../libft -I include
+CPPFLAGS += -MMD -MP -I ../libft/include -I include
 LIBFT = ../libft/libft.a
 CC ?= cc
 AR ?= ar

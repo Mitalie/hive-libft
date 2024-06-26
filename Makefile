@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/23 10:50:25 by amakinen          #+#    #+#              #
-#    Updated: 2024/04/26 15:36:23 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/26 13:18:26 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ runtest: test
 all: $(DIRS)
 
 libft:
-	+make -C $@ bonus
+	+make -C $@
 
 test: libft
 	+make -C $@
