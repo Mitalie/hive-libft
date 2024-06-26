@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/25 15:58:39 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/26 14:00:43 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,10 @@ BONUS_SRCS = \
 OBJS = $(SRCS:%.c=$(BUILDDIR)/%.o)
 BONUS_OBJS = $(BONUS_SRCS:%.c=$(BUILDDIR)/%.o)
 DEPS = $(OBJS:.o=.d) $(BONUS_OBJS:.o=.d)
+
+# Inform make that .o files don't need to be remade if the actual target
+# (e.g. libft.a) is up to date with respect to the source files.
+.SECONDARY: $(OBJS) $(BONUS_OBJS)
 
 .PHONY: all clean fclean re bonus
 
