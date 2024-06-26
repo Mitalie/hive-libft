@@ -6,10 +6,11 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/26 14:12:01 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/26 18:25:27 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+BINDIR = bin
 BUILDDIR = build
 
 _CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
@@ -77,7 +78,7 @@ DEPS = $(OBJS:.o=.d)
 # (e.g. libft.a) is up to date with respect to the source files.
 .SECONDARY: $(OBJS)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test runtest
 
 all: $(NAME)
 
@@ -85,9 +86,16 @@ clean:
 	rm -rf $(BUILDDIR)
 
 fclean: clean
+	rm -rf $(BINDIR)
 	rm -f $(NAME)
 
 re: fclean all
+
+test: $(NAME)
+	$(MAKE) -C test BINDIR=../$(BINDIR)/test BUILDDIR=../$(BUILDDIR)/test
+
+runtest: test
+	$(BINDIR)/test/testfw
 
 $(NAME): $(OBJS)
 	$(AR) -crs $@ $?
