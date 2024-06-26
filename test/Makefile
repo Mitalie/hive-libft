@@ -6,13 +6,13 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:58:00 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/26 14:08:58 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/26 14:16:23 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS += -Wall -Wextra -Werror
-CPPFLAGS += -MMD -MP -I ../libft/include -I include
-LIBFT = ../libft/libft.a
+CPPFLAGS += -MMD -MP -I ../include -I include
+LIBFT = ../libft.a
 CC ?= cc
 AR ?= ar
 mktargetdir = @mkdir -p $(@D)
