@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:58:00 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/26 12:24:01 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/26 13:53:58 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,10 @@ DEPS = $(OBJS:.o=.d)
 TESTFW_OBJS = $(filter $(BUILDDIR)/testfw/% $(BUILDDIR)/base/% $(BUILDDIR)/list/%,$(OBJS))
 SIMPLE_TESTS = $(patsubst base-simple/%.c,$(BINDIR)/%,$(wildcard base-simple/*.c))
 TESTS = $(SIMPLE_TESTS) $(TESTFW)
+
+# Inform make that .o files don't need to be remade if the actual targets
+# (e.g. bin/testfw) are up to date with respect to the source files and libs.
+.SECONDARY: $(OBJS)
 
 .PHONY: all clean fclean re
 
