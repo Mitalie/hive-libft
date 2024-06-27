@@ -6,102 +6,63 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/26 18:25:27 by amakinen         ###   ########.fr        #
+#    Updated: 2024/06/27 15:26:24 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Output directories
 BINDIR = bin
 BUILDDIR = build
+LIBDIR = lib
 
-_CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
-_CPPFLAGS = -MMD -MP -I include $(CPPFLAGS)
-CC ?= cc
-AR ?= ar
-mktargetdir = @mkdir -p $(@D)
+# Module snippets that specify the target names and dependencies
+include libft.mk
+include test.mk
 
-NAME = libft.a
+# Default compiler flags that apply to all targets
+def_CFLAGS = -Wall -Wextra -Werror
+def_CPPFLAGS = -MMD -MP -I include
 
-BASE_SRCS = $(addprefix src/base/,\
-	ft_isalpha.c \
-	ft_isdigit.c \
-	ft_isalnum.c \
-	ft_isascii.c \
-	ft_isprint.c \
-	ft_strlen.c \
-	ft_memset.c \
-	ft_bzero.c \
-	ft_memcpy.c \
-	ft_memmove.c \
-	ft_strlcpy.c \
-	ft_strlcat.c \
-	ft_toupper.c \
-	ft_tolower.c \
-	ft_strchr.c \
-	ft_strrchr.c \
-	ft_strncmp.c \
-	ft_memchr.c \
-	ft_memcmp.c \
-	ft_strnstr.c \
-	ft_atoi.c \
-	ft_calloc.c \
-	ft_strdup.c \
-	ft_substr.c \
-	ft_strjoin.c \
-	ft_strtrim.c \
-	ft_split.c \
-	ft_itoa.c \
-	ft_strmapi.c \
-	ft_striteri.c \
-	ft_putchar_fd.c \
-	ft_putstr_fd.c \
-	ft_putendl_fd.c \
-	ft_putnbr_fd.c \
-)
+# Combine default def_FLAGS, target specific tgt_FLAGS and user-supplied FLAGS
+# into one _FLAGS variable to be used in recipes
+flagvars = CFLAGS CPPFLAGS LDFLAGS LDLIBS
+$(foreach v,$(flagvars),$(eval _$v = $$(strip $$(def_$v) $$(tgt_$v) $$($v))))
 
-LIST_SRCS = $(addprefix src/list/,\
-	ft_lstnew.c \
-	ft_lstadd_front.c \
-	ft_lstsize.c \
-	ft_lstlast.c \
-	ft_lstadd_back.c \
-	ft_lstdelone.c \
-	ft_lstclear.c \
-	ft_lstiter.c \
-	ft_lstmap.c \
-)
+# Generic utility targets
+.DEFAULT_GOAL = all
 
-SRCS = $(BASE_SRCS) $(LIST_SRCS)
-OBJS = $(SRCS:src/%.c=$(BUILDDIR)/%.o)
-DEPS = $(OBJS:.o=.d)
+.PHONY: all clean fclean re
 
-# Inform make that .o files don't need to be remade if the actual target
-# (e.g. libft.a) is up to date with respect to the source files.
-.SECONDARY: $(OBJS)
-
-.PHONY: all clean fclean re test runtest
-
-all: $(NAME)
+all: $(LIBFT)
 
 clean:
 	rm -rf $(BUILDDIR)
 
 fclean: clean
-	rm -rf $(BINDIR)
-	rm -f $(NAME)
+	rm -rf $(BINDIR) $(LIBDIR)
 
 re: fclean all
 
-test: $(NAME)
-	$(MAKE) -C test BINDIR=../$(BINDIR)/test BUILDDIR=../$(BUILDDIR)/test
+# Helper recipe command to ensure directory for target exists
+mktargetdir = @mkdir -p $(@D)
 
-runtest: test
-	$(BINDIR)/test/testfw
+# Recipes for each type of target
+$(OBJS):
+	$(mktargetdir)
+	$(CC) $(_CPPFLAGS) $(_CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
+$(LIBS):
+	$(mktargetdir)
 	$(AR) -crs $@ $?
 
-$(BUILDDIR)/%.o: src/%.c
+$(BINS):
 	$(mktargetdir)
-	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
+	$(CC) $(_LDFLAGS) $^ $(_LDLIBS) -o $@
 
+# Inform make that object files don't need to be remade if the requested
+# targets are up to date with respect to the source files.
+.SECONDARY: $(OBJS)
+
+# Dependency files to handle header dependencies
+DEPS = $(OBJS:.o=.d)
 -include $(DEPS)
