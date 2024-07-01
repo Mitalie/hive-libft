@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/27 13:33:02 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/27 15:28:24 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/01 16:55:28 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,18 @@ TESTFW = $(BINDIR)/test/testfw
 BINS += $(TESTFW)
 $(TESTFW): $(TESTFW_OBJS) $(LIBFT)
 
+SIMPLE_TEST_SRCS = $(wildcard test/base-simple/*.c)
+SIMPLE_TEST_OBJS = $(SIMPLE_TEST_SRCS:%.c=$(BUILDDIR)/%.o)
+OBJS += $(SIMPLE_TEST_OBJS)
+$(SIMPLE_TEST_OBJS): $(BUILDDIR)/%.o: %.c
+
+SIMPLE_TESTS = $(SIMPLE_TEST_SRCS:%.c=$(BINDIR)/%)
+BINS += $(SIMPLE_TESTS)
+$(SIMPLE_TESTS): $(BINDIR)/%: $(BUILDDIR)/%.o $(LIBFT)
+
 .PHONY: test runtest
 
-test: $(TESTFW)
+test: $(TESTFW) $(SIMPLE_TESTS)
 
 runtest: $(TESTFW)
 	$(TESTFW)
