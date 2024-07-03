@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/03 19:20:44 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/03 19:22:56 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,10 @@ OBJ_MANDATORY = $(SRCS_MANDATORY:%.c=$(BUILDDIR)/%.o)
 OBJ_BONUS = $(SRCS_BONUS:%.c=$(BUILDDIR)/%.o)
 OBJS = $(OBJ_SHARED) $(OBJ_MANDATORY) $(OBJ_BONUS)
 DEPS = $(OBJS:.o=.d)
+
+# Inform make that .o files don't need to be remade if the actual target
+# (e.g. libftprintf.a) is up to date with respect to the source files.
+.SECONDARY: $(OBJS)
 
 .PHONY: all bonus clean -clean fclean -fclean re
 
