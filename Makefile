@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 16:03:34 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/20 12:46:05 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/02 15:54:11 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,13 @@ test/gen bin:
 
 %.o: %.c
 	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
+
+ifeq ($(shell uname -s),Linux)
+# _GNU_SOURCE must be defined to get asprintf from stdio.h before glibc 2.38
+test/test_main.o test/bigtest_main.o: CPPFLAGS += -D_GNU_SOURCE
+# _GNU_SOURCE must be defined to get RTLD_NEXT from dlfcn.h before glibc 2.36
+test/utils/mock_write.o: CPPFLAGS += -D_GNU_SOURCE
+endif
 
 # Use cflow to generate function dependency graphs in dot format (which can then
 # be rendered with graphviz or online tools). To make the graph more readable,

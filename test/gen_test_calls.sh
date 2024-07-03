@@ -26,7 +26,10 @@ for spec in c s p d i u x X %; do
 	esac
 	echo "sprintf(fmt, \"%%%s%s%s%c\", flags[flagidx], widthstr, precstr, '$spec');"
 	if [[ $spec == % ]]; then
+		echo '#pragma GCC diagnostic push'
+		echo '#pragma GCC diagnostic ignored "-Wformat-security"'
 		echo 'test(fmt);'
+		echo '#pragma GCC diagnostic pop'
 	else
 		for arg in "${args[@]}"; do
 			echo "test(fmt, $arg);"

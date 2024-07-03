@@ -76,10 +76,7 @@ int	main(void)
 				sprintf(precstr, ".%d", prec);
 			for (size_t flagidx = 0; flagidx < sizeof flags / sizeof flags[0]; flagidx++)
 			{
-				#pragma GCC diagnostic push
-				#pragma GCC diagnostic ignored "-Wformat"
 				#include "gen/test_calls.inc"
-				#pragma GCC diagnostic pop
 			}
 		}
 	}

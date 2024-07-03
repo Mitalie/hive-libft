@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:17:27 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/13 13:12:10 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:56:47 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ int	main(void)
 	printf("\e[93m(UB, -Wformat) Precision with %%c, %%p\e[0m\n");
 	test("%.0c %.3c %.1c %.4c %.2c %.40c", 'x', 0, 'a', "ä"[0], "ä"[1], '\n');
 	test("%.0p %.65p %.1p %.8p", (void *)0, (void *)0, main, ft_printf);
-#pragma GCC diagnostic pop
-	printf("\e[93m(UB, ASan warning) Format options with %%\e[0m\n");
+	printf("\e[93m(UB, -Wformat, ASan warning) Format options with %%\e[0m\n");
 	test("%1c %1% %3c %22% %13c", 'a', 'b', 'c');
 	test("%1c %01% %3c %022% %13c", 'a', 'b', 'c');
 	test("%1c %-1% %3c %-22% %13c", 'a', 'b', 'c');
+#pragma GCC diagnostic pop
 }
