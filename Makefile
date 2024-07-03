@@ -6,17 +6,20 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 16:03:34 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/02 15:54:11 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/03 20:06:39 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+BUILDDIR = build
 
 _CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
 _CPPFLAGS = -MMD -MP -I./printf -I./test/ $(CPPFLAGS)
 CC ?= cc
 AR ?= ar
+mktargetdir = @mkdir -p $(@D)
 
 SRCS = $(wildcard test/*.c test/**/*.c)
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:%.c=$(BUILDDIR)/%.o)
 DEPS = $(OBJS:.o=.d)
 BINS = bin/test bin/bigtest
 
@@ -35,8 +38,7 @@ all: $(BINS)
 
 clean: printf/clean -clean
 -clean:
-	rm -f $(OBJS)
-	rm -f $(DEPS)
+	rm -rf $(BUILDDIR)
 	rm -rf test/gen/
 
 fclean: printf/fclean -fclean
@@ -60,25 +62,25 @@ printf/clean printf/fclean: printf/%:
 .PHONY: printf/clean printf/fclean phony
 printf/libftprintf.a: phony
 
-test/gen/%.inc: test/gen_%.sh | test/gen
+test/gen/%.inc: test/gen_%.sh
+	$(mktargetdir)
 	$< > $@
 
 test/bigtest_main.c: test/gen/test_calls.inc test/gen/test_flags.inc
 
-$(BINS): bin/%: test/%_main.o $(filter-out %_main.o,$(OBJS)) printf/libftprintf.a | bin
+$(BINS): bin/%: $(BUILDDIR)/test/%_main.o $(filter-out %_main.o,$(OBJS)) printf/libftprintf.a
+	$(mktargetdir)
 	$(CC) $(LDFLAGS) $^ -o $@
 
-test/gen bin:
-	@mkdir -p $@
-
-%.o: %.c
+$(BUILDDIR)/%.o: %.c
+	$(mktargetdir)
 	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
 
 ifeq ($(shell uname -s),Linux)
 # _GNU_SOURCE must be defined to get asprintf from stdio.h before glibc 2.38
-test/test_main.o test/bigtest_main.o: CPPFLAGS += -D_GNU_SOURCE
+$(BUILDDIR)/test/test_main.o $(BUILDDIR)/test/bigtest_main.o: CPPFLAGS += -D_GNU_SOURCE
 # _GNU_SOURCE must be defined to get RTLD_NEXT from dlfcn.h before glibc 2.36
-test/utils/mock_write.o: CPPFLAGS += -D_GNU_SOURCE
+$(BUILDDIR)/test/utils/mock_write.o: CPPFLAGS += -D_GNU_SOURCE
 endif
 
 # Use cflow to generate function dependency graphs in dot format (which can then
