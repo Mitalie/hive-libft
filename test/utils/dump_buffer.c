@@ -6,11 +6,11 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 13:15:17 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/10 11:21:41 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:46:27 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "util.h"
+#include "utils.h"
 #include <stdio.h>
 #include <string.h>
 
