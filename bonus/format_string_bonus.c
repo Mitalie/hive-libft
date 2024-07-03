@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:45:56 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:52:12 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:39:52 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ bool	format_s(t_printf_state *s, t_specifier *spec)
 	const char	*str;
 
 	str = va_arg(s->args, const char *);
+	if (IS_LINUX && !str && spec->use_precision && spec->precision < 6)
+		str = "";
 	if (!str)
 		str = "(null)";
 	len = ft_strlen(str);

@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:27:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:52:07 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:10:25 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ bool	format_percent(t_printf_state *s, t_specifier *spec)
 	char	c;
 
 	c = '%';
+	if (IS_LINUX)
+		return (write_simple(s, &c, 1));
 	return (write_padded(s, spec, &c, 1));
 }

@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:00:16 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 12:06:01 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:09:09 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ bool	format_p(t_printf_state *s)
 	size_t		len;
 
 	p = (uintptr_t)va_arg(s->args, const void *);
+	if (IS_LINUX && !p)
+		return (write_simple(s, "(nil)", 5));
 	digits[0] = '0';
 	digits[1] = 'x';
 	len = 2 + ptoa_arr_base(p, digits + 2, "0123456789abcdef", 16);

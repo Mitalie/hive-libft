@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:03:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:44:12 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:09:52 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ bool	write_padded(t_printf_state *s, t_specifier *spec,
 	if (len + pad_len > (unsigned)INT_MAX - s->written)
 		return (false);
 	s->written += len + pad_len;
+	if (IS_LINUX && spec->pad_mode == PAD_ZERO)
+		spec->pad_mode = PAD_BLANK;
 	if (spec->pad_mode == PAD_BLANK && !write_char_repeat(s->fd, ' ', pad_len))
 		return (false);
 	if (spec->pad_mode == PAD_ZERO && !write_char_repeat(s->fd, '0', pad_len))

@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:41:39 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/17 11:42:53 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:20:38 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdint.h>
+
+/*
+	Standard printf behaves differently on Linux than on Mac OS X, and we're
+	supposed to match whatever the system one does. Strictly speaking we should
+	probably test for glibc, but just assume Linux == glibc for now.
+*/
+# ifdef __linux__
+#  define IS_LINUX 1
+# else
+#  define IS_LINUX 0
+# endif
 
 typedef struct s_printf_state
 {
