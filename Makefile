@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/05/17 14:13:22 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/03 12:22:23 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,15 @@ libft/clean libft/fclean libft/libft.a: libft/%:
 # regardless of whether it changed or not.
 .PHONY: libft/clean libft/fclean phony
 libft/libft.a: phony
+
+# Some Linux distros configure ar to enable deterministic mode by default, which
+# breaks make's archive member checks and causes our targets to repack even
+# without changes. Use -U flag to disable, but only on Linux as not all ar
+# implementations understand the -U flag.
+ifeq ($(shell uname -s),Linux)
+AR_U ?= -U
+AR += $(AR_U)
+endif
 
 $(NAME)(.nobonus): libft/libft.a $(OBJ_SHARED) $(OBJ_MANDATORY)
 	cp libft/libft.a $(NAME)
