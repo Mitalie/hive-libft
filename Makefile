@@ -6,14 +6,17 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/03 12:22:23 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/03 19:20:44 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+BUILDDIR=build
 
 _CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
 _CPPFLAGS = -MMD -MP -I./libft -I. $(CPPFLAGS)
 CC ?= cc
 AR ?= ar
+mktargetdir = @mkdir -p $(@D)
 
 NAME = libftprintf.a
 
@@ -36,9 +39,9 @@ SRCS_BONUS = \
 	bonus/format_pointer_bonus.c \
 	bonus/format_integer_bonus.c \
 
-OBJ_SHARED = $(SRCS_SHARED:.c=.o)
-OBJ_MANDATORY = $(SRCS_MANDATORY:.c=.o)
-OBJ_BONUS = $(SRCS_BONUS:.c=.o)
+OBJ_SHARED = $(SRCS_SHARED:%.c=$(BUILDDIR)/%.o)
+OBJ_MANDATORY = $(SRCS_MANDATORY:%.c=$(BUILDDIR)/%.o)
+OBJ_BONUS = $(SRCS_BONUS:%.c=$(BUILDDIR)/%.o)
 OBJS = $(OBJ_SHARED) $(OBJ_MANDATORY) $(OBJ_BONUS)
 DEPS = $(OBJS:.o=.d)
 
@@ -52,8 +55,7 @@ bonus: $(NAME)(.bonus)
 
 clean: libft/clean -clean
 -clean:
-	rm -f $(OBJS)
-	rm -f $(DEPS)
+	rm -rf $(BUILDDIR)
 
 fclean: libft/fclean -fclean
 -fclean: -clean
@@ -93,7 +95,8 @@ $(NAME)(.bonus): libft/libft.a $(OBJ_SHARED) $(OBJ_BONUS)
 	$(AR) -crs $(NAME) .bonus $(OBJ_SHARED) $(OBJ_BONUS)
 	@rm .bonus
 
-%.o: %.c
+$(BUILDDIR)/%.o: %.c
+	$(mktargetdir)
 	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)
