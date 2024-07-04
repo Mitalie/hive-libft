@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:04:46 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/28 10:59:02 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:45:08 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,11 @@ static char	*split_line(t_buf *buf, size_t line_len)
 
 char	*get_next_line(int fd)
 {
-	static t_buf	buf[OPEN_MAX];
+	static t_buf	buf[MY_OPEN_MAX];
 	size_t			read_len;
 	size_t			line_len;
 
-	if (fd < 0 || fd >= OPEN_MAX)
+	if (fd < 0 || fd >= MY_OPEN_MAX)
 		return (0);
 	read_len = buf[fd].len;
 	while (true)

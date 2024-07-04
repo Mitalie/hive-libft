@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:03:45 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/28 10:58:33 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:43:45 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 256
+# endif
+
+/*
+	Modern Linux does not define OPEN_MAX. On Hive's Ubuntu workstations we have
+	a soft limit of 1024 and hard limit of 1048576.
+*/
+# ifdef OPEN_MAX
+#  define MY_OPEN_MAX OPEN_MAX
+# else
+#  define MY_OPEN_MAX 1048576
 # endif
 
 typedef struct s_buf
