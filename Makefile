@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 15:49:44 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/04 11:56:46 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/04 11:59:11 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,10 @@ ifneq (,$(SANITIZE))
     export CFLAGS := -g -fsanitize=$(SANITIZE) $(CFLAGS)
     export LDFLAGS := -fsanitize=$(SANITIZE) $(LDFLAGS)
 endif
+
+# Inform make that .o files don't need to be remade if the actual targets
+# are up to date with respect to the source files.
+.SECONDARY: $(OBJS)
 
 .PHONY: runtest all clean fclean re
 
