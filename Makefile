@@ -6,21 +6,24 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 15:49:44 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/17 14:27:55 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/04 11:56:46 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+BUILDDIR = build
 
 _CFLAGS = -Wall -Wextra -Werror $(CFLAGS)
 _CPPFLAGS = -MMD -MP -I./gnl/ -I./test/ $(CPPFLAGS)
 CC ?= cc
 AR ?= ar
+mktargetdir = @mkdir -p $(@D)
 
 GNL_SRCS = gnl/get_next_line.c gnl/get_next_line_utils.c
-GNL_OBJS = $(GNL_SRCS:.c=.o)
+GNL_OBJS = $(GNL_SRCS:%.c=$(BUILDDIR)/%.o)
 GNLB_SRCS = gnl/get_next_line_bonus.c gnl/get_next_line_utils_bonus.c
-GNLB_OBJS = $(GNLB_SRCS:.c=.o)
+GNLB_OBJS = $(GNLB_SRCS:%.c=$(BUILDDIR)/%.o)
 SRCS = $(wildcard test/*.c test/**/*.c)
-OBJS = $(SRCS:.c=.o) $(GNL_OBJS) $(GNLB_OBJS)
+OBJS = $(SRCS:%.c=$(BUILDDIR)/%.o) $(GNL_OBJS) $(GNLB_OBJS)
 DEPS = $(OBJS:.o=.d)
 BINS = bin/test bin/nulltest
 B_BINS = bin/bonustest bin/bnulltest
@@ -41,25 +44,23 @@ runtest: bin/test bin/nulltest bin/bonustest bin/bnulltest
 all: $(BINS) $(B_BINS)
 
 clean:
-	rm -f $(OBJS)
-	rm -f $(DEPS)
-	rm -rf test/gen/
+	rm -rf $(BUILDDIR)
 
 fclean: clean
 	rm -f $(BINS) $(B_BINS)
 
 re: fclean all
 
-$(BINS): bin/%: test/%_main.o $(GNL_OBJS) | bin
+$(BINS): bin/%: $(BUILDDIR)/test/%_main.o $(GNL_OBJS)
+	$(mktargetdir)
 	$(CC) $(LDFLAGS) $^ -o $@
 
-$(B_BINS): bin/%: test/%_main.o $(GNLB_OBJS) | bin
+$(B_BINS): bin/%: $(BUILDDIR)/test/%_main.o $(GNLB_OBJS)
+	$(mktargetdir)
 	$(CC) $(LDFLAGS) $^ -o $@
 
-bin:
-	@mkdir -p $@
-
-%.o: %.c
+$(BUILDDIR)/%.o: %.c
+	$(mktargetdir)
 	$(CC) $(_CFLAGS) $(_CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)

@@ -4,5 +4,5 @@
 
 .*.sw?
 
+/build/
 /bin/
-/test/gen/
