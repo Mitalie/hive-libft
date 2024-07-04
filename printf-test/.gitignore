@@ -1,0 +1,11 @@
+*.a
+*.o
+*.d
+
+.*.sw?
+
+/bin/
+/test/gen/
+
+/graphm.dot
+/graphb.dot
