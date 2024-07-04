@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 17:07:39 by amakinen          #+#    #+#              #
-#    Updated: 2024/06/26 14:00:43 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/04 15:05:01 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ mktargetdir = @mkdir -p $(@D)
 
 NAME = libft.a
 
-SRCS = \
+BASE_SRCS = \
 	ft_isalpha.c \
 	ft_isdigit.c \
 	ft_isalnum.c \
@@ -56,26 +56,26 @@ SRCS = \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
 
-BONUS_SRCS = \
-	ft_lstnew_bonus.c \
-	ft_lstadd_front_bonus.c \
-	ft_lstsize_bonus.c \
-	ft_lstlast_bonus.c \
-	ft_lstadd_back_bonus.c \
-	ft_lstdelone_bonus.c \
-	ft_lstclear_bonus.c \
-	ft_lstiter_bonus.c \
-	ft_lstmap_bonus.c \
+LIST_SRCS = \
+	ft_lstnew.c \
+	ft_lstadd_front.c \
+	ft_lstsize.c \
+	ft_lstlast.c \
+	ft_lstadd_back.c \
+	ft_lstdelone.c \
+	ft_lstclear.c \
+	ft_lstiter.c \
+	ft_lstmap.c \
 
+SRCS = $(BASE_SRCS) $(LIST_SRCS)
 OBJS = $(SRCS:%.c=$(BUILDDIR)/%.o)
-BONUS_OBJS = $(BONUS_SRCS:%.c=$(BUILDDIR)/%.o)
-DEPS = $(OBJS:.o=.d) $(BONUS_OBJS:.o=.d)
+DEPS = $(OBJS:.o=.d)
 
 # Inform make that .o files don't need to be remade if the actual target
 # (e.g. libft.a) is up to date with respect to the source files.
-.SECONDARY: $(OBJS) $(BONUS_OBJS)
+.SECONDARY: $(OBJS)
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
@@ -89,27 +89,6 @@ re: fclean all
 
 $(NAME): $(OBJS)
 	$(AR) -crs $@ $?
-
-# Bonus doesn't create a its own target file which make could use to determine
-# whether the it needs updating, so instead we target a dummy archive member
-# which specifies the actual dependencies and the ar recipe.
-bonus: $(NAME)(.bonus-timestamp)
-
-# Some Linux distros configure ar to enable deterministic mode by default, which
-# breaks make's archive member checks and causes our bonus target to repack even
-# without changes. Use -U flag to disable, but only on Linux as not all ar
-# implementations understand the -U flag.
-ifeq ($(shell uname -s),Linux)
-AR_U ?= -U
-AR += $(AR_U)
-endif
-
-# Order-only dependency on the non-bonus part ensures make can't corrupt the
-# archive by executing both ar recipes modifying it simultaneously.
-$(NAME)(.bonus-timestamp): $(BONUS_OBJS) | $(NAME)
-	@touch .bonus-timestamp
-	$(AR) -crs $(NAME) .bonus-timestamp $?
-	@rm .bonus-timestamp
 
 $(BUILDDIR)/%.o: %.c
 	$(mktargetdir)
