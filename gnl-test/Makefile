@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 15:49:44 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/04 11:59:11 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/04 16:04:01 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,10 @@ mktargetdir = @mkdir -p $(@D)
 
 GNL_SRCS = gnl/get_next_line.c gnl/get_next_line_utils.c
 GNL_OBJS = $(GNL_SRCS:%.c=$(BUILDDIR)/%.o)
-GNLB_SRCS = gnl/get_next_line_bonus.c gnl/get_next_line_utils_bonus.c
-GNLB_OBJS = $(GNLB_SRCS:%.c=$(BUILDDIR)/%.o)
 SRCS = $(wildcard test/*.c test/**/*.c)
-OBJS = $(SRCS:%.c=$(BUILDDIR)/%.o) $(GNL_OBJS) $(GNLB_OBJS)
+OBJS = $(SRCS:%.c=$(BUILDDIR)/%.o) $(GNL_OBJS)
 DEPS = $(OBJS:.o=.d)
-BINS = bin/test bin/nulltest
-B_BINS = bin/bonustest bin/bnulltest
+BINS = bin/test bin/nulltest bin/twofiletest
 
 ifneq (,$(SANITIZE))
     export CFLAGS := -g -fsanitize=$(SANITIZE) $(CFLAGS)
@@ -39,13 +36,12 @@ endif
 
 .PHONY: runtest all clean fclean re
 
-runtest: bin/test bin/nulltest bin/bonustest bin/bnulltest
+runtest: bin/test bin/nulltest bin/twofiletest
 	bin/test
 	bin/nulltest
-	bin/bonustest
-	bin/bnulltest
+	bin/twofiletest
 
-all: $(BINS) $(B_BINS)
+all: $(BINS)
 
 clean:
 	rm -rf $(BUILDDIR)
@@ -56,10 +52,6 @@ fclean: clean
 re: fclean all
 
 $(BINS): bin/%: $(BUILDDIR)/test/%_main.o $(GNL_OBJS)
-	$(mktargetdir)
-	$(CC) $(LDFLAGS) $^ -o $@
-
-$(B_BINS): bin/%: $(BUILDDIR)/test/%_main.o $(GNLB_OBJS)
 	$(mktargetdir)
 	$(CC) $(LDFLAGS) $^ -o $@
 

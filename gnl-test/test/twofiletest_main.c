@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonustest_main.c                                   :+:      :+:    :+:   */
+/*   twofiletest_main.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 void	printstr_escaped(char *str)
 {
