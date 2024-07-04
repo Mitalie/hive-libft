@@ -7,5 +7,4 @@
 /bin/
 /test/gen/
 
-/graphm.dot
-/graphb.dot
+/graph.dot

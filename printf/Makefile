@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 11:27:13 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/03 19:22:56 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/04 15:39:20 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,42 +20,26 @@ mktargetdir = @mkdir -p $(@D)
 
 NAME = libftprintf.a
 
-SRCS_SHARED = \
+SRCS = \
 	ft_printf.c \
-	util_shared.c \
+	util.c \
+	padding_util.c \
+	specifier.c \
+	format_char.c \
+	format_string.c \
+	format_pointer.c \
+	format_integer.c \
 
-SRCS_MANDATORY = \
-	mandatory/specifier.c \
-	mandatory/format_char.c \
-	mandatory/format_string.c \
-	mandatory/format_pointer.c \
-	mandatory/format_integer.c \
-
-SRCS_BONUS = \
-	bonus/util_bonus.c \
-	bonus/specifier_bonus.c \
-	bonus/format_char_bonus.c \
-	bonus/format_string_bonus.c \
-	bonus/format_pointer_bonus.c \
-	bonus/format_integer_bonus.c \
-
-OBJ_SHARED = $(SRCS_SHARED:%.c=$(BUILDDIR)/%.o)
-OBJ_MANDATORY = $(SRCS_MANDATORY:%.c=$(BUILDDIR)/%.o)
-OBJ_BONUS = $(SRCS_BONUS:%.c=$(BUILDDIR)/%.o)
-OBJS = $(OBJ_SHARED) $(OBJ_MANDATORY) $(OBJ_BONUS)
+OBJS = $(SRCS:%.c=$(BUILDDIR)/%.o)
 DEPS = $(OBJS:.o=.d)
 
 # Inform make that .o files don't need to be remade if the actual target
 # (e.g. libftprintf.a) is up to date with respect to the source files.
 .SECONDARY: $(OBJS)
 
-.PHONY: all bonus clean -clean fclean -fclean re
+.PHONY: all clean -clean fclean -fclean re
 
 all: $(NAME)
-
-$(NAME): $(NAME)(.nobonus)
-
-bonus: $(NAME)(.bonus)
 
 clean: libft/clean -clean
 -clean:
@@ -78,26 +62,9 @@ libft/clean libft/fclean libft/libft.a: libft/%:
 .PHONY: libft/clean libft/fclean phony
 libft/libft.a: phony
 
-# Some Linux distros configure ar to enable deterministic mode by default, which
-# breaks make's archive member checks and causes our targets to repack even
-# without changes. Use -U flag to disable, but only on Linux as not all ar
-# implementations understand the -U flag.
-ifeq ($(shell uname -s),Linux)
-AR_U ?= -U
-AR += $(AR_U)
-endif
-
-$(NAME)(.nobonus): libft/libft.a $(OBJ_SHARED) $(OBJ_MANDATORY)
-	cp libft/libft.a $(NAME)
-	@touch .nobonus
-	$(AR) -crs $(NAME) .nobonus $(OBJ_SHARED) $(OBJ_MANDATORY)
-	@rm .nobonus
-
-$(NAME)(.bonus): libft/libft.a $(OBJ_SHARED) $(OBJ_BONUS)
-	cp libft/libft.a $(NAME)
-	@touch .bonus
-	$(AR) -crs $(NAME) .bonus $(OBJ_SHARED) $(OBJ_BONUS)
-	@rm .bonus
+$(NAME): libft/libft.a $(OBJS)
+	cp libft/libft.a $@
+	$(AR) -crs $@ $(OBJS)
 
 $(BUILDDIR)/%.o: %.c
 	$(mktargetdir)

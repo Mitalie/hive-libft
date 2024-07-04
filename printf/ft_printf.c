@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "internal_shared.h"
+#include "internal.h"
 #include <unistd.h>
 
 static bool	print_until_specifier(t_printf_state *s)

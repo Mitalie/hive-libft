@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 16:03:34 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/03 20:12:36 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/04 15:39:22 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,12 +52,8 @@ fclean: printf/fclean -fclean
 re: fclean all
 
 # Build any targets with printf/ prefix with recursive make
-printf/clean printf/fclean: printf/%:
+printf/clean printf/fclean printf/libftprintf.a: printf/%:
 	+make -C printf $*
-
-# Tests require bonus functionality
- printf/libftprintf.a:
-	+make -C printf bonus
 
 # We must always execute the recursive make as this Makefile doesn't know
 # whether the recursive target needs updating, but printf/libftprintf.a must not
@@ -90,15 +86,10 @@ endif
 # Use cflow to generate function dependency graphs in dot format (which can then
 # be rendered with graphviz or online tools). To make the graph more readable,
 # use sed to remove extra label text and add formatting settings.
-graphb.dot: # printf/**/*.c
-	cflow printf/{bonus,libft}/*.c printf/*.c -m ft_printf -f dot | sed \
+graph.dot: # printf/**/*.c
+	cflow printf/libft/*.c printf/*.c -m ft_printf -f dot | sed \
 		-e '/\[label=".*"\]/d' \
 		-e '/\[label="/,/"\]$$/d' \
-		-e '2{p;s/.*/    graph [pad="0.5", nodesep="1", ranksep="2"]/;}' > graphb.dot
-graphm.dot: # printf/**/*.c
-	cflow printf/{mandatory,libft}/*.c printf/*.c -m ft_printf -f dot | sed \
-		-e '/\[label=".*"\]/d' \
-		-e '/\[label="/,/"\]$$/d' \
-		-e '2{p;s/.*/    graph [pad="0.5", nodesep="1", ranksep="2"]/;}' > graphm.dot
+		-e '2{p;s/.*/    graph [pad="0.5", nodesep="1", ranksep="2"]/;}' > graph.dot
 
 -include $(DEPS)
