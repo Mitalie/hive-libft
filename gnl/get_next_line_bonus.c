@@ -6,13 +6,12 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:04:46 by amakinen          #+#    #+#             */
-/*   Updated: 2024/07/04 11:45:08 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:49:46 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 #include <errno.h>
-#include <limits.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
