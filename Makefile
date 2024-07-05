@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:15:48 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 13:24:07 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/05 13:42:39 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,10 @@ BINDIR = bin
 # a default recipe from this file.
 include base.mk
 include list.mk
+include printf.mk
 include testfw.mk
 include base-test.mk
+include printf-test.mk
 
 # Default compiler flags that apply to all targets
 def_CFLAGS = -Wall -Wextra -Werror
