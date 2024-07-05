@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:15:48 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 14:54:44 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/05 17:54:20 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ include gnl-test.mk
 
 # Default compiler flags that apply to all targets
 def_CFLAGS = -Wall -Wextra -Werror
-def_CPPFLAGS = -MMD -MP
+def_CPPFLAGS = -MMD -MP -I include
 
 # Add sanitizer flags if requested
 ifneq (,$(strip $(SANITIZE)))

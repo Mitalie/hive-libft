@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 13:06:32 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 13:39:38 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/05 18:07:34 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ SIMPLE_TEST_SRCS = $(wildcard libft-test/test/base-simple/*.c)
 SIMPLE_TEST_OBJS = $(SIMPLE_TEST_SRCS:%.c=$(OBJDIR)/%.o)
 
 OBJS += $(SIMPLE_TEST_OBJS)
-$(SIMPLE_TEST_OBJS): tgt_CPPFLAGS += -I libft
 
 SIMPLE_TESTS = $(SIMPLE_TEST_SRCS:libft-test/%.c=$(BINDIR)/%)
 BINS += $(SIMPLE_TESTS)

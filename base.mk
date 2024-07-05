@@ -6,11 +6,11 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 12:54:43 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 13:23:37 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/05 17:50:39 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BASE_SRCS = $(addprefix libft/,\
+BASE_SRCS = $(addprefix src/base/,\
 	ft_isalpha.c \
 	ft_isdigit.c \
 	ft_isalnum.c \

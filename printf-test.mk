@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 13:33:23 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 14:21:43 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/05 17:57:48 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ printf-test/test/bigtest_main.c: printf-test/test/gen/test_calls.inc printf-test
 PRINTF_TEST_SRCS = $(wildcard printf-test/test/*.c printf-test/test/**/*.c)
 PRINTF_TEST_OBJS = $(PRINTF_TEST_SRCS:%.c=$(OBJDIR)/%.o)
 OBJS += $(PRINTF_TEST_OBJS)
-$(PRINTF_TEST_OBJS): tgt_CPPFLAGS += -I printf -I printf-test/test
+$(PRINTF_TEST_OBJS): tgt_CPPFLAGS += -I printf-test/test
 
 PRINTF_TESTS = $(addprefix $(BINDIR)/test/printf/,test bigtest)
 BINS += $(PRINTF_TESTS)

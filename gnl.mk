@@ -6,11 +6,11 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 14:43:35 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 14:46:14 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/05 17:58:32 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-GNL_SRCS = $(addprefix gnl/,\
+GNL_SRCS = $(addprefix src/gnl/,\
 	get_next_line.c \
 	get_next_line_utils.c \
 )

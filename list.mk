@@ -6,11 +6,11 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 12:56:52 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 13:26:54 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/05 17:51:08 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIST_SRCS = $(addprefix libft/,\
+LIST_SRCS = $(addprefix src/list/,\
 	ft_lstnew.c \
 	ft_lstadd_front.c \
 	ft_lstsize.c \
