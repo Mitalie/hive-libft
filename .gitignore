@@ -4,4 +4,4 @@
 
 .*.sw?
 
-/printf-test/test/gen
+/test/printf/gen

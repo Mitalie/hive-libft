@@ -6,18 +6,18 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 13:06:32 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 18:07:34 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/05 18:15:43 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SIMPLE_TEST_SRCS = $(wildcard libft-test/test/base-simple/*.c)
+SIMPLE_TEST_SRCS = $(wildcard test/base-simple/*.c)
 SIMPLE_TEST_OBJS = $(SIMPLE_TEST_SRCS:%.c=$(OBJDIR)/%.o)
 
 OBJS += $(SIMPLE_TEST_OBJS)
 
-SIMPLE_TESTS = $(SIMPLE_TEST_SRCS:libft-test/%.c=$(BINDIR)/%)
+SIMPLE_TESTS = $(SIMPLE_TEST_SRCS:%.c=$(BINDIR)/%)
 BINS += $(SIMPLE_TESTS)
-$(SIMPLE_TESTS): $(BINDIR)/%: $(OBJDIR)/libft-test/%.o $(LIBFT)
+$(SIMPLE_TESTS): $(BINDIR)/%: $(OBJDIR)/%.o $(LIBFT)
 
 .PHONY: test runtest-base-simple
 
