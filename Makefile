@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:15:48 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 12:50:53 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/05 13:24:07 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,10 @@ BINDIR = bin
 # Include module snippets that specify the targets, their dependencies, any
 # target-specific variables and so on. Add targets to OBJS/LIBS/BINS to select
 # a default recipe from this file.
-#include example.mk
+include base.mk
+include list.mk
+include testfw.mk
+include base-test.mk
 
 # Default compiler flags that apply to all targets
 def_CFLAGS = -Wall -Wextra -Werror
