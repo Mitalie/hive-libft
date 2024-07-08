@@ -6,15 +6,18 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:04:46 by amakinen          #+#    #+#             */
-/*   Updated: 2024/07/04 15:49:46 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:07:25 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <errno.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "internal.h"
+#include "libft.h"
 
 static bool	buf_ensure_space(t_buf *buf, size_t space)
 {
