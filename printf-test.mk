@@ -6,7 +6,7 @@
 #    By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 13:33:23 by amakinen          #+#    #+#              #
-#    Updated: 2024/07/05 18:21:05 by amakinen         ###   ########.fr        #
+#    Updated: 2024/07/08 13:50:56 by amakinen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ test/printf/gen/%.inc: test/printf/gen_%.sh
 	$(mktargetdir)
 	$< > $@
 
-test/printf/bigtest_main.c: test/printf/gen/test_calls.inc test/printf/gen/test_flags.inc
+$(OBJDIR)/test/printf/bigtest_main.o: test/printf/gen/test_calls.inc test/printf/gen/test_flags.inc
 
 PRINTF_TEST_SRCS = $(wildcard test/printf/*.c test/printf/**/*.c)
 PRINTF_TEST_OBJS = $(PRINTF_TEST_SRCS:%.c=$(OBJDIR)/%.o)
