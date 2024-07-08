@@ -6,7 +6,7 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:00:36 by amakinen          #+#    #+#             */
-/*   Updated: 2024/04/25 17:39:52 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:55:10 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static void	check_split(const char *s, char c, char *match[])
 	iter = arr;
 	while (iter && *iter)
 		free(*iter++);
-	free (arr);
+	free(arr);
+	free(fn);
 }
 
 REGISTER_TEST(ft_split);

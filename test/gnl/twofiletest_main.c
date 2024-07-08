@@ -6,11 +6,12 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:56:22 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/16 16:12:44 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:46:01 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include "get_next_line.h"
@@ -52,6 +53,7 @@ int	main(void)
 			printf("%5zu: $", ++linenbr1);
 			printstr_escaped(line1);
 			printf("$\n");
+			free(line1);
 			line1 = get_next_line(fd1);
 		}
 		if (line2)
@@ -59,6 +61,7 @@ int	main(void)
 			printf("%5zu: $", ++linenbr2);
 			printstr_escaped(line2);
 			printf("$\n");
+			free(line2);
 			line2 = get_next_line(fd2);
 		}
 	}

@@ -6,12 +6,13 @@
 /*   By: amakinen <amakinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:50:41 by amakinen          #+#    #+#             */
-/*   Updated: 2024/05/16 16:10:13 by amakinen         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:46:39 by amakinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "get_next_line.h"
 
@@ -44,6 +45,7 @@ int	main(void)
 		printf("%5zu: $", ++linenbr);
 		printstr_escaped(line);
 		printf("$\n");
+		free(line);
 		line = get_next_line(fd);
 	}
 	printf("Got %zu lines\n", linenbr);
